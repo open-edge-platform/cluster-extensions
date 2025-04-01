@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+# Default values for metallb.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+metallb:
+  # speaker contains configuration specific to the MetalLB speaker
+  # daemonset.
+  speaker:
+    # frr contains configuration specific to the MetalLB FRR container,
+    # for speaker running alongside FRR.
+    frr:
+      enabled: false
+
+extensionImages:
+  - quay.io/metallb/controller:v0.14.8
+  - quay.io/metallb/speaker:v0.14.8
+  - docker.io/bitnami/kubectl:1.31.3
+
+kubectl:
+  image: bitnami/kubectl:1.31.3

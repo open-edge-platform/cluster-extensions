@@ -1,0 +1,57 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+suite: Test SRIOV Network Operator ClusterRoleBinding
+templates:
+  - clusterrolebinding.yaml
+tests:
+  - it: has 2 ClusterRoleBinding in the file
+    asserts:
+      - hasDocuments:
+          count: 2
+  - it: should verify metadata
+    documentIndex: 0
+    asserts:
+      - isKind:
+          of: ClusterRoleBinding
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-sriov
+  - it: should verify cluster role binding
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: roleRef.name
+          value: RELEASE-NAME-sriov
+  - it: should verify service account binding
+    documentIndex: 0
+    asserts:
+      - contains:
+          path: subjects
+          content:
+            kind: ServiceAccount
+            name: RELEASE-NAME-sriov
+            namespace: NAMESPACE
+  - it: should verify metadata
+    documentIndex: 1
+    asserts:
+      - isKind:
+          of: ClusterRoleBinding
+      - equal:
+          path: metadata.name
+          value: sriov-network-config-daemon
+  - it: should verify cluster role binding
+    documentIndex: 1
+    asserts:
+      - equal:
+          path: roleRef.name
+          value: sriov-network-config-daemon
+  - it: should verify service account binding
+    documentIndex: 1
+    asserts:
+      - contains:
+          path: subjects
+          content:
+            kind: ServiceAccount
+            name: sriov-network-config-daemon
+            namespace: NAMESPACE

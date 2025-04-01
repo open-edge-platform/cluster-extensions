@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+networkPoliciesEnabled: true
+useEmulation: false
+nodeSelector:
+  kubernetes.io/os: linux
+
+extensionImages:
+  - quay.io/kubevirt/macvtap-cni:v0.11.1
+  - quay.io/kubevirt/virt-operator:v1.4.0
+  - quay.io/kubevirt/virt-launcher:v1.4.0
+  - quay.io/kubevirt/virt-handler:v1.4.0
+  - quay.io/kubevirt/virt-controller:v1.4.0
+  - docker.io/library/alpine:3.20.2
+  - docker.io/bitnami/kubectl:1.31.3
+
+serviceMonitor:
+  enabled: true
+
+kubectl:
+  image: bitnami/kubectl:1.31.3
+
+# format: name;vid;pid,name;vid;pid
+# example: "kubevirt.io/usb-1;vid;pid,kubevirt.io/usb-2;vid;pid,kubevirt.io/usb-3;vid;pid"
+usbList: ""

@@ -1,0 +1,40 @@
+# SPDX-FileCopyrightText: (C) 2023 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  annotations:
+    cert-manager.io/inject-ca-from: {{ .Release.Namespace }}/{{ include "kubevirt-helper.fullname" . }}-certificate
+  name: {{ include "kubevirt-helper.fullname" . }}-mutate
+  labels:
+    {{- include "kubevirt-helper.labels" . | nindent 4 }}
+webhooks:
+  - admissionReviewVersions:
+      - v1
+      - v1beta1
+    clientConfig:
+      service:
+        name: {{ include "kubevirt-helper.fullname" . }}
+        namespace: {{ .Release.Namespace }}
+        path: {{ .Values.config.kubevirtHelper.webhookServer.mutatePath }}
+        port: {{ .Values.config.kubevirtHelper.webhookServer.port }}
+    failurePolicy: Fail
+    matchPolicy: Equivalent
+    name: {{ .Values.config.kubevirtHelper.webhookServer.name }}
+    namespaceSelector: {}
+    objectSelector: {}
+    reinvocationPolicy: Never
+    rules:
+      - apiGroups:
+          - kubevirt.io
+        apiVersions:
+          - v1alpha3
+          - v1
+        operations:
+          - UPDATE
+        resources:
+          - virtualmachines
+        scope: '*'
+    sideEffects: None
+    timeoutSeconds: {{ .Values.config.kubevirtHelper.webhookServer.mutateTimeoutSeconds }}

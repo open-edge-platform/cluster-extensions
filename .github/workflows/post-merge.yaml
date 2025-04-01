@@ -1,0 +1,26 @@
+---
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+name: Post-Merge CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - release-*
+      - re-publish-everything
+  workflow_dispatch:
+
+jobs:
+  post-merge:
+    uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@main
+    with:
+      run_version_tag: true
+      run_docker_build: true
+      run_docker_push: true
+      run_build: false
+      run_helm_build: true
+      run_helm_push: true
+      run_artifact: true
+    secrets: inherit

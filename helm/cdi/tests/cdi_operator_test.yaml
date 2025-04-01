@@ -1,0 +1,111 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+suite: Test CDI Operator CRs
+release:
+  namespace: cdi
+templates:
+  - 01-cdi-operator.yaml
+tests:
+  - it: has 6 documents (CRs) in the file
+    asserts:
+      - hasDocuments:
+          count: 6
+  - it: ClusterRole - verification of metadata
+    documentIndex: 0
+    asserts:
+      - isKind:
+          of: ClusterRole
+      - equal:
+          path: metadata.name
+          value: cdi-operator-cluster
+  - it: >
+        ClusterRoleBinding - verification of metadata, service account binding
+        and cluster role binding
+    documentIndex: 1
+    asserts:
+      - isKind:
+          of: ClusterRoleBinding
+      - equal:
+          path: metadata.name
+          value: cdi-operator
+      - equal:
+          path: roleRef.name
+          value: cdi-operator-cluster
+      - contains:
+          path: subjects
+          content:
+            kind: ServiceAccount
+            name: cdi-operator
+            namespace: cdi
+  - it: ServiceAccount - verification of metadata
+    documentIndex: 2
+    asserts:
+      - isKind:
+          of: ServiceAccount
+      - equal:
+          path: metadata.name
+          value: cdi-operator
+      - equal:
+          path: metadata.namespace
+          value: cdi
+  - it: Role - verification of metadata
+    documentIndex: 3
+    asserts:
+      - isKind:
+          of: Role
+      - equal:
+          path: metadata.name
+          value: cdi-operator
+      - equal:
+          path: metadata.namespace
+          value: cdi
+  - it: RoleBinding - verification of metadata, service account binding and role binding
+    documentIndex: 4
+    asserts:
+      - isKind:
+          of: RoleBinding
+      - equal:
+          path: metadata.name
+          value: cdi-operator
+      - equal:
+          path: metadata.namespace
+          value: cdi
+      - equal:
+          path: roleRef.name
+          value: cdi-operator
+      - contains:
+          path: subjects
+          content:
+            kind: ServiceAccount
+            name: cdi-operator
+            namespace: cdi
+  - it: Deployment - verification of metadata and significant spec values
+    documentIndex: 5
+    asserts:
+      - isAPIVersion:
+          of: apps/v1
+      - isKind:
+          of: Deployment
+      - equal:
+          path: metadata.name
+          value: cdi-operator
+      - equal:
+          path: metadata.namespace
+          value: cdi
+      - isNotEmpty:
+          path: spec.template.spec.containers[0]
+      - isNotEmpty:
+          path: spec.template.spec.containers[0].resources
+      - isNotNull:
+          path: spec.template
+      - isNull:
+          path: spec.template.nodeSelector
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            containerPort: 8080
+          any: true
+      - equal:
+          path: spec.template.spec.serviceAccountName
+          value: cdi-operator

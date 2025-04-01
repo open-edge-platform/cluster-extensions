@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: v2
+description: A Helm chart for Kubernetes
+name: metallb-config
+type: application
+version: 0.1.4
+appVersion: 0.1.4

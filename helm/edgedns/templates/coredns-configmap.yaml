@@ -1,0 +1,25 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+# Coredns configmap with Corefile template definition
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-coredns
+data:
+  Corefile: |
+    . {
+        errors
+        health
+        reload 10s
+        etcd {
+           endpoint https://{{ .Release.Name }}-etcd-dns:2379
+           tls /certs/tls.crt /certs/tls.key /certs/ca.crt
+           fallthrough
+        }
+        cache 30
+        prometheus :9153
+        rrl . {
+          responses-per-second {{ .Values.coredns.rrl.responsesPerSecond }}
+        }
+    }

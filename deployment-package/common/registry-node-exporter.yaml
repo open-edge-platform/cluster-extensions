@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "Registry"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: "node-exporter"
+description: "Public registry for node exporter chart"
+type: "HELM"
+rootUrl: "https://prometheus-community.github.io/helm-charts"

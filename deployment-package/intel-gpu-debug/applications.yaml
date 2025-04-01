@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+# Intel Device Plugin Operator
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: intel-gpu-debug
+version: 1.2.3
+description: "Intel GPU ext debugging app"
+
+helmRegistry: "intel-rs-helm"
+chartName: "edge-orch/en/charts/intel-gpu-debug"
+chartVersion: "1.2.3"
+
+profiles:
+  - name: default
+    displayName: "default"
+    valuesFileName: "empty-values.yaml"

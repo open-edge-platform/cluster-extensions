@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: (C) 2023 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ include "kubevirt-helper.fullname" . }}-issuer
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubevirt-helper.labels" . | nindent 4 }}
+spec:
+  selfSigned: {}

@@ -1,0 +1,70 @@
+# SPDX-FileCopyrightText: (C) 2023 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+{{- $registry := .Values.global.registry -}}
+{{- if .Values.image.registry -}}
+{{- $registry = .Values.image.registry -}}
+{{- end -}}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "kubevirt-helper.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubevirt-helper.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "kubevirt-helper.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "kubevirt-helper.selectorLabels" . | nindent 8 }}
+        version: {{ .Chart.AppVersion | quote }}
+    spec:
+      serviceAccountName: {{ include "kubevirt-helper.serviceAccountName" . }}
+      {{- with $registry.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: kubevirt-helper
+          image: {{ include "kubevirt-helper.imagename" . | quote }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.kubevirtHelperSecurityContext | nindent 12 }}
+          env:
+            - name: LOGGING_CONFIG
+              value: /opt/kubevirt-helper/logging.yaml
+          command:
+            - kubevirt-helper
+          args:
+            - --port={{ .Values.config.kubevirtHelper.webhookServer.port }}
+            - --certPath={{ .Values.config.kubevirtHelper.webhookServer.certPath }}
+            - --certName={{ .Values.config.kubevirtHelper.webhookServer.certName }}
+            - --keyName={{ .Values.config.kubevirtHelper.webhookServer.keyName }}
+            - --mutatePath={{ .Values.config.kubevirtHelper.webhookServer.mutatePath }}
+          volumeMounts:
+            - name: certs
+              mountPath: {{ .Values.config.kubevirtHelper.webhookServer.certPath }}
+              readOnly: true
+            - name: config
+              mountPath: /opt/kubevirt-helper/
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: certs
+          secret:
+            secretName: {{ include "kubevirt-helper.fullname" . }}-certificate
+            optional: false
+        - name: config
+          configMap:
+            name: {{ include "kubevirt-helper.fullname" . }}

@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+suite: Test EdgeDNS Helm chart
+templates:
+  - issuer.yaml
+release:
+  name: my-release
+tests:
+  - it: should be an Issuer
+    asserts:
+      - isKind:
+          of: Issuer
+  - it: should have correct name
+    asserts:
+      - equal:
+          path: metadata.name
+          value: edgedns-my-release-issuer
+  - it: should have correct secret
+    asserts:
+      - equal:
+          path: spec.ca.secretName
+          value: root-secret

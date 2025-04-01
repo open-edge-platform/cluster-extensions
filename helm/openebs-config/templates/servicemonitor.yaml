@@ -1,0 +1,32 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: openebslvm
+  namespace: {{ .Release.Namespace }}
+spec:
+  jobLabel: app.kubernetes.io/name
+  selector:
+    matchLabels:
+      openebs.io/component-name: openebs-lvm-node
+  endpoints:
+    - port: metrics
+      scheme: http
+      relabelings:
+        - action: labelmap
+          regex: __meta_kubernetes_service_label_(.+)
+        - sourceLabels: [__meta_kubernetes_service_label_openebs_io_component_name]
+          regex: '.*openebs-lvm-node.*'
+          action: keep
+        - sourceLabels: [__address__]
+          regex: '.*:9500'
+          action: keep
+        - sourceLabels: [__meta_kubernetes_pod_node_name]
+          action: replace
+          targetLabel: instance
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          action: replace
+          targetLabel: kubernetes_pod_name

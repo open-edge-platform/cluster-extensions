@@ -1,0 +1,82 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2023 Intel Corporation
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: metallb-system
+  name: metallb-deny-from-other-namespaces
+spec:
+  policyTypes:
+    - Ingress
+  podSelector:
+    matchLabels:
+  ingress:
+    - from:
+        - podSelector: {}
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: metallb-system
+  name: metallb-allow-metrics-port-from-observability
+spec:
+  policyTypes:
+    - Ingress
+  podSelector:
+    matchLabels:
+  ingress:
+    - ports:
+        - port: 7472
+      from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: observability
+---
+apiVersion: crd.projectcalico.org/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-kube-api-egress
+  namespace: metallb-system
+spec:
+  selector: app.kubernetes.io/name == 'metallb'
+  types:
+    - Egress
+  egress:
+    - action: Allow
+      destination:
+        services:
+          name: kubernetes
+          namespace: default
+---
+apiVersion: crd.projectcalico.org/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-egress
+  namespace: metallb-system
+spec:
+  selector: app.kubernetes.io/name == 'metallb'
+  types:
+    - Egress
+  egress:
+    - action: Allow
+      destination:
+        services:
+          name: rke2-coredns-rke2-coredns
+          namespace: kube-system
+---
+apiVersion: crd.projectcalico.org/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-webhook-ingress
+  namespace: metallb-system
+spec:
+  selector: app.kubernetes.io/name == 'metallb'
+  types:
+    - Ingress
+  ingress:
+    - action: Allow
+      destination:
+        services:
+          name: metallb-webhook-service
+          namespace: metallb-system

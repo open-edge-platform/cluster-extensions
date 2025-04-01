@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+# node-exporter
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: node-exporter
+version: 4.45.0
+description: "Node Exporter"
+kind: extension
+
+helmRegistry: "node-exporter"
+chartName: "prometheus-node-exporter"
+chartVersion: "4.45.0"
+
+profiles:
+  - name: default
+    displayName: "default"
+    valuesFileName: "values-node-exporter.yaml"

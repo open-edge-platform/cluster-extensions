@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+# external-dns cluster role bindiingg template definition
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .Release.Name }}-external-dns-viewer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .Release.Name }}-external-dns
+subjects:
+- kind: ServiceAccount
+  name: {{ .Release.Name }}-external-dns
+  namespace: {{ .Release.Namespace }}

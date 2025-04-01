@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: openebs-lvmpv-shared
+parameters:
+  storage: "lvm"
+  volgroup: "lvmvg"
+  shared: "yes"
+provisioner: local.csi.openebs.io
+volumeBindingMode: WaitForFirstConsumer

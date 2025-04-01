@@ -1,0 +1,71 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-coredns
+  labels:
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: coredns
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: coredns
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/component: coredns
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-coredns
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 10001
+          runAsGroup: 10001
+          seccompProfile:
+            type: RuntimeDefault
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        {{- $registry := .Values.global.registry -}}
+        {{ if .Values.image.registry }}
+          {{- $registry = .Values.image.registry -}}
+        {{ end }}
+        image: "{{ if hasKey $registry "name" }}{{ $registry.name }}{{- end}}{{ .Values.image.repository }}:{{ default $.Chart.AppVersion .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        args: [ "-conf", "/etc/coredns/Corefile" ]
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "100m"
+          limits:
+            memory: "200Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: {{ .Release.Name }}-config-volume
+          mountPath: /etc/coredns
+        - name: {{ .Release.Name }}-coredns-client-tls
+          mountPath: /certs
+        ports:
+        - containerPort: 53
+          name: dns-port
+          protocol: UDP
+        - containerPort: 9153
+          name: edgedns-metrics
+          protocol: TCP
+      volumes:
+      - name: {{ .Release.Name }}-config-volume
+        configMap:
+          name: {{ .Release.Name }}-coredns
+          items:
+          - key: Corefile
+            path: Corefile
+      - name: {{ .Release.Name }}-coredns-client-tls
+        secret:
+          secretName: edgedns-coredns-client-tls

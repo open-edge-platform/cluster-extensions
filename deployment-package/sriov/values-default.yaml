@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+
+# cert_manager enables integration with cert-manager to generate
+# certificates for the operator webhooks. Otherwise the chart will
+# generate ad-hoc certificates with no automated renewal at expiration,
+# not recommended for production clusters.
+cert_manager: true

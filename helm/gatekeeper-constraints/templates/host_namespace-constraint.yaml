@@ -1,0 +1,30 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+{{- if .Values.policies.constraints.hostNamespace.enabled }}
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: HostNamespace
+metadata:
+  name: host-namespace
+  annotations:
+    helm.sh/hook: post-install
+    helm.sh/hook-weight: "3"
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    excludedNamespaces:
+    {{- range .Values.policies.constraints.hostNamespace.excludedNamespaces }}
+      - {{ . | quote }}
+    {{- end }}
+    labelSelector:
+      matchExpressions:
+        - key: bypass-host-namespace
+          operator: DoesNotExist
+    namespaceSelector:
+      matchExpressions:
+        - key: bypass-host-namespace
+          operator: DoesNotExist
+  enforcementAction: deny
+{{- end }}

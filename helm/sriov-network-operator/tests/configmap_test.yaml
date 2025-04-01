@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+suite: Test SRIOV Network Operator ConfigMap
+templates:
+  - configmap.yaml
+tests:
+  - it: ConfigMap - verification of metadata
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - equal:
+          path: metadata.name
+          value: supported-nic-ids
+  - it: ConfigMap - verification of data
+    asserts:
+      - isNotEmpty:
+          path: data

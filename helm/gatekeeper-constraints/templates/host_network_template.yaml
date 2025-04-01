@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: hostnetwork
+  annotations:
+    metadata.gatekeeper.sh/title: "Host Network"
+    description: >-
+      Controls usage of host network namespace by pod containers. 
+      Corresponds to the `hostNetwork` fields in a PodSecurityPolicy.
+spec:
+  crd:
+    spec:
+      names:
+        kind: HostNetwork
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          type: object
+          description: >-
+            Controls usage of host network namespace by pod containers.
+            Corresponds to the `hostNetwork` field in a PodSecurityPolicy.
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+{{.Files.Get "rego/hostnetwork/hostnetwork_policy.rego" | indent 8 }}

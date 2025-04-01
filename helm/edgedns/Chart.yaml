@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: v2
+name: edgedns
+description: A Helm chart for Edge Orchestrator EdgeDNS
+type: application
+version: 1.3.30
+appVersion: 1.3.30

@@ -1,0 +1,55 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: kubevirt.io/v1
+kind: KubeVirt
+metadata:
+  name: kubevirt
+  namespace: {{ .Release.Namespace }}
+  labels:
+    cpumanager: "true"
+spec:
+  certificateRotateStrategy: {}
+  configuration:
+    network:
+      binding:
+        macvtap:
+          domainAttachmentType: "tap"
+    tlsConfiguration:
+      minTLSVersion: VersionTLS12
+      ciphers:
+        - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+        - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+        - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+        - TLS_AES_256_GCM_SHA384
+        - TLS_CHACHA20_POLY1305_SHA256
+        - TLS_AES_128_GCM_SHA256
+    developerConfiguration:
+      useEmulation: {{ .Values.useEmulation }}
+      featureGates: [CPUManager, HostDevices, NetworkBindingPlugins]
+    {{ if not (eq .Values.usbList "") }}
+    permittedHostDevices:
+      usb:
+    {{ $usbs := split "," .Values.usbList }}
+    {{ range $i, $v := $usbs }}
+    {{ $parts := split ";" $v }}
+        - resourceName: {{ $parts._0 | quote }}
+          selectors:
+            - product: {{ $parts._2 | quote }}
+              vendor: {{ $parts._1 | quote }}
+    {{ end }}
+    {{ end }}
+  customizeComponents:
+    patches:
+      {{- range $k, $v := .Values.nodeSelector }}
+    - resourceType: Deployment
+      resourceName: virt-controller
+      patch: '{"spec":{"template":{"spec":{"nodeSelector":{"{{ $k }}": "{{ $v }}" }}}}}'
+      type: strategic
+    - resourceType: Deployment
+      resourceName: virt-api
+      patch: '{"spec":{"template":{"spec":{"nodeSelector":{"{{ $k }}": "{{ $v }}" }}}}}'
+      type: strategic
+      {{- end }}
+  imagePullPolicy: IfNotPresent
+  workloadUpdateStrategy: {}

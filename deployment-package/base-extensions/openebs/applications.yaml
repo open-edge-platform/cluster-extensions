@@ -1,0 +1,40 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+# openebs-config
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: openebs-config
+version: 0.0.2
+description: "OpenEBS Config"
+kind: extension
+
+helmRegistry: "intel-rs-helm"
+chartName: "edge-orch/en/charts/openebs-config"
+chartVersion: "0.0.2"
+
+profiles:
+  - name: default
+    displayName: "default"
+    valuesFileName: "values-openebs-config.yaml"
+---
+# openebs
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: openebs
+version: 4.2.0
+description: "Open EBS"
+kind: extension
+
+helmRegistry: "openebs"
+chartName: "openebs"
+chartVersion: "4.2.0"
+
+profiles:
+  - name: default
+    displayName: "default"
+    valuesFileName: "values-openebs.yaml"

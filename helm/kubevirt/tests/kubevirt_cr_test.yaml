@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+suite: Test KubeVirt CR
+templates:
+  - 02-kubevirt-cr.yaml
+tests:
+  - it: should be a KubeVirt
+    asserts:
+      - isKind:
+          of: KubeVirt
+  - it: should set CPU Manager label and feature gate
+    asserts:
+      - equal:
+          path: metadata.labels.cpumanager
+          value: "true"
+      - contains:
+          path: spec.configuration.developerConfiguration.featureGates
+          content: CPUManager

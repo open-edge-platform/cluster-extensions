@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+# ipAddressRange is an IP address range which is used for ExternalIP
+# address allocation for service type LoadBalancer
+ipAddressRange: 192.168.160.50-192.168.160.100
+
+# staticIp is used to reserve IP addresses which can be allocated
+# as a static IPs for services
+dnsIPAddress: "192.168.160.250/32"
+ingressIPAddress: "192.168.160.251/32"
+
+staticIPs: "192.168.160.101/32,192.168.160.102/32"
+
+# For 5GC flag set for L2Advertisement Interface
+L2Advertisement:
+  enabled: false
+  interface: enp138s0f1

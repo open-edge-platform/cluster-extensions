@@ -1,0 +1,61 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+suite: Test Kubevirt ServiceMonitor
+release:
+  namespace: kubevirt
+templates:
+  - 03-kubevirt-sm.yaml
+tests:
+  - it: ServiceMonitor - verifies metadata
+    asserts:
+      - isAPIVersion:
+          of: monitoring.coreos.com/v1
+      - isKind:
+          of: ServiceMonitor
+      - equal:
+          path: metadata.name
+          value: kubevirt-servicemonitor
+      - equal:
+          path: metadata.namespace
+          value: observability
+      - equal:
+          path: metadata.labels.name
+          value: kubevirt
+  - it: ServiceMonitor - verifies spec
+    asserts:
+      - isNotEmpty:
+          path: spec.endpoints
+      - isNotEmpty:
+          path: spec.selector.matchLabels
+      - isNotEmpty:
+          path: spec.namespaceSelector
+      - isNotEmpty:
+          path: spec.namespaceSelector.matchNames
+      - equal:
+          path: spec.namespaceSelector.matchNames[0]
+          value: kubevirt
+      - isNotNull:
+          path: spec.endpoints
+      - contains:
+          path: spec.endpoints
+          content:
+            port: metrics
+            scheme: https
+            tlsConfig:
+              insecureSkipVerify: true
+            relabelings:
+              - action: labelmap
+                regex: __meta_kubernetes_service_label_(.+)
+              - sourceLabels: [__meta_kubernetes_service_name]
+                regex: 'kubevirt-prometheus-metrics.*'
+                action: keep
+              - sourceLabels: [__address__]
+                regex: '.*:8443'
+                action: keep
+              - sourceLabels: [__meta_kubernetes_pod_node_name]
+                action: replace
+                targetLabel: instance
+              - sourceLabels: [__meta_kubernetes_pod_name]
+                action: replace
+                targetLabel: kubernetes_pod_name

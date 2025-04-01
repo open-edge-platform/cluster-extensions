@@ -1,0 +1,40 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+# Intel Device Plugin Operator
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: intel-device-operator
+version: 0.29.0
+description: "Intel Device Plugin Operator"
+kind: extension
+
+helmRegistry: "intel-github-io"
+chartName: "intel-device-plugins-operator"
+chartVersion: "0.29.0"
+
+profiles:
+  - name: default
+    displayName: "default"
+    valuesFileName: "values-device-operator.yaml"
+---
+# Intel GPU Device Plugin
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: intel-gpu-plugin
+version: 0.29.0
+description: "Intel GPU Device Plugin"
+kind: extension
+
+helmRegistry: "intel-github-io"
+chartName: "intel-device-plugins-gpu"
+chartVersion: "0.29.0"
+
+profiles:
+  - name: exclusive-gpu-alloc
+    displayName: "Exclusive gpu allocation"
+    valuesFileName: "values-gpu-plugin.yaml"

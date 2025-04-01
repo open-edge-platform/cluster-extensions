@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: v2
+name: network-policies
+description: Network Policies for Edge Node cluster
+type: application
+version: 0.1.13
+appVersion: 0.1.13

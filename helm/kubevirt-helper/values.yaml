@@ -1,0 +1,102 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+global:
+  registry:
+    name: registry-rs.edgeorchestration.intel.com
+    imagePullSecrets: []
+  image: {}
+
+# -- replicaCount specifies how many replicas of services to instantiate.
+replicaCount: 1
+
+# -- service contains details for creating k8s services.
+service:
+  ports:
+    webhook:
+      port: 8443
+      protocol: TCP
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "kubevirt-helper-service-account"
+
+# -- image specifies docker image parameters.
+image:
+  registry:
+    name: registry-rs.edgeorchestration.intel.com
+    imagePullSecrets: []
+  # -- registry is the name of the image registry host
+  #  registry: registry-rs.edgeorchestration.intel.com
+  # -- repository is the name of the private registry and docker image used during deployment.
+  repository: edge-orch/en/kubevirt-helper
+  # -- pullPolicy is used during deployment to decide if local image can be utilized.
+  pullPolicy: IfNotPresent
+
+# -- imagePullSecrets are used when pulling images from private repos.
+imagePullSecrets: []
+# -- nameOverride can be used to change the name of the helm chart.
+nameOverride: ""
+# -- fullnameOverride can be used to change the name of the helm chart and release.
+fullnameOverride: ""
+
+# -- podAnnotations are optional and can be specified to add consistent annotations to all pods.
+podAnnotations: {}
+
+# -- podSecurityContext is the runtime context of the pod.
+podSecurityContext:
+  runAsUser: 65532
+  runAsNonRoot: true
+# fsGroup: 2000
+
+# -- securityContext defines pod's capabilities and permissions in the host.
+kubevirtHelperSecurityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - "ALL"
+
+# the contents of config.yaml file
+config:
+  kubevirtHelper:
+    webhookServer:
+      name: "kubevirt-helper.orchestration.io"
+      port: 8443
+      certPath: "/opt/k8s-webhook-server/serving-certs/"
+      certName: "tls.crt"
+      keyName: "tls.key"
+      mutatePath: "/kubevirt-helper-mutate"
+      mutateTimeoutSeconds: 10
+    certificate:
+      commonName: kubevirt-helper-mutate-service
+      duration: "720h0m0s"  # need to write in this format - XXhYYmZZs
+      renewBefore: "168h0m0s"  # need to write in this format - XXhYYmZZs
+      privateKey:
+        algorithm: RSA
+        encoding: PKCS1
+        size: 4096
+      additionalDNSNames: []
+
+
+logging:
+  encoders:
+    json:
+      fields:
+        - message
+        - level:
+            format: uppercase
+        - caller:
+            format: short
+        - timestamp:
+            format: iso8601
+  writers:
+    stdout:
+      encoder: json
+  rootLogger:
+    level: info
+    outputs:
+      - stdout

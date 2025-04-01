@@ -1,0 +1,35 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "DeploymentPackage"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: "intel-gpu"
+description: "Intel GPU K8S extension"
+version: 1.2.3
+forbidsMultipleDeployments: true
+kind: extension
+
+applications:
+  - name: intel-device-operator
+    version: 0.29.0
+  - name: intel-gpu-plugin
+    version: 0.29.0
+
+defaultNamespaces:
+  intel-gpu-plugin: intel-gpu-extension
+  intel-device-operator: intel-gpu-extension
+
+applicationDependencies:
+  - name: "intel-gpu-plugin"
+    requires: "intel-device-operator"
+
+deploymentProfiles:
+  - name: "exclusive-gpu-alloc"
+    displayName: "Exclusive gpu allocation"
+    applicationProfiles:
+      - application: "intel-device-operator"
+        profile: "default"
+      - application: "intel-gpu-plugin"
+        profile: "exclusive-gpu-alloc"

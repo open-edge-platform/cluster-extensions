@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: v2
+name: kubevirt-helper
+description: A Helm chart for KubeVirt Helper service
+type: application
+version: 1.4.4
+appVersion: 1.4.4
+annotations: {}

@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: fluent-bit-tls
+  namespace: observability
+spec:
+  secretName: fluent-bit-tls
+  commonName: fluent-bit-logging
+  duration: 1440h
+  renewBefore: 168h
+  isCA: false
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 4096
+  usages:
+    - server auth
+    - client auth
+  dnsNames:
+    - fluent-bit-logging
+  issuerRef:
+    name: edge-node-cluster-issuer
+    kind: ClusterIssuer

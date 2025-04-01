@@ -1,0 +1,100 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2023 Intel Corporation
+{{- if .Values.networkPoliciesEnabled }}
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: kubevirt-deny-from-other-namespaces
+spec:
+  podSelector:
+    matchLabels:
+  ingress:
+    - from:
+        - podSelector: {}
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: kubevirt-allow-metrics-from-observability-namespace
+  namespace: {{ .Release.Namespace }}
+spec:
+  ingress:
+    - ports:
+        - port: 8443
+        - port: 443
+      from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: observability
+  podSelector: {}
+  policyTypes:
+  - Ingress
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: kubevirt-allow-calls-from-api-server
+spec:
+  podSelector:
+    matchLabels:
+      kubevirt.io: virt-api
+  policyTypes:
+  - Ingress
+  ingress:
+    - ports:
+        - port: 8443
+        - port: 443
+    - from:
+        - podSelector:
+            matchLabels:
+              component: kube-apiserver
+---
+apiVersion: crd.projectcalico.org/v1
+kind: NetworkPolicy
+metadata:
+  name: kubevirt-deletion-hook-allow-calls-to-api
+  namespace: {{ .Release.Namespace }}
+spec:
+  types:
+    - Egress
+  selector: job-name == 'kubevirt-pre-deletion'
+  egress:
+    - action: Allow
+      destination:
+        services:
+          name: kubernetes
+          namespace: default
+    - action: Allow
+      destination:
+        services:
+          name: virt-api
+          namespace: {{ .Release.Namespace }}
+---
+apiVersion: crd.projectcalico.org/v1
+kind: NetworkPolicy
+metadata:
+  name: virt-console-ingress-egress
+  namespace: {{ .Release.Namespace }}
+spec:
+  types:
+    - Egress
+    - Ingress
+  selector: app.kubernetes.io/component == 'kubevirt' && app.kubernetes.io/managed-by == 'virt-operator' && kubevirt.io in {'virt-handler', 'virt-api'}
+  egress:
+    - action: Allow
+      protocol: TCP
+      destination:
+        ports:
+          - 8186
+    - action: Pass
+  ingress:
+    - action: Allow
+      protocol: TCP
+      destination:
+        ports:
+          - 8186
+    - action: Pass
+{{- end }}

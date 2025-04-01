@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+suite: Test EdgeDNS Helm chart
+templates:
+  - external-dns-cluster-role.yaml
+release:
+  name: my-release
+tests:
+  - it: should be a ClusterRole
+    asserts:
+      - isKind:
+          of: ClusterRole
+  - it: should have correct name
+    asserts:
+      - equal:
+          path: metadata.name
+          value: my-release-external-dns
+  - it: should have correct rules
+    asserts:
+      - isNotEmpty:
+          path: rules
+      - contains:
+          path: rules
+          content:
+            apiGroups: [""]
+            resources: ["services"]
+            verbs: ["get", "watch", "list"]

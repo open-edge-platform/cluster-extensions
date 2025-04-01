@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "DeploymentPackage"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: "kubernetesdashboard"
+displayName: "kubernetes-dashboard"
+description: "kubernetes-dashboard"
+version: "0.0.2"
+
+applications:
+  - name: kubernetesdashboard
+    version: 0.0.2
+
+deploymentProfiles:
+  - name: "default"
+    applicationProfiles:
+      - application: "kubernetesdashboard"
+        profile: "default"
+
+defaultNamespaces:
+  kubernetesdashboard: kubernetes-dashboard

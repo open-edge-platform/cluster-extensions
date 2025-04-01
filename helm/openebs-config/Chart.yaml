@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: v2
+description: A Helm chart for configuring the openebs extension
+name: openebs-config
+type: application
+
+version: 0.0.2
+appVersion: 0.0.2

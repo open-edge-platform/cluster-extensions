@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+# telegraf
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: telegraf
+version: 1.8.55
+description: "Telegraf"
+kind: extension
+
+helmRegistry: "telegraf"
+chartName: "telegraf"
+chartVersion: "1.8.55"
+
+profiles:
+  - name: default
+    displayName: "default"
+    valuesFileName: "values-telegraf.yaml"

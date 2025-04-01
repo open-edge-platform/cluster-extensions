@@ -1,0 +1,87 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: kubevirt
+version: 1.2.7
+description: "Virtual machine management add-on for Kubernetes"
+kind: extension
+
+helmRegistry: "intel-rs-helm"
+chartName: "edge-orch/en/charts/kubevirt"
+chartVersion: "1.2.7"
+
+profiles:
+  - name: default
+    displayName: "Default"
+    valuesFileName: "values-kubevirt-default.yaml"
+    parameterTemplates:
+      - name: usbList
+        displayName: "USB dongle List"
+        default: ""
+        type: string
+  - name: software-emulation
+    displayName: "Software Emulation"
+    valuesFileName: "values-kubevirt-software-emulation.yaml"
+    parameterTemplates:
+      - name: usbList
+        displayName: "USB dongle List"
+        default: ""
+        type: string
+  - name: default-nosm
+    displayName: "No Observability"
+    valuesFileName: "values-kubevirt-default-nosm.yaml"
+    parameterTemplates:
+      - name: usbList
+        displayName: "USB dongle List"
+        default: ""
+        type: string
+  - name: software-emulation-nosm
+    displayName: "Software Emulation with No Observability"
+    valuesFileName: "values-kubevirt-software-emulation-nosm.yaml"
+    parameterTemplates:
+      - name: usbList
+        displayName: "USB dongle List"
+        default: ""
+        type: string
+
+---
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: cdi
+version: "2.0.3"
+description: "Persistent storage management add-on for Kubernetes"
+kind: extension
+
+helmRegistry: "intel-rs-helm"
+chartName: "edge-orch/en/charts/cdi"
+chartVersion: "1.60.4"
+
+profiles:
+  - name: "default"
+    displayName: "Default"
+    valuesFileName: "values-cdi-default.yaml"
+
+---
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: kubevirt-helper
+version: 1.4.4
+description: "Automatically restart VM when editable VM spec is updated"
+kind: extension
+
+helmRegistry: "intel-rs-helm"
+chartName: "edge-orch/en/charts/kubevirt-helper"
+chartVersion: "1.4.4"
+
+profiles:
+  - name: "default"
+    displayName: "Default"
+    valuesFileName: "values-kvhelper.yaml"

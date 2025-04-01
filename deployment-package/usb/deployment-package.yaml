@@ -1,0 +1,31 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "DeploymentPackage"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: "usb"
+description: "Brings USB allocation for containers/VMs running on k8s cluster"
+version: 0.3.2
+forbidsMultipleDeployments: true
+kind: extension
+
+applications:
+  - name: akri
+    version: 0.13.8
+  - name: usb-device-plugin
+    version: 1.0.2
+
+defaultNamespaces:
+  usb-device-plugin: akri
+  akri: akri
+
+deploymentProfiles:
+  - name: "default-profile"
+    displayName: "Default Configuration"
+    applicationProfiles:
+      - application: "usb-device-plugin"
+        profile: "default"
+      - application: "akri"
+        profile: "default"
