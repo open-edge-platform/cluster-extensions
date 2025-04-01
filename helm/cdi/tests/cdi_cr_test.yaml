@@ -1,0 +1,36 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+suite: Test CDI CR
+templates:
+  - 02-cdi-cr.yaml
+tests:
+  - it: should verify metadata
+    asserts:
+      - isKind:
+          of: CDI
+      - equal:
+          path: metadata.name
+          value: cdi
+  - it: should set default proxy to empty line
+    asserts:
+      - equal:
+          path: spec.config.importProxy
+          value: {}
+  - it: should set proxy from test proxy.yaml file
+    values:
+      - ./values/proxy.yaml
+    asserts:
+      - equal:
+          path: spec.config.importProxy
+          value:
+            HTTPProxy: http://proxy-chain.intel.com:911
+            HTTPSProxy: http://proxy-chain.intel.com:912
+            noProxy: localhost,ger.corp.intel.com
+  - it: should leave import proxy field blank
+    values:
+      - ./values/empty_proxy.yaml
+    asserts:
+      - equal:
+          path: spec.config.importProxy
+          value: {}

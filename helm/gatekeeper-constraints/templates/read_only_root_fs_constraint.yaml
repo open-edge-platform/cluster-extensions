@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+{{- if .Values.policies.constraints.readOnlyFs.enabled }}
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: ReadOnlyRootFileSystem
+metadata:
+  name: readonlyrootfilesystem
+  annotations:
+    helm.sh/hook: post-install
+    helm.sh/hook-weight: "3"
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    excludedNamespaces:
+    {{- range .Values.policies.constraints.readOnlyFs.excludedNamespaces }}
+      - {{ . | quote }}
+    {{- end }}
+    labelSelector:
+      matchExpressions:
+        - key: bypass-read-only-root-filesystem
+          operator: DoesNotExist
+    namespaceSelector:
+      matchExpressions:
+        - key: bypass-read-only-root-filesystem
+          operator: DoesNotExist
+  parameters:
+    exemptImages: {{ .Values.policies.exemptImages }}
+    exemptContainerNames: {{ .Values.policies.constraints.readOnlyFs.exemptContainerNames }}
+  enforcementAction: deny
+{{- end }}

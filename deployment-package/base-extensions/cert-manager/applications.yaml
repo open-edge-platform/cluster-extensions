@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+# cert-manager
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: cert-manager
+version: 1.16.2
+description: "Cert Manager"
+kind: extension
+
+helmRegistry: "jetstack"
+chartName: "cert-manager"
+chartVersion: "1.16.2"
+profiles:
+  - name: default
+    displayName: "default"
+    valuesFileName: "values-cert-manager.yaml"

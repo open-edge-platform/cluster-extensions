@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+proxy:
+  HTTPProxy: http://proxy-chain.intel.com:911
+  HTTPSProxy: http://proxy-chain.intel.com:912
+  noProxy: localhost,ger.corp.intel.com

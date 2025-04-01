@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+---
+telegraf:
+  certs:
+    secretName: telegraf-tls
+    serverName: telegraf
+    certsDest: /opt/telegraf/certs
+  sm:
+    secretName: prometheus-tls
+
+  name: telegraf
+  namespace: observability
+  configMap: telegraf-config
+  interval: 30s
+  port: 9105
+  otelport: 4317

@@ -1,0 +1,56 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+suite: Test SRIOV Network Operator Certs
+templates:
+  - certmanagercerts.yaml
+capabilities:
+  apiVersions:
+    - cert-manager.io/v1
+tests:
+  - it: shouldn't render document as .Values.operator.admissionControllers.enabled and .Values.cert_manager is true
+    capabilities:
+      apiVersions:
+        - cert-manager.io/v1
+    asserts:
+      - hasDocuments:
+          count: 3
+
+  - it: SelfSigned Issuer shall be rendered
+    documentIndex: 0
+    asserts:
+      - isAPIVersion:
+          of: cert-manager.io/v1
+      - isKind:
+          of: Issuer
+      - equal:
+          path: metadata.name
+          value: sriov-network-operator-selfsigned-issuer
+
+  - it: Certificate for webhook shall be rendered
+    documentIndex: 1
+    asserts:
+      - isAPIVersion:
+          of: cert-manager.io/v1
+      - isKind:
+          of: Certificate
+      - equal:
+          path: spec.secretName
+          value: operator-webhook-service
+      - equal:
+          path: spec.issuerRef.name
+          value: sriov-network-operator-selfsigned-issuer
+
+  - it: Certificate for injector shall be rendered
+    documentIndex: 2
+    asserts:
+      - isAPIVersion:
+          of: cert-manager.io/v1
+      - isKind:
+          of: Certificate
+      - equal:
+          path: spec.secretName
+          value: network-resources-injector-secret
+      - equal:
+          path: spec.issuerRef.name
+          value: sriov-network-operator-selfsigned-issuer

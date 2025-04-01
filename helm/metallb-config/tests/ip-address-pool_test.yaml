@@ -1,0 +1,53 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+suite: Test MetalLB-Config Helm chart
+templates:
+  - ip-address-pool.yaml
+release:
+  name: my-release
+tests:
+  - it: has 2 IPAddressPool in the file
+    asserts:
+      - hasDocuments:
+          count: 2
+  - it: should verify metadata
+    documentIndex: 0
+    asserts:
+      - isKind:
+          of: IPAddressPool
+      - equal:
+          path: metadata.name
+          value: my-release-dynamic-ipaddress-pool
+  - it: should verify spec
+    documentIndex: 0
+    set:
+      ipAddressRange: 192.168.160.50-192.168.160.100
+    asserts:
+      - contains:
+          path: spec.addresses
+          content:
+            192.168.160.50-192.168.160.100
+  - it: should verify metadata
+    documentIndex: 1
+    asserts:
+      - isKind:
+          of: IPAddressPool
+      - equal:
+          path: metadata.name
+          value: my-release-static-ipaddress-pool
+  - it: should verify spec
+    documentIndex: 1
+    set:
+      staticIp: 192.168.160.250/32
+    asserts:
+      - contains:
+          path: spec.addresses
+          content:
+            192.168.160.250/32
+  - it: should have correctly assign
+    documentIndex: 1
+    asserts:
+      - equal:
+          path: spec.autoAssign
+          value: false

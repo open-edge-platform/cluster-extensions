@@ -1,0 +1,43 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: privilegeescalationcontainer
+  annotations:
+    metadata.gatekeeper.sh/title: "Forbid Privilege Escalation in Container"
+    description: >-
+      Restricts escalation to root privileges. Corresponds to the
+      `allowPrivilegeEscalation` field in a PodSecurityPolicy.
+spec:
+  crd:
+    spec:
+      names:
+        kind: PrivilegeEscalationContainer
+      validation:
+        openAPIV3Schema:
+          type: object
+          description: >-
+            Restricts escalation to root privileges. Corresponds to the
+            `allowPrivilegeEscalation` field in a PodSecurityPolicy.
+          properties:
+            exemptImages:
+              description: >-
+                Any container that uses an image that matches an entry in this list will be excluded
+                from enforcement. Prefix-matching can be signified with `*`. For example: `my-image-*`.
+              type: array
+              items:
+                type: string
+            namespaceOnlyExemptImages:
+              description: >-
+                Any container running in a specific namespace that uses an image that matches an entry
+                in this list will be excluded from enforcement.  Prefix-matching can
+                be signified with `*`. For example: `my-image-*`.
+              type: array
+              items:
+                type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+{{.Files.Get "rego/privilegeescalation/privilegeescalation_policy.rego" | indent 8 }}

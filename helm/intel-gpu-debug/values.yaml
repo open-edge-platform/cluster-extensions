@@ -1,0 +1,5 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+registry: registry-rs.edgeorchestration.intel.com
+image: edge-orch/en/intel-gpu-debug:1.2.3

@@ -1,0 +1,60 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+suite: Test EdgeDNS Helm chart
+templates:
+  - external-dns-certs.yaml
+release:
+  name: my-release
+tests:
+  - it: should be a Certificate
+    asserts:
+      - isKind:
+          of: Certificate
+  - it: should have correct name
+    asserts:
+      - equal:
+          path: metadata.name
+          value: lp-my-release-external-dns-tls-cert
+  - it: should have correct secret name
+    asserts:
+      - equal:
+          path: spec.secretName
+          value: edgedns-external-dns-client-tls
+  - it: should have correct duration
+    asserts:
+      - equal:
+          path: spec.duration
+          value: 720h
+  - it: should have correct subject
+    asserts:
+      - equal:
+          path: spec.subject.organizations[0]
+          value: Intel Corporation
+      - equal:
+          path: spec.subject.countries[0]
+          value: US
+      - equal:
+          path: spec.subject.organizationalUnits[0]
+          value: Edge Orchestrator
+  - it: should have correct usage
+    asserts:
+      - equal:
+          path: spec.usages[1]
+          value: client auth
+  - it: should have correct Private key parameters
+    asserts:
+      - equal:
+          path: spec.privateKey.algorithm
+          value: RSA
+      - equal:
+          path: spec.privateKey.encoding
+          value: PKCS1
+      - equal:
+          path: spec.privateKey.size
+          value: 4096
+  - it: should have correct issuer
+    asserts:
+      - equal:
+          path: spec.issuerRef.kind
+          value: Issuer

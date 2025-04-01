@@ -1,0 +1,50 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prometheus-tls
+  namespace: observability
+spec:
+  secretName: prometheus-tls
+  commonName: prometheus
+  duration: 1440h
+  renewBefore: 168h
+  isCA: false
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 4096
+  usages:
+    - server auth
+    - client auth
+  dnsNames:
+    - prometheus
+  issuerRef:
+    name: edge-node-cluster-issuer
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kube-state-rbac-proxy-tls
+  namespace: observability
+spec:
+  secretName: kube-state-rbac-proxy-tls
+  commonName: prometheus-kube-state-metrics
+  duration: 1440h
+  renewBefore: 168h
+  isCA: false
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 4096
+  usages:
+    - server auth
+    - client auth
+  dnsNames:
+    - prometheus-kube-state-metrics
+  issuerRef:
+    name: edge-node-cluster-issuer
+    kind: ClusterIssuer

@@ -1,0 +1,52 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{.Values.telegraf.name}}
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: {{.Values.telegraf.name}}
+    app: {{.Values.telegraf.name}}
+    heritage: {{.Release.Service}}
+    release: {{.Release.Name}}
+    chart: {{.Release.Name}}
+spec:
+  jobLabel: "app.kubernetes.io/name"
+  selector:
+    matchLabels:
+      app: {{.Values.telegraf.name}}
+      release: {{.Release.Name}}
+  endpoints:
+    - port: metrics
+      scheme: https
+      tlsConfig:
+        serverName: telegraf
+        ca:
+          secret:
+            key: ca.crt
+            name: {{ .Values.telegraf.sm.secretName }}
+        cert:
+          secret:
+            key: tls.crt
+            name: {{ .Values.telegraf.sm.secretName }}
+        keySecret:
+          key: tls.key
+          name: {{ .Values.telegraf.sm.secretName }}
+      relabelings:
+        - action: labelmap
+          regex: __meta_kubernetes_pod_label_(.+)
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          regex: "telegraf.*"
+          action: keep
+        - sourceLabels: [__address__]
+          regex: ".*:{{ .Values.telegraf.port }}"
+          action: keep
+        - sourceLabels: [__meta_kubernetes_pod_node_name]
+          action: replace
+          targetLabel: instance
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          action: replace
+          targetLabel: kubernetes_pod_name

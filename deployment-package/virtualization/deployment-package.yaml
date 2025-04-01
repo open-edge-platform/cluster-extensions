@@ -1,0 +1,63 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "DeploymentPackage"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: "virtualization"
+description: "Virtualization support for k8s cluster"
+version: 0.3.6
+forbidsMultipleDeployments: true
+kind: extension
+
+applications:
+  - name: kubevirt
+    version: 1.2.7
+  - name: cdi
+    version: 2.0.3
+  - name: kubevirt-helper
+    version: 1.4.4
+
+defaultNamespaces:
+  kubevirt: kubevirt
+  cdi: cdi
+  kubevirt-helper: kubevirt
+
+deploymentProfiles:
+  - name: "default-profile"
+    displayName: "Default Configuration"
+    applicationProfiles:
+      - application: "kubevirt"
+        profile: "default"
+      - application: "cdi"
+        profile: "default"
+      - application: "kubevirt-helper"
+        profile: "default"
+  - name: "with-software-emulation-profile"
+    displayName: "Software Emulation Configuration"
+    applicationProfiles:
+      - application: "kubevirt"
+        profile: "software-emulation"
+      - application: "cdi"
+        profile: "default"
+      - application: "kubevirt-helper"
+        profile: "default"
+  - name: "default-profile-nosm"
+    displayName: "Default Config with No SM"
+    applicationProfiles:
+      - application: "kubevirt"
+        profile: "default-nosm"
+      - application: "cdi"
+        profile: "default"
+      - application: "kubevirt-helper"
+        profile: "default"
+  - name: "with-software-emulation-profile-nosm"
+    displayName: "Software Emulation Config with No SM"
+    applicationProfiles:
+      - application: "kubevirt"
+        profile: "software-emulation-nosm"
+      - application: "cdi"
+        profile: "default"
+      - application: "kubevirt-helper"
+        profile: "default"

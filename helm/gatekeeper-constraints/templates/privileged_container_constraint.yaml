@@ -1,0 +1,32 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+{{- if .Values.policies.constraints.privilegedContainer.enabled }}
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: PrivilegedContainer
+metadata:
+  name: privileged-container
+  annotations:
+    helm.sh/hook: post-install
+    helm.sh/hook-weight: "3"
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    excludedNamespaces:
+    {{- range .Values.policies.constraints.privilegedContainer.excludedNamespaces }}
+      - {{ . | quote }}
+    {{- end }}
+    labelSelector:
+      matchExpressions:
+        - key: bypass-privilege-container
+          operator: DoesNotExist
+    namespaceSelector:
+      matchExpressions:
+        - key: bypass-privilege-container
+          operator: DoesNotExist
+  parameters:
+    exemptImages: {{ .Values.policies.exemptImages }}
+  enforcementAction: deny
+{{- end }}

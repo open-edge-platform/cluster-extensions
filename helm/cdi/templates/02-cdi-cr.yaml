@@ -1,0 +1,31 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: CDI
+metadata:
+  name: cdi
+  annotations:
+    "helm.sh/hook": "post-install"
+spec:
+  imagePullPolicy: IfNotPresent
+  infra:
+    {{- with .Values.nodeSelector }}
+    nodeSelector:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists
+  config:
+    importProxy:
+      {{- if .Values.proxy}}
+{{ toYaml .Values.proxy |indent 6}}
+      {{- else }}
+      {}
+      {{- end }}
+  workload:
+    {{- with .Values.nodeSelector }}
+    nodeSelector:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}

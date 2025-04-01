@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+useDevelopmentContainers: false
+kubernetesDistro: k3s
+# agent:
+#  nodeSelectors:
+#    kubernetes.io/os: linux
+controller:
+  enabled: false
+  image:
+    pullPolicy: IfNotPresent
+webhookConfiguration:
+  image:
+    pullPolicy: IfNotPresent
+udev:
+  discovery:
+    enabled: true
+#      nodeSelectors:
+#        kubernetes.io/os: linux

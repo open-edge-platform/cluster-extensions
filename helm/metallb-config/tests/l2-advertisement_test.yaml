@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+suite: Test MetalLB-Config Helm chart
+templates:
+  - l2-advertisement.yaml
+release:
+  name: my-release
+tests:
+  - it: should verify metadata
+    asserts:
+      - isKind:
+          of: L2Advertisement
+      - equal:
+          path: metadata.name
+          value: my-release-advertisement

@@ -1,0 +1,69 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: macvtap-deviceplugin
+  namespace: {{ .Release.Namespace }}
+data:
+  DP_MACVTAP_CONF: >-
+    []
+
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: macvtap-cni
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      name: macvtap-cni
+  template:
+    metadata:
+      labels:
+        name: macvtap-cni
+    spec:
+      hostNetwork: true
+      hostPID: true
+      priorityClassName: system-node-critical
+      containers:
+        - name: macvtap-cni
+          command: ["/macvtap-deviceplugin", "-v", "3", "-logtostderr"]
+          envFrom:
+            - configMapRef:
+                name: macvtap-deviceplugin
+          image: quay.io/kubevirt/macvtap-cni:v0.11.1
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: "60m"
+              memory: "30Mi"
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: deviceplugin
+              mountPath: /var/lib/kubelet/device-plugins
+      initContainers:
+        - name: install-cni
+          command: ["cp", "/macvtap-cni", "/host/opt/cni/bin/macvtap"]
+          image: quay.io/kubevirt/macvtap-cni:v0.11.1
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "15Mi"
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: cni
+              mountPath: /host/opt/cni/bin
+              mountPropagation: Bidirectional
+      volumes:
+        - name: deviceplugin
+          hostPath:
+            path: /var/lib/kubelet/device-plugins
+        - name: cni
+          hostPath:
+            path: /opt/cni/bin

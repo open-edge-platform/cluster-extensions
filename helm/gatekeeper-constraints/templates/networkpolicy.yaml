@@ -1,0 +1,65 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: gatekeeper-allow-metrics-port-from-observability
+spec:
+  podSelector:
+    matchLabels:
+      app: gatekeeper
+      release: gatekeeper
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: prometheus
+              app.kubernetes.io/instance: prometheus-prometheus
+      ports:
+        - protocol: TCP
+          port: {{ .Values.metricsPort }}
+---
+{{- if .Values.networkPolicies.enabled }}
+apiVersion: crd.projectcalico.org/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-webhook-ingress
+  namespace: gatekeeper-system
+spec:
+  selector: gatekeeper.sh/operation == "webhook"
+  types:
+    - Ingress
+  ingress:
+    - action: Deny
+      source:
+        namespaceSelector: kubernetes.io/metadata.name not in {'kube-system', 'gatekeeper-system'}
+    - action: Allow
+      protocol: TCP
+      destination:
+        services:
+          name: gatekeeper-webhook-service
+          namespace: gatekeeper-system
+---
+apiVersion: crd.projectcalico.org/v1
+kind: NetworkPolicy
+metadata:
+  name: gatekeeper-update-namespace-label-egress
+  namespace: gatekeeper-system
+spec:
+  selector: app == 'gatekeeper' && job-name == 'gatekeeper-update-namespace-label'
+  types:
+    - Egress
+  egress:
+    - action: Allow
+      destination:
+        services:
+          name: gatekeeper-webhook-service
+          namespace: gatekeeper-system
+      protocol: TCP
+    - action: Pass
+{{- end}}

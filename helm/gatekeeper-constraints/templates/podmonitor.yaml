@@ -1,0 +1,50 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+---
+{{- if .Values.podMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: gatekeeper-metrics-monitor
+  namespace: {{ .Release.Namespace }}
+spec:
+  jobLabel: "app.kubernetes.io/name"
+  selector:
+    matchLabels:
+      app: gatekeeper
+      app_kubernetes_io_name: gatekeeper
+  podMetricsEndpoints:
+    - port: metrics
+      scheme: http
+      # TODO: Enable HTTPS connection with gatekeeper
+      #scheme: https
+      #tlsConfig:
+        #serverName: gatekeeper
+        #ca:
+          #secret:
+            #key: ca.crt
+            #name: gatekeeper-tls
+        #cert:
+          #secret:
+            #key: tls.crt
+            #name: gatekeeper-tls
+        #keySecret:
+          #key: tls.key
+          #name: gatekeeper-tls
+      relabelings:
+        - action: labelmap
+          regex: __meta_kubernetes_pod_label_(.+)
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          regex: "gatekeeper.*"
+          action: keep
+        - sourceLabels: [__address__]
+          regex: ".*:{{ .Values.metricsPort }}"
+          action: keep
+        - sourceLabels: [__meta_kubernetes_pod_node_name]
+          action: replace
+          targetLabel: instance
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          action: replace
+          targetLabel: kubernetes_pod_name
+{{- end}}

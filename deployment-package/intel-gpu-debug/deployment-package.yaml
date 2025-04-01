@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "DeploymentPackage"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: "intel-gpu-debug"
+description: "Intel GPU K8S extension debugging"
+version: 1.2.3
+
+applications:
+  - name: intel-gpu-debug
+    version: 1.2.3
+
+deploymentProfiles:
+  - name: "testing"
+    displayName: "testing"
+    applicationProfiles:
+      - application: "intel-gpu-debug"
+        profile: "default"

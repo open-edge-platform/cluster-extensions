@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+sharedDevNum: 1
+enableMonitoring: true
+allocationPolicy: "none"
+nodeFeatureRule: true
+logLevel: 2

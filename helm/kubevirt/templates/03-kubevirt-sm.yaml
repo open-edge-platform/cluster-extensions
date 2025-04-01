@@ -1,0 +1,43 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+{{- if .Values.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kubevirt-servicemonitor
+  namespace: observability
+  labels:
+    app.kubernetes.io/component: kubevirt
+    name: kubevirt
+spec:
+  jobLabel: "app.kubernetes.io/name"
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: kubevirt
+      app.kubernetes.io/managed-by: virt-operator
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  endpoints:
+    - port: metrics
+      scheme: https
+      # Currently kubevirt uses self-generated certs and there is no way to validate them
+      tlsConfig:
+        insecureSkipVerify: true
+      relabelings:
+        - action: labelmap
+          regex: __meta_kubernetes_service_label_(.+)
+        - sourceLabels: [__meta_kubernetes_service_name]
+          regex: 'kubevirt-prometheus-metrics.*'
+          action: keep
+        - sourceLabels: [__address__]
+          regex: '.*:8443'
+          action: keep
+        - sourceLabels: [__meta_kubernetes_pod_node_name]
+          action: replace
+          targetLabel: instance
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          action: replace
+          targetLabel: kubernetes_pod_name
+{{- end }}

@@ -1,0 +1,105 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{.Values.telegraf.name}}-reader
+  labels:
+    app.kubernetes.io/name: {{.Values.telegraf.name}}
+    app: {{.Values.telegraf.name}}
+    heritage: {{.Release.Service}}
+    release: {{.Release.Name}}
+    chart: {{.Release.Name}}
+rules:
+  - apiGroups: [""]
+    resources: ["endpoints", "nodes", "persistentvolumes", "persistentvolumeclaims", "pods", "resourcequotas", "services"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{.Values.telegraf.name}}-apps-reader
+  labels:
+    app.kubernetes.io/name: {{.Values.telegraf.name}}
+    app: {{.Values.telegraf.name}}
+    heritage: {{.Release.Service}}
+    release: {{.Release.Name}}
+    chart: {{.Release.Name}}
+rules:
+  - apiGroups: ["apps"]
+    resources: ["daemonsets", "deployments", "statefulsets"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{.Values.telegraf.name}}-network-reader
+  labels:
+    app.kubernetes.io/name: {{.Values.telegraf.name}}
+    app: {{.Values.telegraf.name}}
+    heritage: {{.Release.Service}}
+    release: {{.Release.Name}}
+    chart: {{.Release.Name}}
+rules:
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["ingresses"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{.Values.telegraf.name}}-read
+  labels:
+    app.kubernetes.io/name: {{.Values.telegraf.name}}
+    app: {{.Values.telegraf.name}}
+    heritage: {{.Release.Service}}
+    release: {{.Release.Name}}
+    chart: {{.Release.Name}}
+roleRef:
+  kind: ClusterRole
+  name: {{.Values.telegraf.name}}-reader
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+  - kind: ServiceAccount
+    name: {{.Values.telegraf.name}}
+    namespace: {{.Values.telegraf.namespace}}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{.Values.telegraf.name}}-apps-read
+  labels:
+    app.kubernetes.io/name: {{.Values.telegraf.name}}
+    app: {{.Values.telegraf.name}}
+    heritage: {{.Release.Service}}
+    release: {{.Release.Name}}
+    chart: {{.Release.Name}}
+roleRef:
+  kind: ClusterRole
+  name: {{.Values.telegraf.name}}-apps-reader
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+  - kind: ServiceAccount
+    name: {{.Values.telegraf.name}}
+    namespace: {{.Values.telegraf.namespace}}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{.Values.telegraf.name}}-network-read
+  labels:
+    app.kubernetes.io/name: {{.Values.telegraf.name}}
+    app: {{.Values.telegraf.name}}
+    heritage: {{.Release.Service}}
+    release: {{.Release.Name}}
+    chart: {{.Release.Name}}
+roleRef:
+  kind: ClusterRole
+  name: {{.Values.telegraf.name}}-network-reader
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+  - kind: ServiceAccount
+    name: {{.Values.telegraf.name}}
+    namespace: {{.Values.telegraf.namespace}}

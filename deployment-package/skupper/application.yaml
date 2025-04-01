@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: skupper
+version: 0.1.4
+description: "Skupper for interconnecting bare metal k8s clusters"
+kind: extension
+
+helmRegistry: "intel-rs-helm"
+chartName: "edge-orch/en/charts/skupper"
+chartVersion: "0.1.4"
+
+profiles:
+  - name: default
+    displayName: "Default"
+    valuesFileName: "empty-values.yaml"

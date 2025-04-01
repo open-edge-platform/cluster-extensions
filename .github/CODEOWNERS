@@ -1,0 +1,44 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+
+# These owners will be the default owners for everything in the repo. Unless a
+# later match takes precedence, these owners will be requested for review when
+# someone opens a pull request.
+
+# Everything requires team review by default
+* @jdanieck @adorney99 @SeanCondon @hyunsun @scottmbaker @ray-milkey @pudelkoM @badhrinathpa @jokuniew @eoghanlawless @togashidm @pbartosik
+
+# Except the following folders for base extensions
+/helm/gatekeeper-constraints @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik
+/helm/network-policies @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik
+/helm/observability-config @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik
+/helm/openebs-config @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik
+
+/deployment-package/base-extensions @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+
+# Except the following folders for application extensions
+/helm/akri @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/helm/cdi @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/helm/edgedns @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/helm/intel-gpu-debug @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/helm/kubevirt @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/helm/kubevirt-helper @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/helm/metallb-base @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/helm/metallb-config @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/helm/skupper @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/helm/skupper-sample-app @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/helm/sriov-network-operator @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+
+/deployment-package/intel-gpu @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/deployment-package/intel-gpu-debug @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/deployment-package/loadbalancer @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/deployment-package/skupper @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/deployment-package/skupper-sample-app @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/deployment-package/sriov @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/deployment-package/usb @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/deployment-package/virtualization @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+
+/pkg/edgedns-coredns @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/pkg/intel-gpu-debug @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa
+/pkg/kubevirt-helper @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa

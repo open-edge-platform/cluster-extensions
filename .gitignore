@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: (C) 2023 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+
+# jetbrains
+.idea
+.vscode
+.DS_Store
+.cache
+
+venv_extensions
+artifacts
+pkg/edgedns-coredns/edgedns-coredns
+pkg/edgedns-coredns/dist/
+pkg/edgedns-coredns/out/
+pkg/edgedns-coredns/bin/
+pkg/edgedns-coredns/vendor/
+ci/

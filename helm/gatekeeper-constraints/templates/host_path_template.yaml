@@ -1,0 +1,44 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: volumetypes
+  annotations:
+    metadata.gatekeeper.sh/title: "Volume Types"
+    description: >-
+      Forbids hostPath volume type.
+      Corresponds to the `volumes` field in a PodSecurityPolicy.
+spec:
+  crd:
+    spec:
+      names:
+        kind: VolumeTypes
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          type: object
+          description: >-
+            Forbids hostPath volume type.
+            Corresponds to the `volumes` field in a PodSecurityPolicy.
+          properties:
+            exemptImages:
+              description: >-
+                Any container that uses an image that matches an entry in this list will be excluded
+                from enforcement.
+              type: array
+              items:
+                type: string
+            namespaceOnlyExemptImages:
+              description: >-
+                Any container running in a specific namespace that uses an image that matches an entry
+                in this list will be excluded from enforcement.  Prefix-matching can
+                be signified with `*`. For example: `my-image-*`.
+              type: array
+              items:
+                type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+{{.Files.Get "rego/hostpath/hostpath_policy.rego" | indent 8 }}

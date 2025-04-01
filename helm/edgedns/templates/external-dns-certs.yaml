@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: lp-{{ .Release.Name }}-external-dns-tls-cert
+spec:
+  # Secret names are always required
+  secretName: edgedns-external-dns-client-tls
+  duration: 720h # 30d
+  renewBefore: 168h # 7d
+  subject:
+    organizations:
+      - Intel Corporation
+    countries:
+      - US
+    organizationalUnits:
+      - Edge Orchestrator
+  usages:
+    - digital signature
+    - client auth
+  dnsNames:
+    - external-dns.edgedns.node.intel.corp
+    - external-dns.edgedns
+  isCA: false
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 4096
+  issuerRef:
+    name: edgedns-{{ .Release.Name }}-issuer
+    kind: Issuer

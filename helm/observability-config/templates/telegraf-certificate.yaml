@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ .Values.telegraf.certs.secretName }}
+  namespace: observability
+spec:
+  secretName: {{ .Values.telegraf.certs.secretName }}
+  commonName: {{ .Values.telegraf.certs.serverName }}
+  duration: 1440h
+  renewBefore: 168h
+  isCA: false
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 4096
+  usages:
+    - server auth
+    - client auth
+  dnsNames:
+    - {{ .Values.telegraf.certs.serverName }}
+  issuerRef:
+    name: edge-node-cluster-issuer
+    kind: ClusterIssuer

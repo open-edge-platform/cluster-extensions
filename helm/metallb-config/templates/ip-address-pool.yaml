@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: {{ .Release.Name }}-dynamic-ipaddress-pool
+spec:
+  addresses:
+  - {{ .Values.ipAddressRange }}
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: {{ .Release.Name }}-static-ipaddress-pool
+spec:
+  addresses:
+  - {{ .Values.dnsIPAddress }}
+  - {{ .Values.ingressIPAddress }}
+  {{ if not (eq .Values.staticIPs "" )}}
+  {{ $ips := split "," .Values.staticIPs }}
+  {{ range $i, $v := $ips }}
+  - {{ $v }}
+  {{ end }}
+  {{ end }}
+  autoAssign: false

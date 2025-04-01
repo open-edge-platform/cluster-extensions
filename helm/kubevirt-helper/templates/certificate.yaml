@@ -1,0 +1,35 @@
+# SPDX-FileCopyrightText: (C) 2023 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "kubevirt-helper.fullname" . }}-certificate
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubevirt-helper.labels" . | nindent 4 }}
+spec:
+  commonName: {{ .Values.config.kubevirtHelper.certificate.commonName }}
+  duration: {{ .Values.config.kubevirtHelper.certificate.duration }}
+  renewBefore: {{ .Values.config.kubevirtHelper.certificate.renewBefore }}
+  privateKey:
+    algorithm: {{ .Values.config.kubevirtHelper.certificate.privateKey.algorithm }}
+    encoding: {{ .Values.config.kubevirtHelper.certificate.privateKey.encoding }}
+    size: {{ .Values.config.kubevirtHelper.certificate.privateKey.size }}
+  subject:
+    organizations:
+      - Intel Corporation
+    countries:
+      - US
+    organizationalUnits:
+      - Edge Orchestrator
+  secretName: {{ include "kubevirt-helper.fullname" . }}-certificate
+  dnsNames:
+    - {{ include "kubevirt-helper.fullname" . }}
+    - {{ include "kubevirt-helper.fullname" . }}.{{ .Release.Namespace }}
+    - {{ include "kubevirt-helper.fullname" . }}.{{ .Release.Namespace }}.svc
+  usages:
+    - server auth
+    - client auth
+  issuerRef:
+    name: {{ include "kubevirt-helper.fullname" . }}-issuer

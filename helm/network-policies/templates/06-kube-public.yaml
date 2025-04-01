@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: crd.projectcalico.org/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: kube-public
+spec:
+  order: 100
+  selector: all()
+  ingress:
+    - action: Deny
+  egress:
+    - action: Deny
+  types:
+    - Ingress
+    - Egress

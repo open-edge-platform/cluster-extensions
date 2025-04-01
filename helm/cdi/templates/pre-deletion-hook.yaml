@@ -1,0 +1,60 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+  name: cdi-pre-deletion
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cdi-pre-deletion
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+rules:
+  - apiGroups: ["cdi.kubevirt.io"]
+    resources: ["cdis"]
+    verbs: ["delete", "get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cdi-pre-deletion
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cdi-pre-deletion
+subjects:
+  - kind: ServiceAccount
+    name: cdi-pre-deletion
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cdi-pre-deletion
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation, hook-succeeded
+spec:
+  template:
+    spec:
+      serviceAccountName: cdi-pre-deletion
+      containers:
+        - name: kubectl
+          image: {{ .Values.kubectl.image }}
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "-e", "-c"]
+          args:
+            - |
+              echo "deleting cdi instance..."
+              kubectl delete --ignore-not-found=true cdi cdi --wait=true --timeout=5m
+              echo "all done!"
+      restartPolicy: OnFailure

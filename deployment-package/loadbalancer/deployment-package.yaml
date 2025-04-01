@@ -1,0 +1,45 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "DeploymentPackage"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: "loadbalancer"
+description: "Enables load balancer and dns services on the edge"
+version: 0.4.4
+
+kind: extension
+
+applications:
+  - name: metallb
+    version: 1.1.1
+  - name: metallb-base
+    version: 0.15.2
+  - name: metallb-config
+    version: 0.1.4
+  - name: edgedns
+    version: 2.0.7
+  - name: ingress-nginx
+    version: 5.1.1
+
+defaultNamespaces:
+  metallb: metallb-system
+  metallb-config: metallb-system
+  edgedns: edge-system
+  ingress-nginx: ingress-nginx
+
+deploymentProfiles:
+  - name: "default-profile"
+    displayName: "Default Configuration"
+    applicationProfiles:
+      - application: "metallb"
+        profile: "default"
+      - application: "metallb-base"
+        profile: "default"
+      - application: "metallb-config"
+        profile: "default"
+      - application: "edgedns"
+        profile: "default"
+      - application: "ingress-nginx"
+        profile: "default"

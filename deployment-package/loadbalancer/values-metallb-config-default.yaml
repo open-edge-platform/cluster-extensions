@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+ipAddressRange: 10.1.0.30-10.1.0.79
+dnsIPAddress: "10.1.0.80/32"
+ingressIPAddress: "10.1.0.81/32"
+
+# sample: "10.1.0.82/32,10.1.0.83/32"
+staticIPs: ""
+
+# sample interface: "enp138s0f0"
+L2Advertisement:
+  enabled: false
+  interface: ""

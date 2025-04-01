@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: 2022 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+version = 1
+
+[[annotations]]
+path = [
+    "**/VERSION",
+    "**.json",
+    "venv_extensions",
+    "artifacts",
+    "**/vendor/**",
+    "pkg/**/build/**",
+    "**_mock.go",
+    "**/go.mod",
+    "**/go.sum",
+    "**/.github/workflows/**",
+    "ci/*",
+    ".github/PULL_REQUEST_TEMPLATE.md",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2022 Intel Corporation"
+SPDX-License-Identifier = "Apache-2.0"

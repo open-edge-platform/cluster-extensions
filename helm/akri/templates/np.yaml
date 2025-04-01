@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: crd.projectcalico.org/v1
+kind: NetworkPolicy
+metadata:
+  name: ingress
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector: app.kubernetes.io/name == 'akri-webhook-configuration'
+  types:
+    - Ingress
+  ingress:
+    - action: Deny
+      source:
+        namespaceSelector: kubernetes.io/metadata.name not in {'kube-system'}
+    - action: Allow
+      destination:
+        services:
+          name: akri-webhook-configuration
+          namespace: akri

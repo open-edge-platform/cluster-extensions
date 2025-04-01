@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: kubernetesdashboard
+version: 0.0.2
+description: "kubernetes dashboard"
+
+# CLI tool will look up registry by name and convert to an ID.
+
+helmRegistry: "kubernetes"
+chartName: "kubernetes-dashboard"
+chartVersion: "7.10.0"
+
+profiles:
+  - name: "default"
+    valuesFileName: "values-dash.yaml"

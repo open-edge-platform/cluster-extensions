@@ -1,0 +1,131 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: metallb
+version: 1.1.1
+description: "Load balancer for bare metal k8s clusters"
+kind: extension
+
+helmRegistry: "bitnami-helm-oci"
+chartName: "metallb"
+chartVersion: "6.4.5"
+
+profiles:
+  - name: default
+    displayName: "Default"
+    valuesFileName: "empty-values.yaml"
+
+ignoredResources:
+  - kind: CustomResourceDefinition
+    name: "bgppeers.metallb.io"
+---
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: metallb-base
+version: 0.15.2
+description: "Metallb base configuration"
+kind: extension
+
+helmRegistry: "intel-rs-helm"
+chartName: "edge-orch/en/charts/metallb-base"
+chartVersion: "0.15.2"
+
+profiles:
+  - name: default
+    displayName: "Default"
+    valuesFileName: "empty-values.yaml"
+---
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: metallb-config
+version: 0.1.4
+description: "Load balancer configuration for bare metal k8s clusters"
+kind: extension
+
+helmRegistry: "intel-rs-helm"
+chartName: "edge-orch/en/charts/metallb-config"
+chartVersion: "0.1.4"
+
+profiles:
+  - name: default
+    displayName: "Default"
+    valuesFileName: "values-metallb-config-default.yaml"
+    parameterTemplates:
+      - name: dnsIPAddress
+        displayName: IP address allocated for EdgeDNS purposes
+        default: 10.1.0.80/32
+        type: string
+      - name: ingressIPAddress
+        displayName: IP address allocated for ingress purposes
+        default: 10.1.0.81/32
+        type: string
+      - name: staticIPs
+        displayName: other IP static addresses e.g., 10.1.0.82/32,10.1.0.83/32
+        default: ""
+        type: string
+      - name: ipAddressRange
+        displayName: Range of IP addresses used for exposing services e.g. 10.1.0.30-10.1.0.79
+        type: string
+        mandatory: true
+      - name: L2Advertisement.enabled
+        default: "false"
+        type: string
+      - name: L2Advertisement.interface
+        displayName: L2 advertisement interface name such as "enp138s0f0"
+        default: ""
+        type: string
+---
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: edgedns
+version: 2.0.7
+description: "Edge Orchestrator EdgeDNS"
+kind: extension
+
+helmRegistry: "intel-rs-helm"
+chartName: "edge-orch/en/charts/edgedns"
+chartVersion: "1.3.30"
+
+profiles:
+  - name: default
+    displayName: "Default"
+    valuesFileName: "values-edgedns-default.yaml"
+    parameterTemplates:
+      - name: staticIp
+        displayName: IP address exposing EdgeDNS service
+        default: 10.1.0.80
+        type: string
+
+---
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: ingress-nginx
+version: 5.1.1
+description: "Edge Orchestrator EdgeDNS"
+kind: extension
+
+helmRegistry: "kubernetes-ingress-helm"
+chartName: "ingress-nginx"
+chartVersion: "4.12.0"
+
+profiles:
+  - name: default
+    displayName: "Default"
+    valuesFileName: "values-ingress-nginx-default.yaml"
+    parameterTemplates:
+      - name: ingress-nginx.controller.service.loadBalancerIP
+        displayName: controller static IP
+        default: 10.1.0.81
+        type: string

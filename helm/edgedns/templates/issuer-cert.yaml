@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+# Certificate generation for selfsigned CA Issuer
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: edgedns-selfsigned-ca
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "2"
+spec:
+  isCA: true
+  commonName: edgedns-selfsigned-ca
+  secretName: root-secret
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: selfsigned-issuer
+    kind: Issuer
+    group: cert-manager.io

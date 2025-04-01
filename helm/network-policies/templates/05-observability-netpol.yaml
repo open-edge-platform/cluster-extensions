@@ -1,0 +1,43 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+#
+# SPDX-License-Identifier: Apache-2.0
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: observability
+  name: observability-deny-from-other-namespaces
+spec:
+  policyTypes:
+    - Ingress
+  podSelector:
+    matchLabels:
+  ingress:
+    - from:
+        - podSelector: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: observability
+  name: observability-allow-ui
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - ports:
+        - port: 9090
+        - port: 9200
+---
+apiVersion: crd.projectcalico.org/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-egress
+  namespace: observability
+spec:
+  selector: all()
+  types:
+    - Egress
+  egress:
+    - action: Allow

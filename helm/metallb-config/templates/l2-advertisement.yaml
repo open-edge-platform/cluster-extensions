@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: {{ .Release.Name }}-advertisement
+{{- if .Values.L2Advertisement.enabled }}
+spec:
+  interfaces:
+    - {{ .Values.L2Advertisement.interface }}
+{{- end }}

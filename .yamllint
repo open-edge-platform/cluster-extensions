@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+extends: default
+rules:
+    line-length:
+        max: 130
+ignore: |
+  **/helm/**/templates/*
+  .venv-extensions
+  .cache
+  catalog-orchestrator-0.1.schema.yaml
+  .github/**
+  pkg/**/vendor/
+  helm/cdi/crds/01-crds.yaml
+  helm/kubevirt/crds/01-crds.yaml
+  ci

@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+# NFD
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: nfd
+version: 0.17.0
+description: "NFD"
+kind: extension
+
+helmRegistry: "node-feature-discovery"
+chartName: "node-feature-discovery"
+chartVersion: "0.17.0"
+
+profiles:
+  - name: default
+    displayName: "default"
+    valuesFileName: "values-nfd.yaml"

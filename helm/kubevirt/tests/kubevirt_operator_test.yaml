@@ -1,0 +1,139 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+suite: Test KubeVirt Operator CRs
+release:
+  namespace: kubevirt
+templates:
+  - 01-kubevirt-operator.yaml
+tests:
+  - it: has 8 documents (CRs) in the file
+    asserts:
+      - hasDocuments:
+          count: 8
+  - it: PriorityClass - verification of metadata
+    documentIndex: 0
+    asserts:
+      - isKind:
+          of: PriorityClass
+      - equal:
+          path: metadata.name
+          value: kubevirt-cluster-critical
+      - equal:
+          path: value
+          value: 1000000000
+  - it: ClusterRole - verification of metadata
+    documentIndex: 1
+    asserts:
+      - isKind:
+          of: ClusterRole
+      - equal:
+          path: metadata.name
+          value: kubevirt.io:operator
+  - it: ServiceAccount - verification of metadata
+    documentIndex: 2
+    asserts:
+      - isKind:
+          of: ServiceAccount
+      - equal:
+          path: metadata.name
+          value: kubevirt-operator
+      - equal:
+          path: metadata.namespace
+          value: kubevirt
+  - it: Role - verification of metadata
+    documentIndex: 3
+    asserts:
+      - isKind:
+          of: Role
+      - equal:
+          path: metadata.name
+          value: kubevirt-operator
+      - equal:
+          path: metadata.namespace
+          value: kubevirt
+  - it: RoleBinding - verification of metadata, service account binding and role binding
+    documentIndex: 4
+    asserts:
+      - isKind:
+          of: RoleBinding
+      - equal:
+          path: metadata.name
+          value: kubevirt-operator-rolebinding
+      - equal:
+          path: metadata.namespace
+          value: kubevirt
+      - equal:
+          path: roleRef.name
+          value: kubevirt-operator
+      - contains:
+          path: subjects
+          content:
+            kind: ServiceAccount
+            name: kubevirt-operator
+            namespace: kubevirt
+  - it: ClusterRole - verification of metadata
+    documentIndex: 5
+    asserts:
+      - isKind:
+          of: ClusterRole
+      - equal:
+          path: metadata.name
+          value: kubevirt-operator
+  - it: >
+        ClusterRoleBinding - verification of metadata, service account binding
+        and cluster role binding
+    documentIndex: 6
+    asserts:
+      - isKind:
+          of: ClusterRoleBinding
+      - equal:
+          path: metadata.name
+          value: kubevirt-operator
+      - equal:
+          path: roleRef.name
+          value: kubevirt-operator
+      - contains:
+          path: subjects
+          content:
+            kind: ServiceAccount
+            name: kubevirt-operator
+            namespace: kubevirt
+  - it: Deployment - verification of metadata and significant spec values
+    documentIndex: 7
+    asserts:
+      - isAPIVersion:
+          of: apps/v1
+      - isKind:
+          of: Deployment
+      - equal:
+          path: metadata.namespace
+          value: kubevirt
+      - isNotEmpty:
+          path: spec.template.spec.containers[0]
+      - isNotEmpty:
+          path: spec.template.spec.containers[0].resources
+      - isNotNull:
+          path: spec.template
+      - isNull:
+          path: spec.template.nodeSelector
+      - equal:
+          path: spec.strategy.type
+          value: RollingUpdate
+      - equal:
+          path: spec.template.spec.priorityClassName
+          value: kubevirt-cluster-critical
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            containerPort: 8443
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            containerPort: 8444
+          any: true
+      - isNotEmpty:
+          path: spec.template.spec.volumes
+      - isNotEmpty:
+          path: spec.template.spec.containers[0].volumeMounts

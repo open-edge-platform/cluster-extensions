@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: v2
+name: intel-gpu-debug
+description: Job for Intel GPU debug
+type: application
+
+version: 1.2.3
+
+appVersion: 1.2.3

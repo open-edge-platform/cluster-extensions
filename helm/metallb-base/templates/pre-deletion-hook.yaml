@@ -1,0 +1,119 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+  # SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+    "helm.sh/hook-weight": "5"
+  name: metallb-pre-deletion
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: metallb-pre-deletion
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+    "helm.sh/hook-weight": "5"
+rules:
+  - apiGroups: ["metallb.io"]
+    resources: ["ipaddresspools", "l2advertisements", "servicel2statuses", "bfdprofiles", "bgpadvertisements", "bgppeers", "communities"]
+    verbs: ["delete", "get", "watch", "list"]
+  - apiGroups: ["apps"]
+    resources: ["daemonsets", "deployments"]
+    verbs: ["delete", "get", "watch", "list"]
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: [ "delete", "get", "watch", "list" ]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: metallb-pre-deletion
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+    "helm.sh/hook-weight": "5"
+rules:
+  - apiGroups: ["admissionregistration.k8s.io"]
+    resources: ["mutatingwebhookconfigurations", "validatingwebhookconfigurations"]
+    verbs: ["delete", "get", "watch", "list"]
+  - apiGroups: ["apiextensions.k8s.io"]
+    resources: ["customresourcedefinitions"]
+    verbs: ["delete", "get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: metallb-pre-deletion
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+    "helm.sh/hook-weight": "5"
+subjects:
+  - kind: ServiceAccount
+    name: metallb-pre-deletion
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: metallb-pre-deletion
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: metallb-pre-deletion
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+    "helm.sh/hook-weight": "5"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: metallb-pre-deletion
+subjects:
+  - kind: ServiceAccount
+    name: metallb-pre-deletion
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: metallb-pre-deletion
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation, hook-succeeded
+    "helm.sh/hook-weight": "10"
+spec:
+  template:
+    spec:
+      serviceAccountName: metallb-pre-deletion
+      containers:
+        - name: kubectl
+          image: {{ .Values.kubectl.image }}
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "-e", "-c"]
+          args:
+            - |
+              echo "deleting metallb instance..."
+              kubectl delete servicel2statuses.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m
+              kubectl delete ipaddresspools.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m
+              kubectl delete l2advertisements.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m
+              kubectl delete bfdprofiles.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m
+              kubectl delete bgpadvertisements.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m
+              kubectl delete bgppeers.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m
+              kubectl delete communities.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m
+              kubectl delete deployments -n {{ .Release.Namespace }} -l app.kubernetes.io/name=metallb --wait=true --timeout=5m
+              kubectl delete daemonsets -n {{ .Release.Namespace }} -l app.kubernetes.io/name=metallb --wait=true --timeout=5m
+              kubectl delete services -n {{ .Release.Namespace }} -l app.kubernetes.io/name=metallb --wait=true --timeout=5m
+              kubectl delete validatingwebhookconfigurations.admissionregistration.k8s.io -l app.kubernetes.io/name=metallb --wait=true --timeout=5m
+              for i in $(kubectl get crd | grep metallb | awk '{print $1}'); do kubectl delete crd $i --wait=true --timeout=5m; done
+              echo "all done!"
+      restartPolicy: OnFailure
