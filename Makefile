@@ -107,7 +107,7 @@ mdlint: ## link MD files
 	markdownlint --version ;\
 	markdownlint "**/*.md" --ignore "CODE_OF_CONDUCT.md" --ignore "SECURITY.md" --ignore "CONTRIBUTING.md" --ignore "ci/*"
 
-go-lint: $(OUT_DIR) ## Run go lint                                                                                
+go-lint: $(OUT_DIR) ## Run go lint
 	golangci-lint --version
 	golangci-lint run $(LINT_DIRS) --timeout 10m --config .golangci.yml
 

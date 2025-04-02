@@ -16,3 +16,4 @@ pkg/edgedns-coredns/out/
 pkg/edgedns-coredns/bin/
 pkg/edgedns-coredns/vendor/
 ci/
+vendor/
