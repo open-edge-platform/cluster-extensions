@@ -19,6 +19,9 @@ YAML_IGNORE        := manifest, $(VENV_NAME)
 all: build lint test
 	@# Help: Runs build, lint, test stages
 
+build: docker-build helm-build ## Runs build stage
+	@# Help: Runs build stage
+
 docker-build:
 	@# Help: Runs docker build stage
 	@echo "---MAKEFILE DOCKER BUILD---"
