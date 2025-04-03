@@ -2,7 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 
 PROJECT_NAME := extensions
-SUBPROJECTS  := pkg/edgedns-coredns pkg/kubevirt-helper pkg/intel-gpu-debug
+# SUBPROJECTS  := pkg/kubevirt-helper
+SUBPROJECTS  := pkg/kubevirt-helper pkg/edgedns-coredns
+# SUBPROJECTS  := pkg/edgedns-coredns pkg/kubevirt-helper pkg/intel-gpu-debug
 VENV_NAME	 := venv_$(PROJECT_NAME)
 SCRIPTS_DIR  := ./ci_scripts
 LINT_DIRS    := pkg/...
@@ -25,13 +27,13 @@ build: docker-build helm-build ## Runs build stage
 docker-build:
 	@# Help: Runs docker build stage
 	@echo "---MAKEFILE DOCKER BUILD---"
-	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir docker-build; done
+	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir docker-build || exit $$?; done
 	@echo "---END MAKEFILE DOCKER BUILD---"
 
 docker-push:
 	@# Help: Runs docker push stage
 	@echo "---MAKEFILE DOCKER PUSH---"
-	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir docker-push; done
+	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir docker-push || exit $$?; done
 	@echo "---END MAKEFILE DOCKER PUSH---"
 
 helm-build:
@@ -58,7 +60,7 @@ artifact-publish: ## only runs in CI
 lint: yamllint mdlint helmlint go-lint ## Runs lint stage
 	@# Help: Runs lint stage
 	@echo "---MAKEFILE LINT---"
-	@for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir lint; done
+	@for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir lint || exit $$?; done
 	@echo "---END MAKEFILE LINT---"
 
 license: $(VENV_NAME) ## Check licensing with the reuse tool
@@ -72,13 +74,13 @@ list:
 clean:
 	@# Help: Runs clean stage in all subprojects
 	@echo "---MAKEFILE CLEAN---"
-	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir clean; done
+	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir clean || exit $$?; done
 	@echo "---END MAKEFILE CLEAN---"
 
 clean-all:
 	@# Help: Runs clean-all stage in all subprojects
 	@echo "---MAKEFILE CLEAN-ALL---"
-	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir clean-all; done
+	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir clean-all || exit $$?; done
 	@echo "---END MAKEFILE CLEAN-ALL---"
 
 define make-subproject-target
