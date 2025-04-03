@@ -3,9 +3,10 @@
 
 PROJECT_NAME := extensions
 SUBPROJECTS  := pkg/edgedns-coredns pkg/kubevirt-helper pkg/intel-gpu-debug
-VENV_NAME	 := venv_$(PROJECT_NAME)
+VENV_NAME    := venv_$(PROJECT_NAME)
 SCRIPTS_DIR  := ./ci_scripts
 LINT_DIRS    := pkg/...
+SHELL        := bash -eu -o pipefail
 
 # build virtualenv
 $(VENV_NAME): requirements.txt
