@@ -32,8 +32,6 @@ all: build lint test
 go-build: fmt vet common-go-build-kubevirt-helper
 
 docker-build: common-docker-build-kubevirt-helper
-	echo "fail!"
-	exit 1
 
 docker-push: common-docker-push
 

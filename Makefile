@@ -2,9 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 PROJECT_NAME := extensions
-# SUBPROJECTS  := pkg/kubevirt-helper
-SUBPROJECTS  := pkg/kubevirt-helper pkg/edgedns-coredns
-# SUBPROJECTS  := pkg/edgedns-coredns pkg/kubevirt-helper pkg/intel-gpu-debug
+SUBPROJECTS  := pkg/edgedns-coredns pkg/kubevirt-helper pkg/intel-gpu-debug
 VENV_NAME	 := venv_$(PROJECT_NAME)
 SCRIPTS_DIR  := ./ci_scripts
 LINT_DIRS    := pkg/...
