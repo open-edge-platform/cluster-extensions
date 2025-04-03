@@ -765,8 +765,8 @@ github.com/open-edge-platform/orch-library/go v0.5.28 h1:N5j35jWikj2WeHJKqs6zGBg
 github.com/open-edge-platform/orch-library/go v0.5.28/go.mod h1:Wm6A5AJx4DCIOi4u+y1IMJxgFZ4n27f5FLSqW0QPW9k=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4 h1:Rx/bSAZiLjEEBjUiJEzBvT0fQv5huT5FQ2Ke3IMUhiE=
 github.com/open-edge-platform/orch-library/go/dazl v0.5.4/go.mod h1:UiO3TOEqEuRT81OtgPsqR9LpB1887i5nk2TelhJksMY=
-github.com/open-edge-platform/orch-library/go/dazl/zap v0.5.1 h1:6ALETlGDjiV1jX2J3LS/henfhveIasPmW4UYIHwftJ8=
-github.com/open-edge-platform/orch-library/go/dazl/zap v0.5.1/go.mod h1:vrxNoFBdeORTfE51vZVsDio/xV/92vQtK/XPE6Qrv04=
+github.com/open-edge-platform/orch-library/go/dazl/zap v0.5.4 h1:kDfNlrnTY+RLKEwhe6UWJJO1lqYCvMC0OTEOv9GVPPA=
+github.com/open-edge-platform/orch-library/go/dazl/zap v0.5.4/go.mod h1:PRtSHUA9ZBm0yQOoErx2bZyOT1EVS2gPOy4ByUlaANM=
 github.com/openshift/api v0.0.0-20210105115604-44119421ec6b/go.mod h1:aqU5Cq+kqKKPbDMqxo9FojgDeSpNJI7iuskjXjtojDg=
 github.com/openshift/api v0.0.0-20230503133300-8bbcb7ca7183 h1:t/CahSnpqY46sQR01SoS+Jt0jtjgmhgE6lFmRnO4q70=
 github.com/openshift/api v0.0.0-20230503133300-8bbcb7ca7183/go.mod h1:4VWG+W22wrB4HfBL88P40DxLEpSOaiBVxUnfalfJo9k=
