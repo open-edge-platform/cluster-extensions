@@ -7,13 +7,13 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "skupper"
 description: "Enables Skupper service on the edge"
-version: 0.1.5
+version: 0.1.6
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
   - name: skupper
-    version: 0.1.4
+    version: 0.1.5
 
 # namespace for networkpolicies and skupper pods
 defaultNamespaces:
