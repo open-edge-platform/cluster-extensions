@@ -6,10 +6,8 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: kubernetesdashboard
-version: 0.0.2
-description: "kubernetes dashboard"
-
-# CLI tool will look up registry by name and convert to an ID.
+version: 0.0.3
+description: "kubernetes-dashboard"
 
 helmRegistry: "kubernetes"
 chartName: "kubernetes-dashboard"
