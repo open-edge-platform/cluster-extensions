@@ -13,7 +13,7 @@ require (
 	github.com/go-logr/logr v1.2.4
 	github.com/golang/mock v1.6.0
 	github.com/open-edge-platform/orch-library/go v0.5.28
-	github.com/open-edge-platform/orch-library/go/dazl v0.5.1
+	github.com/open-edge-platform/orch-library/go/dazl v0.5.4
 	github.com/open-edge-platform/orch-library/go/dazl/zap v0.5.1
 	github.com/stretchr/testify v1.10.0
 	github.com/undefinedlabs/go-mpatch v1.0.7

@@ -105,7 +105,7 @@ common-docker-build-%: DOCKER_BUILD_FLAGS   += $(addprefix --target ,$(DOCKER_BU
 common-docker-build-%: DOCKER_VERSION       ?= latest
 common-docker-build-%: DOCKER_LABEL_VERSION ?= $(DOCKER_VERSION)
 common-docker-build-%: common-docker-setup-env
-	$(GOCMD) mod vendor || true
+	$(GOCMD) mod vendor
 	docker buildx build \
 		$(DOCKER_BUILD_FLAGS) \
 		-t $(DOCKER_IMG_NAME):$(DOCKER_VERSION) \
