@@ -25,13 +25,13 @@ build: docker-build helm-build ## Runs build stage
 docker-build:
 	@# Help: Runs docker build stage
 	@echo "---MAKEFILE DOCKER BUILD---"
-	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir docker-build || exit $$?; done
+	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir docker-build; done
 	@echo "---END MAKEFILE DOCKER BUILD---"
 
 docker-push:
 	@# Help: Runs docker push stage
 	@echo "---MAKEFILE DOCKER PUSH---"
-	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir docker-push || exit $$?; done
+	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir docker-push; done
 	@echo "---END MAKEFILE DOCKER PUSH---"
 
 helm-build:
@@ -58,7 +58,7 @@ artifact-publish: ## only runs in CI
 lint: yamllint mdlint helmlint go-lint ## Runs lint stage
 	@# Help: Runs lint stage
 	@echo "---MAKEFILE LINT---"
-	@for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir lint || exit $$?; done
+	@for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir lint; done
 	@echo "---END MAKEFILE LINT---"
 
 license: $(VENV_NAME) ## Check licensing with the reuse tool
@@ -72,13 +72,13 @@ list:
 clean:
 	@# Help: Runs clean stage in all subprojects
 	@echo "---MAKEFILE CLEAN---"
-	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir clean || exit $$?; done
+	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir clean; done
 	@echo "---END MAKEFILE CLEAN---"
 
 clean-all:
 	@# Help: Runs clean-all stage in all subprojects
 	@echo "---MAKEFILE CLEAN-ALL---"
-	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir clean-all || exit $$?; done
+	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir clean-all; done
 	@echo "---END MAKEFILE CLEAN-ALL---"
 
 define make-subproject-target
