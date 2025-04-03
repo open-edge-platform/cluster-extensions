@@ -6,13 +6,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: skupper
-version: 0.1.4
+version: 0.1.5
 description: "Skupper for interconnecting bare metal k8s clusters"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/skupper"
-chartVersion: "0.1.4"
+chartVersion: "0.1.5"
 
 profiles:
   - name: default
