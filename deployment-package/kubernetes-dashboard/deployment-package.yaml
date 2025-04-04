@@ -23,4 +23,4 @@ deploymentProfiles:
         profile: "default"
 
 defaultNamespaces:
-  kubernetesdashboard: kubernetes-dashboard
+  kubernetes-dashboard: kubernetes-dashboard
