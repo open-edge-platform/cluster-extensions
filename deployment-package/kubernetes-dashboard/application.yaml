@@ -5,8 +5,8 @@ specSchema: "Application"
 schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
-name: kubernetesdashboard
-version: 0.0.3
+name: kubernetes-dashboard
+version: 0.0.4
 description: "kubernetes-dashboard"
 
 helmRegistry: "kubernetes"
