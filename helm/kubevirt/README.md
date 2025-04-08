@@ -5,10 +5,6 @@
 
 # Installing Kubevirt
 
-## Prerequisite - Prometheus
-
-[Install Prometheus first](../prometheus/README.md)
-
 ## Helm Chart
 
 To run this Helm Chart use following command:

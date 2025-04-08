@@ -9,13 +9,13 @@
 
 ## Overview
 
-Cluster Extensions are a collection of cloud native applications
+Cluster Extensions are a collection of cloud-native applications
 that facilitate the deployment of Edge Nodes in the Edge Platform.
 
 They support both
 
 - the baseline capability of the Edge Node as **base extensions** and
-- the optional additional the Edge Node as **application extensions**
+- the optional additional capability of the Edge Node as **application extensions**
 
 The base extensions are the minimum set of applications that are required to secure the Edge Node and provide the basic
 functionality of the Edge Node like observability, logging, monitoring, etc. These are listed in the
@@ -24,10 +24,10 @@ functionality of the Edge Node like observability, logging, monitoring, etc. The
 The application extensions are the optional set of applications that facilitate the deployment of advanced applications
 on the Edge Node such as Load Balancer, GPU support, SRIOV support. These each have their own Deployment Package.
 
-Both sets of extensions are loaded in to the Edge Orchestrator
+Both sets of extensions are loaded into the Edge Orchestrator
 by default and are available for deployment from the Web UI.
 
-The CI integration for this repository will publish container images, deployment packages and helm charts
+The CI integration for this repository will publish container images, deployment packages, and helm charts
 to the Edge Orchestrator Release Service OCI registry upon merge to the main branch.
 
 At installation time, the Edge Orchestrator will pull these artifacts (based on a manifest) from the registry and
@@ -37,7 +37,7 @@ for deployment in each multi-tenancy Project on the Edge Orchestrator.
 ## Get Started
 
 See [Edge Orchestrator Application Orchestrator Developer Guide](https://literate-adventure-7vjeyem.pages.github.io/developer_guide/application_orchestration/application_orchestration_main.html)
-for more information on how these fit in to the overall Application Orchestration environment.
+for more information on how these fit into the overall Application Orchestration environment.
 
 See [Edge Orchestrator Application Orchestrator User Guide](https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/package_software/package_software_main.html)
 for more information on how to deploy these extensions.
@@ -51,7 +51,7 @@ New application extensions can be added to this repository by:
 - first creating a new Deployment Package folder in the `deployment-package` directory
 - creating an "applications.yaml" file in this folder. This file should contain the list of applications that are part
   of this extension, and give a reference to their helm chart and the registry where it can be found.
-- creating an "-values.yaml" file with overrides for the helm chart; one for each application in the
+- creating a "-values.yaml" file with overrides for the helm chart; one for each application in the
   extension - referenced from applications.yaml
 - creating a "deployment-package.yaml" file to gather the applications together
 
@@ -73,7 +73,7 @@ and ensure that CI can push the image to the registry.
 ## Contribute
 
 We welcome contributions from the community! To contribute, please open a pull request to have your changes reviewed
-and merged into the main. We encourage you to add appropriate unit tests and e2e tests if your contribution introduces
+and merged into the `main` branch. We encourage you to add appropriate unit tests and e2e tests if your contribution introduces
 a new feature. See the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information.
 
 Additionally, ensure the following commands are successful:
