@@ -3,7 +3,7 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.0.26
+  release: 1.0.27
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/base-extensions
@@ -21,7 +21,7 @@ lpke:
     - dpkg: edge-orch/en/file/virtualization
       version: 0.3.6
     - dpkg: edge-orch/en/file/trusted-compute
-      version: 0.3.4
+      version: 0.4.0
     - dpkg: edge-orch/en/file/kubernetes-dashboard
       version: 0.0.5
   deploymentList:

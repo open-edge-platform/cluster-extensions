@@ -7,7 +7,7 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "trusted-compute"
 description: "Trusted Compute k8s plugin for trusted workloads"
-version: 0.3.4
+version: 0.4.0
 forbidsMultipleDeployments: true
 kind: extension
 
