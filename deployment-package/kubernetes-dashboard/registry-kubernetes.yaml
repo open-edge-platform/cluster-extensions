@@ -6,7 +6,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "kubernetes"
-description: "Bitnami registry"
+description: "Kubernetes dashboard registry"
 type: "HELM"
 
 rootUrl: "https://kubernetes.github.io/dashboard/"
