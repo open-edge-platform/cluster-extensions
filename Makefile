@@ -56,7 +56,7 @@ artifact-publish: ## only runs in CI
 	$(SCRIPTS_DIR)/publish_manifest.sh
 	@echo "---END Manifest Publish---"
 
-lint: yamllint mdlint helmlint go-lint ## Runs lint stage
+lint: yamllint mdlint helmlint go-lint manifest-lint ## Runs lint stage
 	@# Help: Runs lint stage
 	@echo "---MAKEFILE LINT---"
 	@for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir lint; done
@@ -106,7 +106,7 @@ yamllint: $(VENV_NAME) ## lint YAML files
   yamllint --version ;\
   yamllint -s $(YAML_FILES)
 
-mdlint: ## link MD files
+mdlint: ## lint MD files
     # download tool from https://github.com/igorshubovych/markdownlint-cli
 	markdownlint --version ;\
 	markdownlint "**/*.md" --ignore "CODE_OF_CONDUCT.md" --ignore "SECURITY.md" --ignore "CONTRIBUTING.md" --ignore "ci/*"
@@ -114,6 +114,11 @@ mdlint: ## link MD files
 go-lint: $(OUT_DIR) ## Run go lint
 	golangci-lint --version
 	golangci-lint run $(LINT_DIRS) --timeout 10m --config .golangci.yml
+
+manifest-lint: ## lint the manifest file
+	pushd ./pkg/manifest-version-check > /dev/null; \
+	go run manifest-version-check.go -manifest ../../manifest/manifest.yaml -deployment-packages ../../deployment-package -version-file ../../VERSION; \
+	popd > /dev/null
 
 HELM_CHARTS := $(shell find . -type f -name 'Chart.yaml' -exec dirname {} \;)
 .PHONY: helmlint
