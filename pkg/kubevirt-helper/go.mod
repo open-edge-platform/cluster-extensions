@@ -1,6 +1,6 @@
 module github.com/open-edge-platform/cluster-extensions/kubevirt-helper
 
-go 1.23.0
+go 1.24.2
 
 toolchain go1.23.2
 

@@ -3,46 +3,46 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.0.26
+  release: 1.0.30
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/base-extensions
-      version: 0.7.7
+      version: 0.7.8
     - dpkg: edge-orch/en/file/intel-gpu
-      version: 1.2.3
-    - dpkg: edge-orch/en/file/loadbalancer
-      version: 0.4.4
-    - dpkg: edge-orch/en/file/skupper
-      version: 0.1.6
-    - dpkg: edge-orch/en/file/sriov
-      version: 0.3.3
-    - dpkg: edge-orch/en/file/usb
-      version: 0.3.2
-    - dpkg: edge-orch/en/file/virtualization
-      version: 0.3.6
-    - dpkg: edge-orch/en/file/trusted-compute
-      version: 0.3.4
+      version: 1.2.4
     - dpkg: edge-orch/en/file/kubernetes-dashboard
-      version: 0.0.5
+      version: 0.0.6
+    - dpkg: edge-orch/en/file/loadbalancer
+      version: 0.4.5
+    - dpkg: edge-orch/en/file/skupper
+      version: 0.1.7
+    - dpkg: edge-orch/en/file/sriov
+      version: 0.3.4
+    - dpkg: edge-orch/en/file/trusted-compute
+      version: 0.4.2
+    - dpkg: edge-orch/en/file/usb
+      version: 0.3.3
+    - dpkg: edge-orch/en/file/virtualization
+      version: 0.3.7
   deploymentList:
     - dpName: base-extensions
       displayName: base-extensions-baseline
       dpProfileName: baseline
-      dpVersion: 0.7.7
+      dpVersion: 0.7.8
       allAppTargetClusters:
         - key: default-extension
           val: baseline
     - dpName: base-extensions
       displayName: base-extensions-restricted
       dpProfileName: restricted
-      dpVersion: 0.7.7
+      dpVersion: 0.7.8
       allAppTargetClusters:
         - key: default-extension
           val: restricted
     - dpName: base-extensions
       displayName: base-extensions-privileged
       dpProfileName: privileged
-      dpVersion: 0.7.7
+      dpVersion: 0.7.8
       allAppTargetClusters:
         - key: default-extension
           val: privileged

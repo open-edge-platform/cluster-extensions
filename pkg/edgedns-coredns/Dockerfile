@@ -15,7 +15,7 @@ RUN export DEBCONF_NONINTERACTIVE_SEEN=true \
     apt-get -yyqq install ca-certificates ; \
     apt-get clean
 
-FROM docker.io/golang:1.23.6  AS build
+FROM docker.io/golang:1.24.2  AS build
 
 WORKDIR /workspace
 
