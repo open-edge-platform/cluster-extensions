@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: (C) 2023 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
-FROM golang:1.23 AS build
+FROM golang:1.24.2 AS build
 ENV APP_ROOT=$GOPATH/src/github.com/open-edge-platform/cluster-extensions/pkg/kubevirt-helper
 ENV CGO_ENABLED=0
 ENV GO111MODULE=on
