@@ -5,26 +5,26 @@
 
 # SR-IOV Network Operator Helm Chart
 
-SR-IOV Network Operator Helm Chart provides an easy way to install, configure and manage
-the lifecycle of SR-IOV network operator.
+SR-IOV Network Operator Helm Chart provides an easy way to install, configure, and manage
+the lifecycle of the SR-IOV network operator.
 
 ## SR-IOV Network Operator
 
-SR-IOV Network Operator leverages [Kubernetes CRDs](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+The SR-IOV Network Operator leverages [Kubernetes CRDs](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 and [Operator SDK](https://github.com/operator-framework/operator-sdk) to configure
 and manage SR-IOV networks in a Kubernetes cluster.
 
 SR-IOV Network Operator features:
 
 - Initialize the supported SR-IOV NIC types on selected nodes.
-- Provision/upgrade SR-IOV device plugin executable on selected node.
-- Provision/upgrade SR-IOV CNI plugin executable on selected nodes.
-- Manage configuration of SR-IOV device plugin on host.
-- Generate net-att-def CRs for SR-IOV CNI plugin
-- Supports operation in a virtualized Kubernetes deployment
-  - Discovers VFs attached to the Virtual Machine (VM)
-  - Does not require attached of associated PFs
-  - VFs can be associated to SriovNetworks by selecting the appropriate PciAddress as the RootDevice in the SriovNetworkNodePolicy
+- Provision/upgrade the SR-IOV device plugin executable on selected nodes.
+- Provision/upgrade the SR-IOV CNI plugin executable on selected nodes.
+- Manage the configuration of the SR-IOV device plugin on the host.
+- Generate net-att-def CRs for the SR-IOV CNI plugin.
+- Supports operation in a virtualized Kubernetes deployment:
+  - Discovers VFs attached to the Virtual Machine (VM).
+  - Does not require attachment of associated PFs.
+  - VFs can be associated with SriovNetworks by selecting the appropriate PciAddress as the RootDevice in the SriovNetworkNodePolicy.
 
 ## QuickStart
 
@@ -35,7 +35,7 @@ SR-IOV Network Operator features:
 
 ### Install Helm
 
-Helm provides an install script to copy helm binary to your system:
+Helm provides an installation script to copy the helm binary to your system:
 
 ```bash
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
@@ -43,7 +43,7 @@ chmod 500 get_helm.sh
 ./get_helm.sh
 ```
 
-For additional information and methods for installing Helm, refer to the official [helm website](https://helm.sh/)
+For additional information and methods for installing Helm, refer to the official [helm website](https://helm.sh/).
 
 ### Deploy SR-IOV Network Operator
 
@@ -57,12 +57,12 @@ kubectl -n sriov-network-operator get pods
 
 ## Chart parameters
 
-In order to tailor the deployment of the network operator to your cluster needs
-We have introduced the following Chart parameters.
+To tailor the deployment of the network operator to your cluster needs,
+we have introduced the following Chart parameters.
 
 ### Operator parameters
 
-| Name | Type | Default | description |
+| Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | `operator.resourcePrefix` | string | `openshift.io` | Device plugin resource prefix |
 | `operator.enableAdmissionController` | bool | `false` | Enable SR-IOV network resource injector and operator webhook |
@@ -71,7 +71,7 @@ We have introduced the following Chart parameters.
 
 ### Images parameters
 
-| Name | description |
+| Name | Description |
 | ---- | ----------- |
 | `images.operator` | Operator controller image |
 | `images.sriovConfigDaemon` | Daemon node agent image |
