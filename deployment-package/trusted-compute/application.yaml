@@ -13,7 +13,7 @@ kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/trusted-compute/charts/attestation-manager"
-chartVersion: "0.0.8"
+chartVersion: "0.1.0"
 
 profiles:
   - name: default
@@ -31,7 +31,7 @@ kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/trusted-compute/charts/attestation-verifier"
-chartVersion: "0.0.8"
+chartVersion: "0.1.0"
 
 profiles:
   - name: "default"
@@ -50,7 +50,7 @@ kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/trusted-compute/charts/trustagent"
-chartVersion: "0.0.8"
+chartVersion: "0.1.0"
 
 profiles:
   - name: "default"
@@ -62,13 +62,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: trusted-workload
-version: 1.0.0
+version: 1.0.1
 description: "Deploys the necessary CRD and runtime class to enable trusted compute workloads within virtual machines."
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/trusted-compute/charts/trusted-workload"
-chartVersion: "0.0.1"
+chartVersion: "1.2.0"
 
 profiles:
   - name: "default"
