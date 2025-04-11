@@ -5,4 +5,4 @@
 
 # Observability Config
 
-This chart contains templates to configure observability for the base extension' deployment.
+This chart contains templates to configure observability for the base extensions' deployment.
