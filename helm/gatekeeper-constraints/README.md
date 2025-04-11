@@ -2,6 +2,7 @@
   SPDX-FileCopyrightText: (C) 2025 Intel Corporation
   SPDX-License-Identifier: Apache-2.0
 -->
+
 # Helm Chart
 
 To run this Helm Chart use following command:
