@@ -81,7 +81,9 @@ func doCheck() error {
 		return err
 	}
 	logrus.Infof("Checking manifest: %v", mf.Metadata.Release)
-	if mf.Metadata.Release != version {
+	if strings.HasSuffix(version, "-dev") {
+		logrus.Warnf("Skipping manifest version check, -dev version detected: %s", version)
+	} else if mf.Metadata.Release != version {
 		logrus.Errorf("Version mismatch for manifest: expected %s, got %s", version, mf.Metadata.Release)
 		return errVersionMismatch
 	}
