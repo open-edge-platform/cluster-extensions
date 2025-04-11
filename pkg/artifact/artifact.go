@@ -26,6 +26,7 @@ type DeploymentList struct {
 	DPName               string                 `yaml:"dpName"`
 	DPProfileName        string                 `yaml:"dpProfileName"`
 	DPVersion            string                 `yaml:"dpVersion"`
+	DisplayName          string                 `yaml:"displayName"`
 	AllAppTargetClusters []*AllAppTargetCluster `yaml:"allAppTargetClusters"`
 }
 
