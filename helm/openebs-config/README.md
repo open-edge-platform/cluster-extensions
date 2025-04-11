@@ -5,4 +5,4 @@
 
 # OpenEBS Config
 
-A chart for configuring OpenEBS with the base extension's deployment.
+A chart for configuring OpenEBS with the base extension' deployment.

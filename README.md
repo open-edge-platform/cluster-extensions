@@ -27,7 +27,7 @@ on the Edge Node such as Load Balancer, GPU support, SRIOV support. These each h
 Both sets of extensions are loaded into the Edge Orchestrator
 by default and are available for deployment from the Web UI.
 
-The CI integration for this repository will publish container images, deployment packages, and helm charts
+The CI integration for this repository will publish container images, deployment packages and helm charts
 to the Edge Orchestrator Release Service OCI registry upon merge to the main branch.
 
 At installation time, the Edge Orchestrator will pull these artifacts (based on a manifest) from the registry and
