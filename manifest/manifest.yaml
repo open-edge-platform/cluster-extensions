@@ -3,7 +3,7 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.0.34
+  release: 1.0.35
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/base-extensions
@@ -23,7 +23,7 @@ lpke:
     - dpkg: edge-orch/en/file/usb
       version: 0.3.3
     - dpkg: edge-orch/en/file/virtualization
-      version: 0.3.7
+      version: 0.3.8
   deploymentList:
     - dpName: base-extensions
       displayName: base-extensions-baseline
