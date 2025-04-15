@@ -91,7 +91,7 @@ For support, start with [Troubleshooting](https://github.com/open-edge-platform)
 
 ## License
 
-Cluster Extensions is licensed under Apache 2.0.
+Cluster Extensions is licensed under [Apache 2.0 License](LICENSES/Apache-2.0.txt).
 
 [Application Catalog]: https://github.com/open-edge-platform/app-orch-catalog
 [Tenant Controller]: https://github.com/open-edge-platform/app-orch-tenant-controller
