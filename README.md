@@ -36,10 +36,10 @@ for deployment in each multi-tenancy Project on the Edge Orchestrator.
 
 ## Get Started
 
-See [Edge Orchestrator Application Orchestrator Developer Guide](https://literate-adventure-7vjeyem.pages.github.io/developer_guide/application_orchestration/application_orchestration_main.html)
+See [Edge Orchestrator Application Orchestrator Developer Guide](https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/app_orch/index.html)
 for more information on how these fit into the overall Application Orchestration environment.
 
-See [Edge Orchestrator Application Orchestrator User Guide](https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/package_software/package_software_main.html)
+See [Edge Orchestrator Application Orchestrator User Guide](https://docs.openedgeplatform.intel.com/edge-manage-docs/main/user_guide/package_software/extension_package.html)
 for more information on how to deploy these extensions.
 
 ## Develop
