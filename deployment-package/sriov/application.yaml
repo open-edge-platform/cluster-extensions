@@ -6,13 +6,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: sriov-network-operator
-version: 104.3.2
+version: 1.5.0
 description: "Provisions and configures SR-IOV CNI plugin and Device plugin"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/sriov"
-chartVersion: "104.3.2"
+chartVersion: "1.5.0"
 
 profiles:
   - name: default

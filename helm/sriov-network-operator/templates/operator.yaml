@@ -1,5 +1,8 @@
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
+{{- if not (.Capabilities.APIVersions.Has "k8s.cni.cncf.io/v1/NetworkAttachmentDefinition") -}}
+{{- required "rke2-multus is required but not found" "" -}}
+{{- end -}}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -19,6 +22,8 @@ spec:
       maxUnavailable: 33%
   template:
     metadata:
+      annotations:
+        openshift.io/required-scc: restricted-v2
       labels:
         name: sriov-network-operator
     spec:
@@ -92,6 +97,8 @@ spec:
               value: {{ .Values.operator.cniBinPath }}
             - name: CLUSTER_TYPE
               value: {{ .Values.operator.clusterType }}
+            - name: STALE_NODE_STATE_CLEANUP_DELAY_MINUTES
+              value: "{{ .Values.operator.staleNodeStateCleanupDelayMinutes }}"
         {{- if .Values.operator.admissionControllers.enabled }}
             - name: ADMISSION_CONTROLLERS_CERTIFICATES_OPERATOR_SECRET_NAME
               value: {{ .Values.operator.admissionControllers.certificates.secretNames.operator }}

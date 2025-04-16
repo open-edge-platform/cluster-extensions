@@ -33,6 +33,10 @@ operator:
   resourcePrefix: "intel"
   cniBinPath: "/opt/cni/bin"
   clusterType: "kubernetes"
+  # minimal amount of time (in minutes) the operator will wait before removing
+  # stale SriovNetworkNodeState objects (objects that doesn't match node with the daemon)
+  # "0" means no extra delay, in this case the CR will be removed by the next reconcilation cycle (may take up to 5 minutes)
+  staleNodeStateCleanupDelayMinutes: "30"
   admissionControllers:
     enabled: false
     certificates:
@@ -52,7 +56,7 @@ operator:
 sriovOperatorConfig:
   # deploy sriovOperatorConfig CR with the below values
   deploy: true
-  # node slectors for sriov-network-config-daemon
+  # node selectors for sriov-network-config-daemon
   configDaemonNodeSelector: {feature.node.kubernetes.io/network-sriov.capable: 'true'}
   # log level for both operator and sriov-network-config-daemon
   logLevel: 2
@@ -61,34 +65,35 @@ sriovOperatorConfig:
   disableDrain: false
   # sriov-network-config-daemon configuration mode. either "daemon" or "systemd"
   configurationMode: daemon
+  # feature gates to enable/disable
+  featureGates: {}
 # Example for supportedExtraNICs values ['MyNIC: "8086 1521 1520"']
 supportedExtraNICs: []
-
 # Image URIs for sriov-network-operator components
 images:
   operator:
     repository: rancher/hardened-sriov-network-operator
-    tag: v1.3.0-build20240816
+    tag: v1.5.0-build20250402
   sriovConfigDaemon:
     repository: rancher/hardened-sriov-network-config-daemon
-    tag: v1.3.0-build20240816
+    tag: v1.5.0-build20250402
   sriovCni:
     repository: rancher/hardened-sriov-cni
-    tag: v2.8.1-build20240820
+    tag: v2.9.0-build20250402
   ibSriovCni:
     repository: rancher/hardened-ib-sriov-cni
-    tag: v1.1.1-build20240816
+    tag: v1.2.0-build20250402
   sriovDevicePlugin:
     repository: rancher/hardened-sriov-network-device-plugin
-    tag: v3.7.0-build20240816
+    tag: v3.9.0-build20250402
   resourcesInjector:
     repository: rancher/hardened-sriov-network-resources-injector
-    tag: v1.6.0-build20240816
+    tag: v1.7.1-build20250402
   webhook:
     repository: rancher/hardened-sriov-network-webhook
-    tag: v1.3.0-build20240816
-
+    tag: v1.5.0-build20250402
 imagePullSecrets: []
+extraDeploy: []
 
 # cert_manager enables integration with cert-manager to generate
 # certificates for the operator webhooks. Otherwise the chart will
@@ -104,10 +109,10 @@ global:
       aggregateToDefaultRoles: false
 
 extensionImages:
-  - docker.io/rancher/hardened-sriov-network-operator:v1.3.0-build20240816
-  - docker.io/rancher/hardened-sriov-network-config-daemon:v1.3.0-build20240816
-  - docker.io/rancher/hardened-sriov-cni:v2.8.1-build20240820
-  - docker.io/rancher/hardened-ib-sriov-cni:v1.1.1-build20240816
-  - docker.io/rancher/hardened-sriov-network-device-plugin:v3.7.0-build20240816
-  - docker.io/rancher/hardened-sriov-network-resources-injector:v1.6.0-build20240816
-  - docker.io/rancher/hardened-sriov-network-webhook:v1.3.0-build20240816
+  - docker.io/rancher/hardened-sriov-network-operator:v1.5.0-build20250402
+  - docker.io/rancher/hardened-sriov-network-config-daemon:v1.5.0-build20250402
+  - docker.io/rancher/hardened-sriov-cni:v2.9.0-build20250402
+  - docker.io/rancher/hardened-ib-sriov-cni:v1.2.0-build20250402
+  - docker.io/rancher/hardened-sriov-network-device-plugin:v3.9.0-build20250402
+  - docker.io/rancher/hardened-sriov-network-resources-injector:v1.7.1-build20250402
+  - docker.io/rancher/hardened-sriov-network-webhook:v1.5.0-build20250402
