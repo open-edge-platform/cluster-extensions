@@ -117,7 +117,7 @@ go-lint: $(OUT_DIR) ## Run go lint
 
 manifest-lint: ## lint the manifest file
 	pushd ./pkg/manifest-version-check > /dev/null; \
-	go run manifest-version-check.go -manifest ../../manifest/manifest.yaml -deployment-packages ../../deployment-package -version-file ../../VERSION; \
+	go run manifest-version-check.go -manifest ../../manifest/manifest.yaml -deployment-packages ../../deployment-package -helm-directory ../../helm -version-file ../../VERSION; \
 	popd > /dev/null
 
 HELM_CHARTS := $(shell find . -type f -name 'Chart.yaml' -exec dirname {} \;)
