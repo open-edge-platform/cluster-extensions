@@ -18,6 +18,7 @@
 *.bak
 *.tmp
 *.orig
+*~
 # Various IDEs
 .project
 .idea/

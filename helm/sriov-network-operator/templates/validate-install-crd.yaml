@@ -20,4 +20,4 @@
 # 	{{- required "Required CRDs are missing. Please install the corresponding CRD chart before installing this chart." "" -}}
 # {{- end -}}
 # {{- end -}}
-  #{{- end -}}
+#{{- end -}}

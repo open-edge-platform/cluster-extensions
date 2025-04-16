@@ -7,13 +7,13 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "sriov"
 description: "Provisions and configures SR-IOV CNI plugin and Device plugin"
-version: 0.3.4
+version: 0.3.5
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
   - name: sriov-network-operator
-    version: 104.3.2
+    version: 1.5.0
 
 defaultNamespaces:
   sriov-network-operator: sriov-network-operator
