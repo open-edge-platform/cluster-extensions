@@ -19,6 +19,7 @@ import (
 var (
 	manifestFilePath      = flag.String("manifest", "", "Path to the manifest file")
 	deploymentPackagePath = flag.String("deployment-packages", "", "Path to the deployment packages")
+	helmDirectoryPath     = flag.String("helm-directory", "", "Path to the helm directory")
 	versionFilePath       = flag.String("version-file", "", "Path to the version file")
 
 	errVersionMismatch = errors.New("version mismatch")
@@ -62,6 +63,15 @@ type ApplicationProfile struct {
 	Name           string `yaml:"name"`
 	DisplayName    string `yaml:"displayName"`
 	ValuesFileName string `yaml:"valuesFileName"`
+}
+
+type HelmChart struct {
+	Name        string `yaml:"name"`
+	Description string `yaml:"description"`
+	Version     string `yaml:"version"`
+	APIVersion  string `yaml:"apiVersion"`
+	Icon        string `yaml:"icon"`
+	Home        string `yaml:"home"`
 }
 
 func doCheck() error {
@@ -130,6 +140,7 @@ func doCheck() error {
 		}
 		for _, dpApp := range dpp.Applications {
 			logrus.Infof("Checking application: %v %v", dpApp.Name, dpApp.Version)
+			var a Application
 			verified := slices.ContainsFunc(apps, func(app Application) bool {
 				if app.Name != dpApp.Name {
 					return false
@@ -138,10 +149,36 @@ func doCheck() error {
 					logrus.Errorf("Version mismatch for application %s: expected %s, got %s", dpApp.Name, dpApp.Version, app.Version)
 					return false
 				}
+				a = app
 				return true
 			})
 			if !verified {
 				return errVersionMismatch
+			}
+			if dpp.Name == "trusted-compute" { // Not hosted in this repo.
+				continue
+			}
+			if a.HelmRegistry == "intel-rs-helm" {
+				shortChartName := strings.TrimPrefix(a.ChartName, "edge-orch/en/charts/")
+				helmPath := *helmDirectoryPath + "/" + shortChartName
+				chartFile, err := os.ReadFile(helmPath + "/" + "Chart.yaml")
+				if err != nil {
+					return err
+				}
+				chart := HelmChart{}
+				err = yaml.Unmarshal(chartFile, &chart)
+				if err != nil {
+					return err
+				}
+				logrus.Infof("Checking helm chart: %v %v", chart.Name, chart.Version)
+				if chart.Name != shortChartName {
+					logrus.Errorf("Name mismatch for helm chart %s: expected %s, got %s", a.ChartName, a.ChartName, chart.Name)
+					return errVersionMismatch
+				}
+				if chart.Version != a.ChartVersion {
+					logrus.Errorf("Version mismatch for helm chart %s: expected %s, got %s", a.ChartName, a.ChartVersion, chart.Version)
+					return errVersionMismatch
+				}
 			}
 		}
 	}
@@ -163,6 +200,10 @@ func main() {
 	if *deploymentPackagePath == "" {
 		flag.Usage()
 		logrus.Fatal("Deployment packages path is required")
+	}
+	if *helmDirectoryPath == "" {
+		flag.Usage()
+		logrus.Fatal("Helm directory path is required")
 	}
 	if *versionFilePath == "" {
 		flag.Usage()

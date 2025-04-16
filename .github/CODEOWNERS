@@ -28,7 +28,7 @@
 /helm/metallb-config @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa @adibrastegarnia
 /helm/skupper @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa @adibrastegarnia
 /helm/skupper-sample-app @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa @adibrastegarnia
-/helm/sriov-network-operator @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa @adibrastegarnia
+/helm/sriov @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa @adibrastegarnia
 
 /deployment-package/intel-gpu @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa @adibrastegarnia
 /deployment-package/intel-gpu-debug @SeanCondon @scottmbaker @ray-milkey @pudelkoM @badhrinathpa @adibrastegarnia
