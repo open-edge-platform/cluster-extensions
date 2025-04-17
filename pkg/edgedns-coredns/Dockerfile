@@ -10,9 +10,9 @@ RUN export DEBCONF_NONINTERACTIVE_SEEN=true \
            DEBIAN_FRONTEND=noninteractive \
            DEBIAN_PRIORITY=critical \
            TERM=linux ; \
-    apt-get -qq update ; \
+    apt-get -yyqq update ; \
     apt-get -yyqq upgrade ; \
-    apt-get -yyqq install ca-certificates ; \
+    apt-get -yyqq install --no-install-recommends ca-certificates ; \
     apt-get clean
 
 FROM docker.io/golang:1.24.2  AS build
