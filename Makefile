@@ -120,6 +120,11 @@ manifest-lint: ## lint the manifest file
 	go run manifest-version-check.go -manifest ../../manifest/manifest.yaml -deployment-packages ../../deployment-package -helm-directory ../../helm -version-file ../../VERSION; \
 	popd > /dev/null
 
+trivyfsscan: ## run Trivy scan locally
+	@echo "Running Trivy scan on the filesystem"
+	trivy --version ;\
+	trivy fs --scanners vuln,misconfig,secret -s HIGH,CRITICAL .
+
 HELM_CHARTS := $(shell find . -type f -name 'Chart.yaml' -exec dirname {} \;)
 .PHONY: helmlint
 helmlint: ## lint helm charts
