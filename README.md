@@ -27,8 +27,8 @@ on the Edge Node such as Load Balancer, GPU support, SRIOV support. These each h
 Both sets of extensions are loaded into the Edge Orchestrator
 by default and are available for deployment from the Web UI.
 
-The CI integration for this repository will publish container images, deployment packages and helm charts
-to the Edge Orchestrator Release Service OCI registry upon merge to the main branch.
+The CI integration for this repository will publish container images, deployment packages and helm charts to the
+Edge Orchestrator Release Service OCI registry upon merge to the main branch.
 
 At installation time, the Edge Orchestrator will pull these artifacts (based on a manifest) from the registry and
 install them in the [Application Catalog] and the [Tenant Controller] will ensure that the applications are available
@@ -36,10 +36,10 @@ for deployment in each multi-tenancy Project on the Edge Orchestrator.
 
 ## Get Started
 
-See [Edge Orchestrator Application Orchestrator Developer Guide](https://literate-adventure-7vjeyem.pages.github.io/developer_guide/application_orchestration/application_orchestration_main.html)
+See [Edge Orchestrator Application Orchestrator Developer Guide](https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/app_orch/index.html)
 for more information on how these fit into the overall Application Orchestration environment.
 
-See [Edge Orchestrator Application Orchestrator User Guide](https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/package_software/package_software_main.html)
+See [Edge Orchestrator Application Orchestrator User Guide](https://docs.openedgeplatform.intel.com/edge-manage-docs/main/user_guide/package_software/extension_package.html)
 for more information on how to deploy these extensions.
 
 ## Develop
