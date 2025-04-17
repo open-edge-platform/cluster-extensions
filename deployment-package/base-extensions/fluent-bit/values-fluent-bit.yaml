@@ -5,6 +5,7 @@ hostname: global.fleet.clusterLabels.edge-orchestrator.intel.com/clustername
 nodeUUID: global.fleet.edge-orchestrator.intel.com/host-uuid
 image:
   tag: 3.2.9
+fullnameOverride: fluent-bit
 extraVolumeMounts:
   - name: certs
     mountPath: /opt/fluent-bit/certs
