@@ -26,7 +26,7 @@ defaultNamespaces:
   attestation-manager: isecl
   attestation-verifier: isecl
   trust-agent: isecl
-  trusted-workload: trusted-compute
+  trusted-workload: confidential-containers-system
 
 deploymentProfiles:
   - name: "default-profile"
