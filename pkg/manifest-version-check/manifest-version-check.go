@@ -20,6 +20,7 @@ var (
 	manifestFilePath      = flag.String("manifest", "", "Path to the manifest file")
 	deploymentPackagePath = flag.String("deployment-packages", "", "Path to the deployment packages")
 	helmDirectoryPath     = flag.String("helm-directory", "", "Path to the helm directory")
+	packageDirectoryPath  = flag.String("package-directory", "", "Path to the package directory")
 	versionFilePath       = flag.String("version-file", "", "Path to the version file")
 
 	errVersionMismatch = errors.New("version mismatch")
@@ -179,6 +180,22 @@ func doCheck() error {
 					logrus.Errorf("Version mismatch for helm chart %s: expected %s, got %s", a.ChartName, a.ChartVersion, chart.Version)
 					return errVersionMismatch
 				}
+				if chart.Name == "kubevirt-helper" || chart.Name == "edgedns" {
+					packagePath := *packageDirectoryPath + "/" + chart.Name
+					if chart.Name == "edgedns" {
+						packagePath = *packageDirectoryPath + "/" + "edgedns-coredns"
+					}
+					versionFile, err := os.ReadFile(packagePath + "/" + "VERSION")
+					if err != nil {
+						return err
+					}
+					packageVersion := strings.TrimSpace(string(versionFile))
+					logrus.Infof("Checking docker image: %v %v", chart.Name, packageVersion)
+					if packageVersion != chart.Version {
+						logrus.Errorf("Version mismatch for package %s: expected %s, got %s", shortChartName, chart.Version, packageVersion)
+						return errVersionMismatch
+					}
+				}
 			}
 		}
 	}
@@ -204,6 +221,10 @@ func main() {
 	if *helmDirectoryPath == "" {
 		flag.Usage()
 		logrus.Fatal("Helm directory path is required")
+	}
+	if *packageDirectoryPath == "" {
+		flag.Usage()
+		logrus.Fatal("Package directory path is required")
 	}
 	if *versionFilePath == "" {
 		flag.Usage()
