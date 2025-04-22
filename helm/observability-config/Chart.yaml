@@ -7,11 +7,10 @@ description: A Helm chart for configuring observability extensions
 name: observability-config
 type: application
 
-version: 0.0.3
-appVersion: 0.0.3
+version: 0.0.4
+appVersion: 0.0.4
 
 dependencies:
   - name: cert-manager
     repository: "https://charts.jetstack.io"
     version: 1.16.2
-    condition: cert-manager.enabled
