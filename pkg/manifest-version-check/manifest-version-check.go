@@ -8,6 +8,7 @@ import (
 	"errors"
 	"flag"
 	"os"
+	"path/filepath"
 	"slices"
 	"strings"
 
@@ -122,22 +123,10 @@ func doCheck() error {
 			return errVersionMismatch
 		}
 
-		if dpp.Name == "base-extensions" {
-			logrus.Warnf("Skipping applications check for base-extensions deployment package")
-			continue
-		}
-
-		appPath := *deploymentPackagePath + "/" + dpName + "/" + "applications.yaml"
-		appPathAlt := *deploymentPackagePath + "/" + dpName + "/" + "application.yaml"
-
-		// Parse and validate the applications for a given DP.
-		apps, err := loadApplications(appPath)
+		apps, err := loadApplications(&dpp)
 		if err != nil {
-			apps, err = loadApplications(appPathAlt) // Try singular.
-			if err != nil {
-				logrus.Errorf("Failed to load applications file: %v", err)
-				return err
-			}
+			logrus.Errorf("Failed to load applications file: %v", err)
+			return err
 		}
 		for _, dpApp := range dpp.Applications {
 			logrus.Infof("Checking application: %v %v", dpApp.Name, dpApp.Version)
@@ -236,9 +225,9 @@ func main() {
 	}
 }
 
-// loadApplications takes a path to a application yaml file, parses all
+// parseApplication takes a path to a application yaml file, parses all
 // documents within it, and returns them as a slice of Application structs.
-func loadApplications(path string) ([]Application, error) {
+func parseApplication(path string) ([]Application, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
@@ -251,4 +240,24 @@ func loadApplications(path string) ([]Application, error) {
 	}
 
 	return applications, nil
+}
+
+func loadApplications(dp *DeploymentPackage) ([]Application, error) {
+	var applications []Application
+	// Find all files named applications.yaml or application.yaml in the deployment-package/<dp name> directory.
+	err := filepath.Walk(*deploymentPackagePath+"/"+dp.Name, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() && (strings.HasSuffix(info.Name(), "applications.yaml") || strings.HasSuffix(info.Name(), "application.yaml")) {
+			apps, err := parseApplication(path)
+			if err != nil {
+				return err
+			}
+			applications = append(applications, apps...)
+		}
+		return nil
+	})
+
+	return applications, err
 }
