@@ -13,30 +13,15 @@ forbidsMultipleDeployments: true
 kind: extension
 
 applications:
-  - name: attestation-manager
-    version: 1.0.0
-  - name: attestation-verifier
-    version: 1.0.0
-  - name: trust-agent
-    version: 1.0.0
   - name: trusted-workload
     version: 1.0.1
 
 defaultNamespaces:
-  attestation-manager: isecl
-  attestation-verifier: isecl
-  trust-agent: isecl
   trusted-workload: trusted-compute
 
 deploymentProfiles:
   - name: "default-profile"
     displayName: "Default Configuration"
     applicationProfiles:
-      - application: "attestation-manager"
-        profile: "default"
-      - application: "attestation-verifier"
-        profile: "default"
-      - application: "trust-agent"
-        profile: "default"
       - application: "trusted-workload"
         profile: "default"
