@@ -70,19 +70,59 @@ If there are new containers required for new applications they can also be store
 directory. Include the `common.mk` file in the Makefile and use the `make` command to build the container images
 and ensure that CI can push the image to the registry.
 
+## Dependencies
+
+This code requires the following tools to be installed on your development machine:
+
+- [Docker](https://docs.docker.com/engine/install/) to build containers
+- [Go\* programming language](https://go.dev)
+- [golangci-lint](https://github.com/golangci/golangci-lint)
+- [Python\* programming language version 3.10 or later](https://www.python.org/downloads)
+- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/) based cluster for end-to-end tests
+- [Helm](https://helm.sh/docs/intro/install/) for install helm charts for end-to-end tests
+
+## Build
+
+Below are some of important make targets which developer should be aware about.
+
+Build the component binary as follows:
+
+```bash
+# Build go binary
+make build
+```
+
+License checks are run for each PR and user can run linter check as follows:
+
+```bash
+make license
+```
+
+
+Linter checks are run for each PR and user can run linter as follows:
+
+```bash
+make lint
+```
+
+Container images for the component are generated as follows:
+
+```bash
+make docker-build
+```
+
+If developer has done any helm chart changes then helm charts can be build as follows:
+
+```bash
+make helm-build
+```
+
 ## Contribute
 
 We welcome contributions from the community! To contribute, please open a pull request to have your changes reviewed
 and merged into the `main` branch. We encourage you to add appropriate unit tests and end-to-end tests if
 your contribution introduces a new feature. See [Contributor Guide] for information on how to contribute to the project.
 
-Additionally, ensure the following commands are successful:
-
-```shell
-make test
-make lint
-make license
-```
 
 ## Community and Support
 
