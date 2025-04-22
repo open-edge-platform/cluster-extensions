@@ -3,11 +3,11 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.0.36
+  release: 1.0.37
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/base-extensions
-      version: 0.7.9
+      version: 0.7.10
     - dpkg: edge-orch/en/file/intel-gpu
       version: 1.2.4
     - dpkg: edge-orch/en/file/kubernetes-dashboard
@@ -28,21 +28,21 @@ lpke:
     - dpName: base-extensions
       displayName: base-extensions-baseline
       dpProfileName: baseline
-      dpVersion: 0.7.9
+      dpVersion: 0.7.10
       allAppTargetClusters:
         - key: default-extension
           val: baseline
     - dpName: base-extensions
       displayName: base-extensions-restricted
       dpProfileName: restricted
-      dpVersion: 0.7.9
+      dpVersion: 0.7.10
       allAppTargetClusters:
         - key: default-extension
           val: restricted
     - dpName: base-extensions
       displayName: base-extensions-privileged
       dpProfileName: privileged
-      dpVersion: 0.7.9
+      dpVersion: 0.7.10
       allAppTargetClusters:
         - key: default-extension
           val: privileged
