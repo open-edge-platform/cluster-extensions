@@ -7,13 +7,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: observability-config
-version: 0.0.2
+version: 0.0.3
 description: "Observability Config"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/observability-config"
-chartVersion: "0.0.2"
+chartVersion: "0.0.3"
 
 profiles:
   - name: default
