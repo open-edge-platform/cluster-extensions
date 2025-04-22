@@ -98,7 +98,6 @@ License checks are run for each PR and user can run linter check as follows:
 make license
 ```
 
-
 Linter checks are run for each PR and user can run linter as follows:
 
 ```bash
@@ -122,7 +121,6 @@ make helm-build
 We welcome contributions from the community! To contribute, please open a pull request to have your changes reviewed
 and merged into the `main` branch. We encourage you to add appropriate unit tests and end-to-end tests if
 your contribution introduces a new feature. See [Contributor Guide] for information on how to contribute to the project.
-
 
 ## Community and Support
 
