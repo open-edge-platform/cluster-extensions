@@ -17,6 +17,7 @@ path = [
     "**/.github/workflows/**",
     "ci/*",
     ".github/PULL_REQUEST_TEMPLATE.md",
+    "helm/observability-config/charts/**",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2022 Intel Corporation"
