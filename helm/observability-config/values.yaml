@@ -16,4 +16,3 @@ telegraf:
   interval: 30s
   port: 9105
   otelport: 4317
-
