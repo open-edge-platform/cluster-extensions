@@ -117,7 +117,7 @@ go-lint: $(OUT_DIR) ## Run go lint
 
 manifest-lint: ## lint the manifest file
 	pushd ./pkg/manifest-version-check > /dev/null; \
-	go run manifest-version-check.go -manifest ../../manifest/manifest.yaml -deployment-packages ../../deployment-package -helm-directory ../../helm -version-file ../../VERSION; \
+	go run manifest-version-check.go -manifest ../../manifest/manifest.yaml -deployment-packages ../../deployment-package -helm-directory ../../helm -package-directory ../../pkg -version-file ../../VERSION; \
 	popd > /dev/null
 
 trivyfsscan: ## run Trivy scan locally
