@@ -37,9 +37,9 @@ applications:
   - name: openebs-config
     version: 0.0.2
 
-#applicationDependencies:
-#  - name: openebs
-#    requires: node-exporter
+applicationDependencies:
+  - name: openebs
+    requires: node-exporter
 #  - name: gatekeeper
 #    requires: cert-manager
 #  - name: gatekeeper-constraints
