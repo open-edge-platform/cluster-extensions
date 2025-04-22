@@ -85,10 +85,10 @@ This code requires the following tools to be installed on your development machi
 
 Below are some of important make targets which developer should be aware about.
 
-Build the component binary as follows:
+Build the component binaries as follows:
 
 ```bash
-# Build go binary
+# Build go binaries
 make build
 ```
 
@@ -105,7 +105,7 @@ Linter checks are run for each PR and user can run linter as follows:
 make lint
 ```
 
-Container images for the component are generated as follows:
+Container images for the components are generated as follows:
 
 ```bash
 make docker-build
