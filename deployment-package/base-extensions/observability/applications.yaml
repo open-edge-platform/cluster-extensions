@@ -13,7 +13,7 @@ kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/observability-config"
-chartVersion: "0.0.3"
+chartVersion: "0.0.4"
 
 profiles:
   - name: default
