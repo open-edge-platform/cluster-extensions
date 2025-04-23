@@ -7,5 +7,5 @@ description: A Helm chart for configuring the openebs extension
 name: openebs-config
 type: application
 
-version: 0.0.2
-appVersion: 0.0.2
+version: 0.1.0
+appVersion: 0.1.0

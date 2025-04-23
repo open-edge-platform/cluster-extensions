@@ -7,5 +7,5 @@ description: A Helm chart for configuring observability extensions
 name: observability-config
 type: application
 
-version: 0.0.6
-appVersion: 0.0.6
+version: 0.1.0
+appVersion: 0.1.0

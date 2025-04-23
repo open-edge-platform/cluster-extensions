@@ -26,13 +26,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: gatekeeper-constraints
-version: 1.0.15
+version: 1.2.0
 description: "Gatekeeper Constraints"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/gatekeeper-constraints"
-chartVersion: "1.0.15"
+chartVersion: "1.2.0"
 
 profiles:
   - name: baseline

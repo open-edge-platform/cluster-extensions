@@ -5,5 +5,5 @@ apiVersion: v2
 name: edgedns
 description: A Helm chart for Edge Orchestrator EdgeDNS
 type: application
-version: 1.3.31
-appVersion: 1.3.31
+version: 1.4.0
+appVersion: 1.4.0
