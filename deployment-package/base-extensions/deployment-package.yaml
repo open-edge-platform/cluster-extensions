@@ -59,6 +59,9 @@ applicationDependencies:
 #  - name: openebs-config
 #    requires: cert-manager
 
+namespaces:
+  - name: "cert-manager"
+
 defaultNamespaces:
   nfd: nfd
   gatekeeper: gatekeeper-system
