@@ -16,9 +16,3 @@ telegraf:
   interval: 30s
   port: 9105
   otelport: 4317
-
-# cert-manager.enabled: override this to true in deployment package to cause cert-manager to
-# be a dependency of observability-config.
-
-cert-manager:
-  enabled: false
