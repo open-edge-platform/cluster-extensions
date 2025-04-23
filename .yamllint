@@ -15,3 +15,4 @@ ignore: |
   helm/cdi/crds/01-crds.yaml
   helm/kubevirt/crds/01-crds.yaml
   ci
+  helm/observability-config/crds/**
