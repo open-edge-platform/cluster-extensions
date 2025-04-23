@@ -3,7 +3,10 @@
 ---
 cert-manager:
   enabled: true
-  installCRDs: true
+  installCRDs: false
+  namespace: cert-manager
+  crds:
+    enabled: false  
   resources:
     requests:
       cpu: 10m
