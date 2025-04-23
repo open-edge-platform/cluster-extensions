@@ -3,7 +3,6 @@
 ---
 cert-manager:
   enabled: true
-  installCRDs: false
   namespace: cert-manager
   crds:
     enabled: false  
