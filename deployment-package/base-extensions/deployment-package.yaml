@@ -7,7 +7,7 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "base-extensions"
 description: "Base Extensions"
-version: 0.7.12
+version: 0.7.11
 forbidsMultipleDeployments: true
 kind: extension
 
@@ -20,8 +20,8 @@ applications:
     version: 1.0.15
   - name: network-policies
     version: 0.1.13
-  - name: cert-manager
-    version: 1.16.2
+#  - name: cert-manager
+#    version: 1.16.2
   - name: fluent-bit
     version: 0.48.9
   - name: telegraf
@@ -33,38 +33,38 @@ applications:
   - name: openebs
     version: 4.2.0
   - name: observability-config
-    version: 0.0.5
+    version: 0.0.4
   - name: openebs-config
     version: 0.0.2
 
 applicationDependencies:
   - name: openebs
     requires: node-exporter
-  - name: gatekeeper
-    requires: cert-manager
-  - name: gatekeeper-constraints
-    requires: cert-manager
-  - name: network-policies
-    requires: cert-manager
-  - name: fluent-bit
-    requires: cert-manager
-  - name: telegraf
-    requires: cert-manager
-  - name: prometheus
-    requires: cert-manager
-  - name: node-exporter
-    requires: cert-manager
-  - name: observability-config
-    requires: cert-manager
-  - name: openebs-config
-    requires: cert-manager
+#  - name: gatekeeper
+#    requires: cert-manager
+#  - name: gatekeeper-constraints
+#    requires: cert-manager
+#  - name: network-policies
+#    requires: cert-manager
+#  - name: fluent-bit
+#    requires: cert-manager
+#  - name: telegraf
+#    requires: cert-manager
+#  - name: prometheus
+#    requires: cert-manager
+#  - name: node-exporter
+#    requires: cert-manager
+#  - name: observability-config
+#    requires: cert-manager
+#  - name: openebs-config
+#    requires: cert-manager
 
 defaultNamespaces:
   nfd: nfd
   gatekeeper: gatekeeper-system
   gatekeeper-constraints: gatekeeper-system
   network-policies: kube-system
-  cert-manager: cert-manager
+#  cert-manager: cert-manager
   fluent-bit: observability
   telegraf: observability
   prometheus: observability
@@ -85,8 +85,8 @@ deploymentProfiles:
         profile: baseline
       - application: network-policies
         profile: default
-      - application: cert-manager
-        profile: default
+#      - application: cert-manager
+#        profile: default
       - application: fluent-bit
         profile: default
       - application: telegraf
@@ -112,8 +112,8 @@ deploymentProfiles:
         profile: privileged
       - application: network-policies
         profile: default
-      - application: cert-manager
-        profile: default
+#      - application: cert-manager
+#        profile: default
       - application: fluent-bit
         profile: default
       - application: telegraf
@@ -139,8 +139,8 @@ deploymentProfiles:
         profile: restricted
       - application: network-policies
         profile: default
-      - application: cert-manager
-        profile: default
+#      - application: cert-manager
+#        profile: default
       - application: fluent-bit
         profile: default
       - application: telegraf
