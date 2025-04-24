@@ -7,4 +7,3 @@ name: network-policies
 description: Network Policies for Edge Node cluster
 type: application
 version: 0.2.0
-appVersion: 0.2.0
