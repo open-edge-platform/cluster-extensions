@@ -10,10 +10,10 @@
 * @jdanieck @adorney99 @SeanCondon @hyunsun @scottmbaker @ray-milkey @pudelkoM @badhrinathpa @jokuniew @eoghanlawless @togashidm @pbartosik @ajaythakurintel
 
 # Except the following folders for base extensions
-/helm/gatekeeper-constraints @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik @scottmbaker @ajaythakurintel @ray-milkey
-/helm/network-policies @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik @scottmbaker @ajaythakurintel @ray-milkey
-/helm/observability-config @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik @scottmbaker @ajaythakurintel @ray-milkey
-/helm/openebs-config @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik @scottmbaker @ajaythakurintel @ray-milkey
+/helm/gatekeeper-constraints @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik @SeanCondon @scottmbaker @ajaythakurintel @ray-milkey
+/helm/network-policies @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik @SeanCondon @scottmbaker @ajaythakurintel @ray-milkey
+/helm/observability-config @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik @SeanCondon @scottmbaker @ajaythakurintel @ray-milkey
+/helm/openebs-config @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik @SeanCondon @scottmbaker @ajaythakurintel @ray-milkey
 
 /deployment-package/base-extensions @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik @scottmbaker @ray-milkey @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
 

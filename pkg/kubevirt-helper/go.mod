@@ -2,8 +2,6 @@ module github.com/open-edge-platform/cluster-extensions/kubevirt-helper
 
 go 1.24.2
 
-toolchain go1.23.2
-
 replace (
 	k8s.io/api => k8s.io/api v0.26.4
 	k8s.io/client-go => k8s.io/client-go v0.26.4
