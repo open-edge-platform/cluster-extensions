@@ -4,6 +4,9 @@
 
 name: Post-Merge CI Pipeline
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
@@ -13,7 +16,7 @@ on:
 
 jobs:
   post-merge:
-    uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@main
+    uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@0.1.7
     with:
       run_version_tag: true
       run_docker_build: true
