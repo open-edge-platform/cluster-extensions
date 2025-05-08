@@ -7,7 +7,7 @@
 # someone opens a pull request.
 
 # Everything requires team review by default
-* @jdanieck @adorney99 @SeanCondon @hyunsun @scottmbaker @ray-milkey @pudelkoM @badhrinathpa @jokuniew @eoghanlawless @togashidm @pbartosik @ajaythakurintel
+* @jdanieck @adorney99 @SeanCondon @hyunsun @scottmbaker @ray-milkey @pudelkoM @badhrinathpa @jokuniew @eoghanlawless @togashidm @ajaythakurintel
 
 # Except the following folders for base extensions
 /helm/gatekeeper-constraints @jdanieck @adorney99 @hyunsun @jokuniew @eoghanlawless @togashidm @pbartosik @SeanCondon @scottmbaker @ajaythakurintel @ray-milkey
