@@ -6,4 +6,3 @@ description: A Helm chart for Kubernetes
 name: metallb-config
 type: application
 version: 0.2.0
-appVersion: 0.2.0
