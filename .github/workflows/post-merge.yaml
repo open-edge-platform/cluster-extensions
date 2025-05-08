@@ -16,7 +16,7 @@ on:
 
 jobs:
   post-merge:
-    uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@0.1.7
+    uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@31986a986cab0a87721ecb694388029e94e55ff7 # v0.1.8
     with:
       run_version_tag: true
       run_docker_build: true
@@ -25,4 +25,5 @@ jobs:
       run_helm_build: true
       run_helm_push: true
       run_artifact: true
-    secrets: inherit
+    secrets:
+      inherit # zizmor: ignore[secrets-inherit]
