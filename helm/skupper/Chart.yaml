@@ -6,3 +6,4 @@ name: skupper
 description: A Helm chart for Skupper
 type: application
 version: 0.2.0
+appVersion: 0.2.0
