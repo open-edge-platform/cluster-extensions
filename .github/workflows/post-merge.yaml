@@ -12,6 +12,7 @@ on:
     branches:
       - main
       - release-*
+      - max/ci-fix-1
   workflow_dispatch:
 
 jobs:
@@ -20,10 +21,10 @@ jobs:
     with:
       run_version_tag: true
       run_docker_build: true
-      run_docker_push: true
+      run_docker_push: false
       run_build: false
       run_helm_build: true
-      run_helm_push: true
+      run_helm_push: false
       run_artifact: true
     secrets:
       inherit # zizmor: ignore[secrets-inherit]
