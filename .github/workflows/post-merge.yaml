@@ -17,7 +17,7 @@ on:
       - max/ci-fix-1
 
 jobs:
-  post-merge-pipeline:
+  post-merge:
     uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@main
     with:
       run_version_tag: true
