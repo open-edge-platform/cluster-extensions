@@ -24,9 +24,9 @@ fi
 
 for pkg in $pkg_list; do
   echo "------$pkg------"
-  # check if Helm package contains appVersion, fail otherwise
-  if [ "$(helm show chart "$pkg" | grep -c appVersion)" -eq 0 ]; then
-    echo "# Package $pkg doesn't contain appVersion!!! #"
+  # check if Helm package contains version, fail otherwise
+  if [ "$(helm show chart "$pkg" | grep -c version)" -eq 0 ]; then
+    echo "# Package $pkg doesn't contain version!!! #"
     exit 1
   fi
   echo $HELM_REGISTRY
