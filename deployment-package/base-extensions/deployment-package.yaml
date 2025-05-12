@@ -17,7 +17,7 @@ applications:
   - name: gatekeeper
     version: 3.17.1
   - name: gatekeeper-constraints
-    version: 1.2.0
+    version: 1.1.0
   - name: network-policies
     version: 0.2.0
   - name: cert-manager

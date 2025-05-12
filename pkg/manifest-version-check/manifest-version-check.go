@@ -8,6 +8,7 @@ import (
 	"errors"
 	"flag"
 	"os"
+	"path/filepath"
 	"slices"
 	"strings"
 
@@ -20,6 +21,7 @@ var (
 	manifestFilePath      = flag.String("manifest", "", "Path to the manifest file")
 	deploymentPackagePath = flag.String("deployment-packages", "", "Path to the deployment packages")
 	helmDirectoryPath     = flag.String("helm-directory", "", "Path to the helm directory")
+	packageDirectoryPath  = flag.String("package-directory", "", "Path to the package directory")
 	versionFilePath       = flag.String("version-file", "", "Path to the version file")
 
 	errVersionMismatch = errors.New("version mismatch")
@@ -121,22 +123,10 @@ func doCheck() error {
 			return errVersionMismatch
 		}
 
-		if dpp.Name == "base-extensions" {
-			logrus.Warnf("Skipping applications check for base-extensions deployment package")
-			continue
-		}
-
-		appPath := *deploymentPackagePath + "/" + dpName + "/" + "applications.yaml"
-		appPathAlt := *deploymentPackagePath + "/" + dpName + "/" + "application.yaml"
-
-		// Parse and validate the applications for a given DP.
-		apps, err := loadApplications(appPath)
+		apps, err := loadApplications(&dpp)
 		if err != nil {
-			apps, err = loadApplications(appPathAlt) // Try singular.
-			if err != nil {
-				logrus.Errorf("Failed to load applications file: %v", err)
-				return err
-			}
+			logrus.Errorf("Failed to load applications file: %v", err)
+			return err
 		}
 		for _, dpApp := range dpp.Applications {
 			logrus.Infof("Checking application: %v %v", dpApp.Name, dpApp.Version)
@@ -179,6 +169,22 @@ func doCheck() error {
 					logrus.Errorf("Version mismatch for helm chart %s: expected %s, got %s", a.ChartName, a.ChartVersion, chart.Version)
 					return errVersionMismatch
 				}
+				if chart.Name == "kubevirt-helper" || chart.Name == "edgedns" {
+					packagePath := *packageDirectoryPath + "/" + chart.Name
+					if chart.Name == "edgedns" {
+						packagePath = *packageDirectoryPath + "/" + "edgedns-coredns"
+					}
+					versionFile, err := os.ReadFile(packagePath + "/" + "VERSION")
+					if err != nil {
+						return err
+					}
+					packageVersion := strings.TrimSpace(string(versionFile))
+					logrus.Infof("Checking docker image: %v %v", chart.Name, packageVersion)
+					if packageVersion != chart.Version {
+						logrus.Errorf("Version mismatch for package %s: expected %s, got %s", shortChartName, chart.Version, packageVersion)
+						return errVersionMismatch
+					}
+				}
 			}
 		}
 	}
@@ -205,6 +211,10 @@ func main() {
 		flag.Usage()
 		logrus.Fatal("Helm directory path is required")
 	}
+	if *packageDirectoryPath == "" {
+		flag.Usage()
+		logrus.Fatal("Package directory path is required")
+	}
 	if *versionFilePath == "" {
 		flag.Usage()
 		logrus.Fatal("Version file path is required")
@@ -215,9 +225,9 @@ func main() {
 	}
 }
 
-// loadApplications takes a path to a application yaml file, parses all
+// parseApplication takes a path to a application yaml file, parses all
 // documents within it, and returns them as a slice of Application structs.
-func loadApplications(path string) ([]Application, error) {
+func parseApplication(path string) ([]Application, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
@@ -230,4 +240,24 @@ func loadApplications(path string) ([]Application, error) {
 	}
 
 	return applications, nil
+}
+
+func loadApplications(dp *DeploymentPackage) ([]Application, error) {
+	var applications []Application
+	// Find all files named applications.yaml or application.yaml in the deployment-package/<dp name> directory.
+	err := filepath.Walk(*deploymentPackagePath+"/"+dp.Name, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() && (strings.HasSuffix(info.Name(), "applications.yaml") || strings.HasSuffix(info.Name(), "application.yaml")) {
+			apps, err := parseApplication(path)
+			if err != nil {
+				return err
+			}
+			applications = append(applications, apps...)
+		}
+		return nil
+	})
+
+	return applications, err
 }
