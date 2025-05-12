@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+# openebs
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: rancher-lpp
+version: 0.0.31
+
+description: "Rancher Local Path Provisioner"
+kind: extension
+
+helmRegistry: "https://rancher.github.io/local-path-provisioner/"
+chartName: "local-path-provisioner"
+chartVersion: "v0.0.31"
+
+profiles:
+  - name: default
+    displayName: "default"
+    valuesFileName: "values-rancher-lpp.yaml"
