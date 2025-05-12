@@ -7,7 +7,7 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "base-extensions"
 description: "Base Extensions"
-version: 0.8.0
+version: 0.8.1
 forbidsMultipleDeployments: true
 kind: extension
 
@@ -36,9 +36,13 @@ applications:
     version: 0.1.0
   - name: openebs-config
     version: 0.1.0
+  - name: rancher-lpp
+    version: 0.0.31
 
 applicationDependencies:
   - name: openebs
+    requires: node-exporter
+  - name: rancher-lpp
     requires: node-exporter
   - name: gatekeeper
     requires: cert-manager
@@ -72,6 +76,7 @@ defaultNamespaces:
   observability-config: observability
   openebs-config: openebs
   openebs: openebs
+  rancher-lpp: local-path-provisioner
 
 deploymentProfiles:
   - name: "baseline"
@@ -154,4 +159,29 @@ deploymentProfiles:
       - application: observability-config
         profile: default
       - application: openebs-config
+        profile: default
+  - name: "minimal"
+    displayName: "Minimal Cluster Template"
+    applicationProfiles:
+      - application: "nfd"
+        profile: "default"
+      - application: "gatekeeper"
+        profile: "default"
+      - application: gatekeeper-constraints
+        profile: baseline
+      - application: network-policies
+        profile: default
+      - application: cert-manager
+        profile: default
+      - application: fluent-bit
+        profile: default
+      - application: telegraf
+        profile: default
+      - application: prometheus
+        profile: default
+      - application: node-exporter
+        profile: default
+      - application: rancher-lpp
+        profile: default
+      - application: observability-config
         profile: default
