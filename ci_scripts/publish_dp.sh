@@ -12,7 +12,8 @@ REGISTRY_NO_AUTH=edge-orch
 REPOSITORY=en
 
 # search all deployment-package directories for file changes
-changed_dirs=$(git show --pretty="" --name-only | xargs dirname \$1 | cut -d "/" -f2 | sort | uniq)
+# changed_dirs=$(git show --pretty="" --name-only | xargs dirname \$1 | cut -d "/" -f2 | sort | uniq)
+changed_dirs=$(git ls-files | xargs dirname \$1 | cut -d "/" -f2 | sort | uniq)
 echo "changed_dirs: $changed_dirs"
 # Check if the deployment-package directory is valid
 for dir in ${changed_dirs}; do

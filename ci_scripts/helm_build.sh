@@ -34,7 +34,7 @@ LABEL_CREATED=$(date -u "+%Y-%m-%dT%H:%M:%SZ")
 
 # Get the changed file name from the latest commit and then get the root folder name.
 # shellcheck disable=SC1001
-changed_dirs=$(git show --pretty="" --name-only | xargs dirname \$\1 | cut -d "/" -f2,3,4 | sort | uniq)
+changed_dirs=$(git ls-files | xargs dirname \$\1 | cut -d "/" -f2,3,4 | sort | uniq)
 
 # Check if no helm files were changes
 if [ -z "$changed_dirs" ]; then

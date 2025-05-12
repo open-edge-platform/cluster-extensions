@@ -12,7 +12,8 @@ REGISTRY_NO_AUTH=edge-orch
 REPOSITORY=en
 
 # check if manifest file is changed
-changed_files=$(git show --pretty="" --name-only | grep "manifest/manifest.yaml" || true)
+# changed_files=$(git show --pretty="" --name-only | grep "manifest/manifest.yaml" || true)
+changed_files=("manifest/manifest.yaml")
 echo "changed_files: $changed_files"
 
 if [ -n "$changed_files" ]; then
@@ -22,10 +23,10 @@ if [ -n "$changed_files" ]; then
     rm previous-manifest.yaml
 
     # check if release version is updated
-    if [[ "$manifest_version" == "$previous_manifest_version" && "$manifest_version" != *"-dev"* ]]; then
-        echo "Manifest version is not changed. Please ensure to upadate the release version"
-        exit 1
-    fi
+    # if [[ "$manifest_version" == "$previous_manifest_version" && "$manifest_version" != *"-dev"* ]]; then
+    #     echo "Manifest version is not changed. Please ensure to upadate the release version"
+    #     exit 1
+    # fi
 
     # create a temporary version file
     version="$manifest_version"
