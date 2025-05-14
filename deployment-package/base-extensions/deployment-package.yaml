@@ -155,3 +155,10 @@ deploymentProfiles:
         profile: default
       - application: openebs-config
         profile: default
+  - name: "standalone"
+    displayName: "Standalone Cluster Template"
+    applicationProfiles:
+      - application: "gatekeeper"
+        profile: "default"
+      - application: gatekeeper-constraints
+        profile: standalone

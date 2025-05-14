@@ -44,3 +44,6 @@ profiles:
   - name: privileged
     displayName: "privileged"
     valuesFileName: "values-gatekeeper-constraints-privileged.yaml"
+  - name: standalone
+    displayName: "standalone"
+    valuesFileName: "values-gatekeeper-constraints-standalone.yaml"
