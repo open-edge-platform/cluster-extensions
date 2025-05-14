@@ -175,6 +175,12 @@ config:
       Name   record_modifier
       Match  *
       Record UUID global.fleet.edge-orchestrator.intel.com/host-uuid
+    
+    [FILTER] ## Make structured logs, it ensures that logs have a consistent format, making them easier to analyze and process.
+    Name   lua
+    Match  *
+    Script /fluent-bit/lua_scripts/structured_log.lua
+    Call   make_structured_logs
 
   outputs: |
     [OUTPUT] ## Output Edge Node Container logs.
