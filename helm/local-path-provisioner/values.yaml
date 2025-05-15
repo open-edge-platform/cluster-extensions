@@ -1,5 +1,5 @@
-# Default values for local-path-provisioner.
-
+---
+# Default values for local-path-provisioner
 replicaCount: 1
 commonLabels: {}
 namespaceOverride: ""
@@ -46,7 +46,8 @@ storageClass:
   ## ReclaimPolicy field of the class, which can be either Delete or Retain
   reclaimPolicy: Delete
 
-  ## volumeBindingMode field controls when volume binding and dynamic provisioning should occur, can be  "Immediate" or "WaitForFirstConsumer"
+  ## volumeBindingMode field controls when volume binding and dynamic provisioning should occur,
+  ## can be  "Immediate" or "WaitForFirstConsumer"
   volumeBindingMode: WaitForFirstConsumer
 
   ## Set a path pattern, if unset the default will be used
@@ -92,42 +93,42 @@ nodePathMap:
 #     ## OR
 #     # See above
 #     nodePathMap: {}
-    
+
 podAnnotations: {}
 
 podSecurityContext: {}
-  # runAsNonRoot: true
+# runAsNonRoot: true
 
 securityContext: {}
-  # allowPrivilegeEscalation: false
-  # seccompProfile:
-  #   type: RuntimeDefault
-  # capabilities:
-  #   drop: ["ALL"]
-  # runAsUser: 65534
-  # runAsGroup: 65534
-  # readOnlyRootFilesystem: true
+# allowPrivilegeEscalation: false
+# seccompProfile:
+#   type: RuntimeDefault
+# capabilities:
+#   drop: ["ALL"]
+# runAsUser: 65534
+# runAsGroup: 65534
+# readOnlyRootFilesystem: true
 
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+# We usually recommend not to specify default resources and to leave this as a conscious
+# choice for the user. This also increases chances charts run on environments with little
+# resources, such as Minikube. If you do want to specify resources, uncomment the following
+# lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+# limits:
+#   cpu: 100m
+#   memory: 128Mi
+# requests:
+#   cpu: 100m
+#   memory: 128Mi
+
+helperPod:
+  resources: {}
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
-
-helperPod:
-  resources: {}
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
 
 rbac:
   # Specifies whether RBAC resources should be created
