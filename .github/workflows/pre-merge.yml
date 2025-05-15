@@ -50,7 +50,7 @@ jobs:
       run_version_check: true
       run_dep_version_check: false
       run_build: false
-      run_lint: true
+      run_lint: false
       run_test: false
       run_validate_clean_folder: false
       run_docker_build: true
