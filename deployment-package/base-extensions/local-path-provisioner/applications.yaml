@@ -14,7 +14,7 @@ kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/local-path-provisioner"
-chartVersion: "0.0.31-dev" 
+chartVersion: "0.0.31-dev"
 
 profiles:
   - name: default
