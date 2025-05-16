@@ -1,0 +1,32 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: LicenseRef-Intel
+---
+specSchema: "DeploymentPackage"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: nvidia-gpu-operator
+displayName: NVIDIA GPU Operator deployment package
+description: NVIDIA GPU Operator deployment package
+version: 0.0.1
+forbidsMultipleDeployments: true
+kind: extension
+
+applications:
+  - name: nvidia-gpu-operator-app
+    version: 0.0.1
+
+defaultNamespaces:
+  nvidia-gpu-operator-app: gpu-operator
+
+deploymentProfiles:
+  - name: default
+    applicationProfiles:
+      - application: nvidia-gpu-operator-app
+        profile: default
+
+namespaces:
+  - name: gpu-operator
+    labels:
+      pod-security.kubernetes.io/enforce: privileged
+      name: gpu-operator
