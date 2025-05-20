@@ -21,6 +21,8 @@ ifeq ($(findstring -dev,$(VERSION)), -dev)
 	VERSION := $(VERSION)-$(VERSION_DEV_SUFFIX)
 endif
 
+FUZZ_SECONDS ?= 60
+
 # Include shared makefile
 include ../../common.mk
 
@@ -37,6 +39,10 @@ docker-push: common-docker-push
 
 TEST_COVER=atomic ./cmd/... ./internal/...
 test: go-test
+
+go-fuzz: FUZZ_FUNCS ?= FuzzGetVMsFromAdmissionRequest FuzzCompareVMSpec
+go-fuzz: FUZZ_FUNC_PATH := ./internal/kubevirt/fuzztests
+go-fuzz: common-go-fuzz-test ## Run go fuzz tests
 
 generate-mocks:
 	go install github.com/vektra/mockery/v2@v2.20.0
