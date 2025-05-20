@@ -7,7 +7,7 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "base-extensions"
 description: "Base Extensions"
-version: 0.8.1
+version: 0.8.2
 forbidsMultipleDeployments: true
 kind: extension
 
@@ -27,7 +27,7 @@ applications:
   - name: telegraf
     version: 1.8.55
   - name: prometheus
-    version: 70.3.0
+    version: 70.3.1
   - name: node-exporter
     version: 4.45.0
   - name: openebs
