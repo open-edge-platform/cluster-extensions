@@ -13,7 +13,7 @@ storageClass:
 defaultSettings:
   # keep the openebs path for compatibility????
   # this is the default for lpp /opt/local-path-provisioner
-  path: /var/openebs/local
+  # path: /var/openebs/local
 
 # Optional: Map nodes explicitly (useful for multi-node Rancher clusters)
 # configmap:
