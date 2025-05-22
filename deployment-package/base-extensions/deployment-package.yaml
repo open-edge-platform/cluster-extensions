@@ -7,7 +7,7 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "base-extensions"
 description: "Base Extensions"
-version: 0.8.6
+version: 0.8.7
 forbidsMultipleDeployments: true
 kind: extension
 
@@ -17,7 +17,7 @@ applications:
   - name: gatekeeper
     version: 3.17.1
   - name: gatekeeper-constraints
-    version: 1.1.0
+    version: 1.1.1
   - name: network-policies
     version: 0.2.0
   - name: cert-manager
