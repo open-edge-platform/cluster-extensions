@@ -11,6 +11,7 @@ storageClass:
   volumeBindingMode: WaitForFirstConsumer
 
 defaultSettings:
+  registrySecret: ~
   # keep the openebs path for compatibility????
   # this is the default for lpp /opt/local-path-provisioner
   # path: /var/openebs/local
