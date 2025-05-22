@@ -36,6 +36,7 @@ policies:
         - openebs
         - sriov-network-operator
         - tigera-operator
+        - local-path-provisioner
     hostNamespace:
       enabled: true
       excludedNamespaces:
