@@ -7,14 +7,14 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: rancher-lpp
-version: 0.0.31-dev
+version: 0.0.32-dev
 
 description: "Rancher Local Path Provisioner"
 kind: extension
 
-helmRegistry: "intel-rs-helm"
-chartName: "edge-orch/en/charts/local-path-provisioner"
-chartVersion: "0.0.1-dev"
+helmRegistry: "registry-oci.kind.internal"
+chartName: "catalog-apps-sample-org-sample-project/local-path-provisioner"
+chartVersion: "0.0.2-dev"
 
 profiles:
   - name: default
