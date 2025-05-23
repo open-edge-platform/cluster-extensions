@@ -24,11 +24,13 @@ jobs:
       filtered_projects: ${{ steps.filter-changes.outputs.filtered_projects }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: "Verify Branch Name"
-        uses: open-edge-platform/orch-ci/verify-branch-name@0.1.7
+        uses: open-edge-platform/orch-ci/verify-branch-name@31986a986cab0a87721ecb694388029e94e55ff7 # v0.1.8
       - name: "Discover Changed Subfolders"
         id: discover-changes
-        uses: open-edge-platform/orch-ci/discover-changed-subfolders@0.1.7
+        uses: open-edge-platform/orch-ci/discover-changed-subfolders@31986a986cab0a87721ecb694388029e94e55ff7 # v0.1.8
       - name: "Filter Out Unwanted Changed Subfolders"
         id: filter-changes
         run: |
@@ -42,7 +44,7 @@ jobs:
     if: ${{ needs.pre-checks.outputs.filtered_projects != '[]' }}
     strategy:
       fail-fast: false
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@0.1.7
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@31986a986cab0a87721ecb694388029e94e55ff7 # v0.1.8
     with:
       run_security_scans: true
       run_version_check: true
@@ -55,7 +57,8 @@ jobs:
       run_helm_build: true
       run_artifact: false
       project_folder: ${{ matrix.project_folder }}
-    secrets: inherit
+    secrets:
+      inherit # zizmor: ignore[secrets-inherit]
   final-check:
       runs-on: ubuntu-latest
       if: ${{ always() }}

@@ -112,7 +112,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: ingress-nginx
-version: 5.1.1
+version: 5.1.2
 description: "Edge Orchestrator EdgeDNS"
 kind: extension
 
@@ -125,7 +125,7 @@ profiles:
     displayName: "Default"
     valuesFileName: "values-ingress-nginx-default.yaml"
     parameterTemplates:
-      - name: ingress-nginx.controller.service.loadBalancerIP
+      - name: controller.service.loadBalancerIP
         displayName: controller static IP
         default: 10.1.0.81
         type: string
