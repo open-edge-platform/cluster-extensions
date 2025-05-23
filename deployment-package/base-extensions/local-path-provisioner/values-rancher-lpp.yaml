@@ -6,40 +6,26 @@ fullNameOverride: rancher-lpp
 storageClass:
   create: true
   defaultClass: true
-  name: local-path
-  reclaimPolicy: Delete
-  volumeBindingMode: WaitForFirstConsumer
+  # name: local-path
+  # reclaimPolicy: Delete
+  # volumeBindingMode: WaitForFirstConsumer
 
 defaultSettings:
   registrySecret: ~
-  # keep the openebs path for compatibility????
-  # this is the default for lpp /opt/local-path-provisioner
-  # path: /var/openebs/local
 
-# Optional: Map nodes explicitly (useful for multi-node Rancher clusters)
-# configmap:
-#   name: local-path-config
-#   nodePathMap:
-#     - node: "node1"
-#       paths:
-#         - "/opt/local-path-provisioner"
-#     - node: "node2"
-#       paths:
-#         - "/opt/local-path-provisioner"
+# image:
+#   repository: rancher/local-path-provisioner
+#   tag: v0.0.31
+#   pullPolicy: IfNotPresent
 
-image:
-  repository: rancher/local-path-provisioner
-  tag: v0.0.31
-  pullPolicy: IfNotPresent
+# resources:
+#   requests:
+#     cpu: 100m
+#     memory: 64Mi
+#   limits:
+#     cpu: 500m
+#     memory: 128Mi
 
-resources:
-  requests:
-    cpu: 100m
-    memory: 64Mi
-  limits:
-    cpu: 500m
-    memory: 128Mi
-
-serviceAccount:
-  create: true
-  name: ""
+# serviceAccount:
+#   create: true
+#   name: ""
