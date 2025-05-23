@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+---
+fullNameOverride: rancher-lpp
+storageClass:
+  create: true
+  defaultClass: true
+  
+defaultSettings:
+  registrySecret: ~

@@ -1,21 +1,22 @@
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
-# prometheus
+# rancher local-path-provisioner
 specSchema: "Application"
 schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
-name: prometheus
-version: 70.3.1
-description: "Prometheus"
+name: rancher-lpp
+version: 0.0.31
+
+description: "Rancher Local Path Provisioner"
 kind: extension
 
-helmRegistry: "prometheus"
-chartName: "kube-prometheus-stack"
-chartVersion: "70.3.0"
+helmRegistry: "harbor-helm-oci"
+chartName: "local-path-provisioner"
+chartVersion: "0.0.31"
 
 profiles:
   - name: default
     displayName: "default"
-    valuesFileName: "values-prometheus.yaml"
+    valuesFileName: "values-rancher-lpp.yaml"
