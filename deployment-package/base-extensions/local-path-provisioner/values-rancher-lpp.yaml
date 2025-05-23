@@ -6,26 +6,6 @@ fullNameOverride: rancher-lpp
 storageClass:
   create: true
   defaultClass: true
-  # name: local-path
-  # reclaimPolicy: Delete
-  # volumeBindingMode: WaitForFirstConsumer
-
+  
 defaultSettings:
   registrySecret: ~
-
-# image:
-#   repository: rancher/local-path-provisioner
-#   tag: v0.0.31
-#   pullPolicy: IfNotPresent
-
-# resources:
-#   requests:
-#     cpu: 100m
-#     memory: 64Mi
-#   limits:
-#     cpu: 500m
-#     memory: 128Mi
-
-# serviceAccount:
-#   create: true
-#   name: ""
