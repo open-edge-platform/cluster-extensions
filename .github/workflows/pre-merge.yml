@@ -44,19 +44,17 @@ jobs:
     if: ${{ needs.pre-checks.outputs.filtered_projects != '[]' }}
     strategy:
       fail-fast: false
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@main #testing purposes
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@31986a986cab0a87721ecb694388029e94e55ff7 # v0.1.8
     with:
       run_security_scans: true
       run_version_check: true
       run_dep_version_check: false
       run_build: false
-      run_lint: false
+      run_lint: true
       run_test: false
       run_validate_clean_folder: false
-      run_docker_build: false
-      run_docker_push: false
-      run_helm_build: false
-      run_helm_push: false
+      run_docker_build: true
+      run_helm_build: true
       run_artifact: false
       project_folder: ${{ matrix.project_folder }}
     secrets:
