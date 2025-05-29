@@ -213,7 +213,7 @@ prometheus:
         metadata:
           name: "prometheus-volume"
         spec:
-          storageClassName: openebs-lvmpv
+          storageClassName: local-path
           accessModes:
             - ReadWriteOnce
           resources:
