@@ -7,7 +7,7 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "base-extensions"
 description: "Base Extensions"
-version: 0.8.4
+version: 0.8.1
 forbidsMultipleDeployments: true
 kind: extension
 
@@ -30,20 +30,10 @@ applications:
     version: 70.3.1
   - name: node-exporter
     version: 4.45.0
-  # - name: openebs
-  #   version: 4.2.0
   - name: observability-config
     version: 0.1.0
-  # - name: openebs-config
-  #   version: 0.1.0
-  # - name: rancher-lpp
-  #   version: 0.0.31
 
 applicationDependencies:
-  # - name: openebs
-  #   requires: node-exporter
-  # - name: rancher-lpp
-  #   requires: node-exporter
   - name: gatekeeper
     requires: cert-manager
   - name: gatekeeper-constraints
@@ -60,8 +50,6 @@ applicationDependencies:
     requires: cert-manager
   - name: observability-config
     requires: cert-manager
-  # - name: openebs-config
-  #   requires: cert-manager
 
 defaultNamespaces:
   nfd: nfd
@@ -74,9 +62,6 @@ defaultNamespaces:
   prometheus: observability
   node-exporter: observability
   observability-config: observability
-  # openebs-config: openebs
-  # openebs: openebs
-  # rancher-lpp: local-path-provisioner
 
 deploymentProfiles:
   - name: "baseline"
@@ -123,12 +108,8 @@ deploymentProfiles:
         profile: default
       - application: node-exporter
         profile: default
-      # - application: openebs
-      #   profile: default
       - application: observability-config
         profile: default
-      # - application: openebs-config
-      #   profile: default
   - name: "restricted"
     displayName: "Restricted Cluster Template"
     applicationProfiles:
@@ -150,34 +131,5 @@ deploymentProfiles:
         profile: default
       - application: node-exporter
         profile: default
-      # - application: openebs
-      #   profile: default
-      - application: observability-config
-        profile: default
-      # - application: openebs-config
-      #   profile: default
-  - name: "minimal"
-    displayName: "Minimal Cluster Template"
-    applicationProfiles:
-      - application: "nfd"
-        profile: "default"
-      - application: "gatekeeper"
-        profile: "default"
-      - application: gatekeeper-constraints
-        profile: baseline
-      - application: network-policies
-        profile: default
-      - application: cert-manager
-        profile: default
-      - application: fluent-bit
-        profile: default
-      - application: telegraf
-        profile: default
-      - application: prometheus
-        profile: default
-      - application: node-exporter
-        profile: default
-      # - application: rancher-lpp
-      #   profile: default
       - application: observability-config
         profile: default
