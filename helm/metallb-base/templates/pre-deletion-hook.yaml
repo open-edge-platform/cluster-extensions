@@ -103,17 +103,17 @@ spec:
           args:
             - |
               echo "deleting metallb instance..."
-              kubectl delete servicel2statuses.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m
-              kubectl delete ipaddresspools.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m
-              kubectl delete l2advertisements.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m
-              kubectl delete bfdprofiles.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m
-              kubectl delete bgpadvertisements.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m
-              kubectl delete bgppeers.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m
-              kubectl delete communities.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m
-              kubectl delete deployments -n {{ .Release.Namespace }} -l app.kubernetes.io/name=metallb --wait=true --timeout=5m
-              kubectl delete daemonsets -n {{ .Release.Namespace }} -l app.kubernetes.io/name=metallb --wait=true --timeout=5m
-              kubectl delete services -n {{ .Release.Namespace }} -l app.kubernetes.io/name=metallb --wait=true --timeout=5m
-              kubectl delete validatingwebhookconfigurations.admissionregistration.k8s.io -l app.kubernetes.io/name=metallb --wait=true --timeout=5m
-              for i in $(kubectl get crd | grep metallb | awk '{print $1}'); do kubectl delete crd $i --wait=true --timeout=5m; done
+              kubectl delete servicel2statuses.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m --ignore-not-found=true
+              kubectl delete ipaddresspools.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m --ignore-not-found=true
+              kubectl delete l2advertisements.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m --ignore-not-found=true
+              kubectl delete bfdprofiles.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m --ignore-not-found=true
+              kubectl delete bgpadvertisements.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m --ignore-not-found=true
+              kubectl delete bgppeers.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m --ignore-not-found=true
+              kubectl delete communities.metallb.io --all -n {{ .Release.Namespace }} --wait=true --timeout=5m --ignore-not-found=true
+              kubectl delete deployments -n {{ .Release.Namespace }} -l app.kubernetes.io/name=metallb --wait=true --timeout=5m --ignore-not-found=true
+              kubectl delete daemonsets -n {{ .Release.Namespace }} -l app.kubernetes.io/name=metallb --wait=true --timeout=5m --ignore-not-found=true
+              kubectl delete services -n {{ .Release.Namespace }} -l app.kubernetes.io/name=metallb --wait=true --timeout=5m --ignore-not-found=true
+              kubectl delete validatingwebhookconfigurations.admissionregistration.k8s.io -l app.kubernetes.io/name=metallb --wait=true --timeout=5m --ignore-not-found=true
+              for i in $(kubectl get crd | grep metallb | awk '{print $1}'); do kubectl delete crd $i --wait=true --timeout=5m --ignore-not-found=true; done
               echo "all done!"
       restartPolicy: OnFailure
