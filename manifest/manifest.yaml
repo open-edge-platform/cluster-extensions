@@ -3,7 +3,7 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.1.2
+  release: 1.1.4
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/base-extensions
@@ -13,7 +13,7 @@ lpke:
     - dpkg: edge-orch/en/file/kubernetes-dashboard
       version: 0.1.0
     - dpkg: edge-orch/en/file/loadbalancer
-      version: 0.5.1
+      version: 0.5.2
     - dpkg: edge-orch/en/file/skupper
       version: 0.2.0
     - dpkg: edge-orch/en/file/sriov
