@@ -28,13 +28,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: metallb-base
-version: 0.16.0
+version: 0.16.1
 description: "Metallb base configuration"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/metallb-base"
-chartVersion: "0.16.0"
+chartVersion: "0.16.1"
 
 profiles:
   - name: default
