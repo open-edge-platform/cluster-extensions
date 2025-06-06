@@ -24,13 +24,10 @@ deploymentProfiles:
     applicationProfiles:
       - application: nvidia-gpu-operator-app
         profile: default
-        description: Profile with default operator settings and intel proxies set.
   - name: external
     applicationProfiles:
       - application: nvidia-gpu-operator-app
         profile: external
-        description: Profile with default operator settings without intel proxies.
-
 namespaces:
   - name: gpu-operator
     labels:
