@@ -1,12 +1,6 @@
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
-driver:
-  env:
-    - name: http_proxy
-      value: "http://proxy-dmz.intel.com:912"
-    - name: https_proxy
-      value: "http://proxy-dmz.intel.com:912"
 toolkit:
   env:
     - name: CONTAINERD_CONFIG

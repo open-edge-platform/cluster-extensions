@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
-# SPDX-License-Identifier: LicenseRef-Intel
+# SPDX-License-Identifier: Apache-2.0
 ---
 specSchema: "Application"
 schemaVersion: "0.1"
@@ -16,3 +16,5 @@ chartVersion: v25.3.0
 profiles:
   - name: default
     valuesFileName: nvidia-gpu-operator-values.yaml
+  - name: external
+    valuesFileName: nvidia-gpu-operator-values-external.yaml

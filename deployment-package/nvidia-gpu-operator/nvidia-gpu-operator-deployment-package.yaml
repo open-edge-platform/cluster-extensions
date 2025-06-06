@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
-# SPDX-License-Identifier: LicenseRef-Intel
+# SPDX-License-Identifier: Apache-2.0
 ---
 specSchema: "DeploymentPackage"
 schemaVersion: "0.1"
@@ -25,6 +25,11 @@ deploymentProfiles:
       - application: nvidia-gpu-operator-app
         profile: default
         description: Profile with default operator settings and intel proxies set.
+  - name: external
+    applicationProfiles:
+      - application: nvidia-gpu-operator-app
+        profile: external
+        description: Profile with default operator settings without intel proxies.
 
 namespaces:
   - name: gpu-operator
