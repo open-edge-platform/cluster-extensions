@@ -10,7 +10,7 @@ driver:
 toolkit:
   env:
     - name: CONTAINERD_CONFIG
-      value: /var/lib/rancher/rke2/agent/etc/containerd/config.toml
+      value: /var/lib/rancher/rke2/agent/etc/containerd/config.toml.tmpl
     - name: CONTAINERD_SOCKET
       value: /run/k3s/containerd/containerd.sock
     - name: CONTAINERD_RUNTIME_CLASS
