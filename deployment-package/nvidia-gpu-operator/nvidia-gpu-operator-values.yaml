@@ -7,7 +7,13 @@ driver:
       value: "http://proxy-dmz.intel.com:912"
     - name: https_proxy
       value: "http://proxy-dmz.intel.com:912"
+  upgradePolicy:
+    autoUpgrade: true
+    maxUnavailable: 1
 toolkit:
+  initContainer:
+    args:
+      - "--sleep-duration=30"
   env:
     - name: CONTAINERD_CONFIG
       value: /var/lib/rancher/rke2/agent/etc/containerd/config.toml.tmpl
@@ -17,3 +23,5 @@ toolkit:
       value: nvidia
     - name: CONTAINERD_SET_AS_DEFAULT
       value: "true"
+nfd:
+  enabled: false
