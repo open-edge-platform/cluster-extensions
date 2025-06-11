@@ -1,7 +1,14 @@
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
+driver:
+  upgradePolicy:
+    autoUpgrade: true
+    maxUnavailable: 1
 toolkit:
+  initContainer:
+    args:
+      - "--sleep-duration=30"
   env:
     - name: CONTAINERD_CONFIG
       value: /var/lib/rancher/rke2/agent/etc/containerd/config.toml.tmpl
@@ -11,3 +18,5 @@ toolkit:
       value: nvidia
     - name: CONTAINERD_SET_AS_DEFAULT
       value: "true"
+nfd:
+  enabled: false
