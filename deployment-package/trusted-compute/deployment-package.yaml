@@ -23,8 +23,8 @@ applications:
     version: 1.0.1
 
 defaultNamespaces:
-  attestation-manager: isecl
-  attestation-verifier: isecl
+  attestation-manager: trusted-compute
+  attestation-verifier: trusted-compute
   trust-agent: isecl
   trusted-workload: trusted-compute
 
