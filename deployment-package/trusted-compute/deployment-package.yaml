@@ -25,7 +25,7 @@ applications:
 defaultNamespaces:
   attestation-manager: trusted-compute
   attestation-verifier: trusted-compute
-  trust-agent: isecl
+  trust-agent: trusted-compute
   trusted-workload: trusted-compute
 
 deploymentProfiles:
