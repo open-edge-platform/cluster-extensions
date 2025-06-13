@@ -26,7 +26,7 @@ defaultNamespaces:
   attestation-manager: trusted-compute
   attestation-verifier: trusted-compute
   trust-agent: trusted-compute
-  trusted-workload: trusted-compute
+  trusted-workload: confidential-containers-system
 
 deploymentProfiles:
   - name: "default-profile"
