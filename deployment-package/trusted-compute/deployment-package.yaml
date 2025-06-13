@@ -20,7 +20,7 @@ applications:
   - name: trust-agent
     version: 1.0.0
   - name: trusted-workload
-    version: 1.0.1
+    version: 1.0.2
 
 defaultNamespaces:
   attestation-manager: isecl
