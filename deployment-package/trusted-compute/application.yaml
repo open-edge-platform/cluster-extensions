@@ -62,13 +62,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: trusted-workload
-version: 1.0.1
+version: 1.0.2
 description: "Deploys the necessary CRD and runtime class to enable trusted compute workloads within virtual machines."
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/trusted-compute/charts/trusted-workload"
-chartVersion: "1.4.0"
+chartVersion: "1.4.3"
 
 profiles:
   - name: "default"
