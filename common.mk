@@ -35,6 +35,7 @@ DOCKER_ENV              := DOCKER_BUILDKIT=1
 DOCKER_REGISTRY         ?= 080137407410.dkr.ecr.us-west-2.amazonaws.com
 DOCKER_REPOSITORY       ?= edge-orch/en
 DOCKER_IMG_NAME         ?= $(error DOCKER_IMG_NAME must be defined in the Makefile)
+DOCKER_VERSION          ?= $(error DOCKER_VERSION must be defined in the Makefile)
 DOCKER_TAG              := $(DOCKER_REGISTRY)/$(DOCKER_REPOSITORY)/$(DOCKER_IMG_NAME):$(VERSION)
 DOCKER_TAG_BRANCH	    := $(DOCKER_REGISTRY)/$(DOCKER_REPOSITORY)/$(DOCKER_IMG_NAME):$(DOCKER_VERSION)
 # Decides if we shall push image tagged with the branch name or not.
@@ -105,7 +106,10 @@ common-docker-build-%: DOCKER_BUILD_FLAGS   += $(addprefix --target ,$(DOCKER_BU
 common-docker-build-%: DOCKER_VERSION       ?= latest
 common-docker-build-%: DOCKER_LABEL_VERSION ?= $(DOCKER_VERSION)
 common-docker-build-%: common-docker-setup-env
-	echo "DOCKER_VERSION: $(DOCKER_VERSION)"
+	@echo $(SHELL)
+	@echo "DOCKER_IMG_NAME: $(DOCKER_IMG_NAME)"
+	@echo "DOCKER_VERSION: $(DOCKER_VERSION)"
+	@echo "DOCKER_LABEL_VERSION: $(DOCKER_LABEL_VERSION)"
 	$(GOCMD) mod vendor
 	docker buildx build \
 		$(DOCKER_BUILD_FLAGS) \
