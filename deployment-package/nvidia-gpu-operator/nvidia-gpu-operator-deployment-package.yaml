@@ -21,10 +21,12 @@ defaultNamespaces:
 
 deploymentProfiles:
   - name: internal
+    description: This profile is used for internal deployments where the Intel Proxy is configured.
     applicationProfiles:
       - application: nvidia-gpu-operator-app
         profile: with-intelproxy-settings
   - name: external
+    description: This profile is used for external deployments where the no Proxies are configured.
     applicationProfiles:
       - application: nvidia-gpu-operator-app
         profile: without-proxy-settings
