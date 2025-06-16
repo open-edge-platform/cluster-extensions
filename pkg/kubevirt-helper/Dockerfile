@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: (C) 2023 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
-FROM golang:1.24.2 AS build
+FROM golang:1.24.4@sha256:10c131810f80a4802c49cab0961bbe18a16f4bb2fb99ef16deaa23e4246fc817 AS build
 ENV APP_ROOT=$GOPATH/src/github.com/open-edge-platform/cluster-extensions/pkg/kubevirt-helper
 ENV CGO_ENABLED=0
 ENV GO111MODULE=on
@@ -24,7 +24,7 @@ RUN GOARCH=amd64 \
 
 # Use distroless as minimal base image to package the manager binary
 # Refer to https://github.com/GoogleContainerTools/distroless for more details
-FROM gcr.io/distroless/static:nonroot
+FROM gcr.io/distroless/static:nonroot@sha256:c0f429e16b13e583da7e5a6ec20dd656d325d88e6819cafe0adb0828976529dc
 USER nonroot
 
 ARG org_oci_version=unknown

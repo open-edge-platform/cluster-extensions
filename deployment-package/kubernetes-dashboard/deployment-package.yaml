@@ -8,13 +8,13 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 name: "kubernetes-dashboard"
 displayName: "kubernetes-dashboard"
 description: "kubernetes-dashboard"
-version: 0.0.6
+version: 0.1.0
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
   - name: kubernetes-dashboard
-    version: 0.0.5
+    version: 0.1.0
 
 deploymentProfiles:
   - name: "default"

@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-FROM debian:stable-slim AS certs
+FROM debian:stable-slim@sha256:ecf7312e554c5be68880b2675bcff3dfc64e12ae2f67649c3a392df398711371 AS certs
 SHELL [ "/bin/sh", "-ec" ]
 
 # hadolint ignore=DL3008,DL3015
@@ -15,7 +15,7 @@ RUN export DEBCONF_NONINTERACTIVE_SEEN=true \
     apt-get -yyqq install ca-certificates ; \
     apt-get clean
 
-FROM docker.io/golang:1.24.2  AS build
+FROM golang:1.24.4@sha256:10c131810f80a4802c49cab0961bbe18a16f4bb2fb99ef16deaa23e4246fc817  AS build
 
 WORKDIR /workspace
 

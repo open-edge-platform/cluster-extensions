@@ -7,13 +7,13 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 
 name: attestation-manager
-version: 1.0.0
+version: 1.0.1
 description: "Workload prptection and continus monitoring add-on for Kubernetes"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/trusted-compute/charts/attestation-manager"
-chartVersion: "1.3.0"
+chartVersion: "1.4.3"
 
 profiles:
   - name: default
@@ -25,13 +25,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: attestation-verifier
-version: 1.0.0
+version: 1.0.1
 description: "attestaion verifier of trusted compute"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/trusted-compute/charts/attestation-verifier"
-chartVersion: "1.3.0"
+chartVersion: "1.4.3"
 
 profiles:
   - name: "default"
@@ -44,13 +44,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: trust-agent
-version: 1.0.0
+version: 1.0.1
 description: "Automatically restart VM when editable VM spec is updated"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/trusted-compute/charts/trustagent"
-chartVersion: "1.3.0"
+chartVersion: "1.4.3"
 
 profiles:
   - name: "default"
@@ -62,13 +62,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: trusted-workload
-version: 1.0.1
+version: 1.0.2
 description: "Deploys the necessary CRD and runtime class to enable trusted compute workloads within virtual machines."
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/trusted-compute/charts/trusted-workload"
-chartVersion: "1.3.0"
+chartVersion: "1.4.3"
 
 profiles:
   - name: "default"

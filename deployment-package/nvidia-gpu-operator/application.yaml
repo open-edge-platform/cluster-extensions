@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: nvidia-gpu-operator-app
+version: 0.0.1
+description: nvidia gpu operator application
+
+helmRegistry: nvidia-ncg
+chartName: gpu-operator
+chartVersion: v25.3.0
+
+profiles:
+  - name: with-intelproxy-settings
+    valuesFileName: values-with-intelproxy-settings.yaml
+  - name: without-proxy-settings
+    valuesFileName: values-without-proxy-settings.yaml

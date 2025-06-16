@@ -6,6 +6,7 @@
 # Cluster Extensions
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/open-edge-platform/cluster-extensions/badge)](https://scorecard.dev/viewer/?uri=github.com/open-edge-platform/cluster-extensions)
 
 ## Overview
 
@@ -27,8 +28,8 @@ on the Edge Node such as Load Balancer, GPU support, SRIOV support. These each h
 Both sets of extensions are loaded into the Edge Orchestrator
 by default and are available for deployment from the Web UI.
 
-The CI integration for this repository will publish container images, deployment packages and helm charts
-to the Edge Orchestrator Release Service OCI registry upon merge to the main branch.
+The CI integration for this repository will publish container images, deployment packages and helm charts to the
+Edge Orchestrator Release Service OCI registry upon merge to the main branch.
 
 At installation time, the Edge Orchestrator will pull these artifacts (based on a manifest) from the registry and
 install them in the [Application Catalog] and the [Tenant Controller] will ensure that the applications are available
@@ -36,10 +37,10 @@ for deployment in each multi-tenancy Project on the Edge Orchestrator.
 
 ## Get Started
 
-See [Edge Orchestrator Application Orchestrator Developer Guide](https://literate-adventure-7vjeyem.pages.github.io/developer_guide/application_orchestration/application_orchestration_main.html)
+See [Edge Orchestrator Application Orchestrator Developer Guide](https://docs.openedgeplatform.intel.com/edge-manage-docs/main/developer_guide/app_orch/index.html)
 for more information on how these fit into the overall Application Orchestration environment.
 
-See [Edge Orchestrator Application Orchestrator User Guide](https://literate-adventure-7vjeyem.pages.github.io/edge_orchestrator/user_guide_main/content/user_guide/package_software/package_software_main.html)
+See [Edge Orchestrator Application Orchestrator User Guide](https://docs.openedgeplatform.intel.com/edge-manage-docs/main/user_guide/package_software/extension_package.html)
 for more information on how to deploy these extensions.
 
 ## Develop
@@ -70,19 +71,57 @@ If there are new containers required for new applications they can also be store
 directory. Include the `common.mk` file in the Makefile and use the `make` command to build the container images
 and ensure that CI can push the image to the registry.
 
+## Dependencies
+
+This code requires the following tools to be installed on your development machine:
+
+- [Docker](https://docs.docker.com/engine/install/) to build containers
+- [Go\* programming language](https://go.dev)
+- [golangci-lint](https://github.com/golangci/golangci-lint)
+- [Python\* programming language version 3.10 or later](https://www.python.org/downloads)
+- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/) based cluster for end-to-end tests
+- [Helm](https://helm.sh/docs/intro/install/) for install helm charts for end-to-end tests
+
+## Build
+
+Below are some of important make targets which developer should be aware about.
+
+Build the component binaries as follows:
+
+```bash
+# Build go binaries
+make build
+```
+
+License checks are run for each PR and user can run linter check as follows:
+
+```bash
+make license
+```
+
+Linter checks are run for each PR and user can run linter as follows:
+
+```bash
+make lint
+```
+
+Container images for the components are generated as follows:
+
+```bash
+make docker-build
+```
+
+If developer has done any helm chart changes then helm charts can be build as follows:
+
+```bash
+make helm-build
+```
+
 ## Contribute
 
 We welcome contributions from the community! To contribute, please open a pull request to have your changes reviewed
 and merged into the `main` branch. We encourage you to add appropriate unit tests and end-to-end tests if
 your contribution introduces a new feature. See [Contributor Guide] for information on how to contribute to the project.
-
-Additionally, ensure the following commands are successful:
-
-```shell
-make test
-make lint
-make license
-```
 
 ## Community and Support
 

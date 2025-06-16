@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+scan:
+  skip-dirs:
+    - helm/cdi/templates
+    - helm/edgedns/templates
+    - helm/intel-gpu-debug/templates
+    - helm/kubevirt/templates
+    - helm/observability-config/templates
+    - helm/skupper-sample-app
+    - helm/skupper/templates
+    - helm/sriov/templates
+  skip-files:
+    - pkg/edgedns-coredns/Dockerfile
+    - pkg/intel-gpu-debug/Dockerfile

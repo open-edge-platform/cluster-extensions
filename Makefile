@@ -1,12 +1,13 @@
 # SPDX-FileCopyrightText: (C) 2024 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
-PROJECT_NAME := extensions
-SUBPROJECTS  := pkg/edgedns-coredns pkg/kubevirt-helper pkg/intel-gpu-debug
-VENV_NAME    := venv_$(PROJECT_NAME)
-SCRIPTS_DIR  := ./ci_scripts
-LINT_DIRS    := pkg/...
-SHELL        := bash -eu -o pipefail
+PROJECT_NAME     := extensions
+SUBPROJECTS      := pkg/edgedns-coredns pkg/kubevirt-helper pkg/intel-gpu-debug
+FUZZ_SUBPROJECTS ?= pkg/kubevirt-helper
+VENV_NAME        := venv_$(PROJECT_NAME)
+SCRIPTS_DIR      := ./ci_scripts
+LINT_DIRS        := pkg/...
+SHELL            := bash -eu -o pipefail
 
 # build virtualenv
 $(VENV_NAME): requirements.txt
@@ -34,6 +35,12 @@ docker-push:
 	@echo "---MAKEFILE DOCKER PUSH---"
 	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir docker-push; done
 	@echo "---END MAKEFILE DOCKER PUSH---"
+
+go-fuzz:
+	@# Help: Runs go fuzz test stage in all fuzz subprojects
+	@echo "---MAKEFILE GO FUZZ TEST---"
+	for dir in $(FUZZ_SUBPROJECTS); do $(MAKE) -C $$dir go-fuzz; done
+	@echo "---END MAKEFILE GO FUZZ TEST---"
 
 helm-build:
 	@# Help: Builds the updated or added helm charts
@@ -117,8 +124,13 @@ go-lint: $(OUT_DIR) ## Run go lint
 
 manifest-lint: ## lint the manifest file
 	pushd ./pkg/manifest-version-check > /dev/null; \
-	go run manifest-version-check.go -manifest ../../manifest/manifest.yaml -deployment-packages ../../deployment-package -version-file ../../VERSION; \
+	go run manifest-version-check.go -manifest ../../manifest/manifest.yaml -deployment-packages ../../deployment-package -helm-directory ../../helm -package-directory ../../pkg -version-file ../../VERSION; \
 	popd > /dev/null
+
+trivyfsscan: ## run Trivy scan locally
+	@echo "Running Trivy scan on the filesystem"
+	trivy --version ;\
+	trivy fs --scanners vuln,misconfig,secret -s HIGH,CRITICAL .
 
 HELM_CHARTS := $(shell find . -type f -name 'Chart.yaml' -exec dirname {} \;)
 .PHONY: helmlint

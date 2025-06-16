@@ -15,6 +15,7 @@ webhook:
           - namespaceSelector:
               matchLabels:
                 kubernetes.io/metadata.name: 'kube-system'
+fullnameOverride: cert-manager
 extraObjects:
   # yamllint disable rule:line-length
   # cert-manager
