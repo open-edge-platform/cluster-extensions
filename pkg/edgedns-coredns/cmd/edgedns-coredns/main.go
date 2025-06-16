@@ -11,6 +11,7 @@ import (
 	_ "github.com/coredns/rrl/plugins/rrl"
 )
 
+// test
 func init() {
 	dnsserver.Directives = append([]string{"rrl"}, dnsserver.Directives...)
 }
