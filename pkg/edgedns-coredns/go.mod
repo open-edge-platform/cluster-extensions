@@ -4,7 +4,7 @@
 
 module github.com/open-edge-platform/cluster-extensions/edgedns-coredns
 
-go 1.24.2
+go 1.24.4
 
 require (
 	github.com/coredns/coredns v1.12.2
