@@ -1,0 +1,25 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+policies:
+  constraints:
+    capabilities:
+      enabled: false
+    hostNetwork:
+      enabled: false
+    volumeTypes:
+      enabled: false
+    hostNamespace:
+      enabled: false
+    hostPorts:
+      enabled: false
+    privilegedContainer:
+      enabled: false
+    privilegedEscalation:
+      enabled: false
+    readOnlyFs:
+      enabled: false
+    sysctls:
+      enabled: false
+podMonitor:
+  enabled: false
