@@ -4,6 +4,7 @@
 scan:
   skip-dirs:
     - helm/cdi/templates
+    - helm/edgedns/templates
     - helm/intel-gpu-debug/templates
     - helm/kubevirt/templates
     - helm/observability-config/templates
