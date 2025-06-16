@@ -14,7 +14,7 @@ chartName: gpu-operator
 chartVersion: v25.3.0
 
 profiles:
-  - name: default
-    valuesFileName: nvidia-gpu-operator-values.yaml
-  - name: external
-    valuesFileName: nvidia-gpu-operator-values-external.yaml
+  - name: with-intelproxy-settings
+    valuesFileName: values-with-intelproxy-settings.yaml
+  - name: without-proxy-settings
+    valuesFileName: values-without-proxy-settings.yaml

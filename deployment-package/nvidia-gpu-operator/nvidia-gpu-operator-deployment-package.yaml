@@ -20,14 +20,14 @@ defaultNamespaces:
   nvidia-gpu-operator-app: gpu-operator
 
 deploymentProfiles:
-  - name: default
+  - name: internal
     applicationProfiles:
       - application: nvidia-gpu-operator-app
-        profile: default
+        profile: with-intelproxy-settings
   - name: external
     applicationProfiles:
       - application: nvidia-gpu-operator-app
-        profile: external
+        profile: without-proxy-settings
 namespaces:
   - name: gpu-operator
     labels:
