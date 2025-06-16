@@ -1,6 +1,13 @@
 # SPDX-FileCopyrightText: (C) 2024 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    cdi.kubevirt.io: ""
+  name: cdi
+---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -102,7 +109,7 @@ spec:
                   type: object
                 cloneStrategyOverride:
                   description: 'Clone strategy override: should we use a host-assisted
-                  copy even if snapshots are available?'
+                    copy even if snapshots are available?'
                   enum:
                     - copy
                     - snapshot
@@ -112,9 +119,9 @@ spec:
                   description: CDIConfig at CDI level
                   properties:
                     dataVolumeTTLSeconds:
-                      description: DataVolumeTTLSeconds is the time in seconds after
-                        DataVolume completion it can be garbage collected. Disabled
-                        by default.
+                      description: |-
+                        DataVolumeTTLSeconds is the time in seconds after DataVolume completion it can be garbage collected. Disabled by default.
+                        Deprecated: Removed in v1.62.
                       format: int32
                       type: integer
                     featureGates:
@@ -188,15 +195,15 @@ spec:
                           type: string
                         trustedCAProxy:
                           description: "TrustedCAProxy is the name of a ConfigMap in
-                          the cdi namespace that contains a user-provided trusted
-                          certificate authority (CA) bundle.\nThe TrustedCAProxy ConfigMap
-                          is consumed by the DataImportCron controller for creating
-                          cronjobs, and by the import controller referring a copy
-                          of the ConfigMap in the import namespace.\nHere is an example
-                          of the ConfigMap (in yaml):\n\n\napiVersion: v1\nkind: ConfigMap\nmetadata:\n
-                          \ name: my-ca-proxy-cm\n  namespace: cdi\ndata:\n  ca.pem:
-                          |\n    -----BEGIN CERTIFICATE-----\n\t   ... <base64 encoded
-                          cert> ...\n\t   -----END CERTIFICATE-----"
+                            the cdi namespace that contains a user-provided trusted
+                            certificate authority (CA) bundle.\nThe TrustedCAProxy ConfigMap
+                            is consumed by the DataImportCron controller for creating
+                            cronjobs, and by the import controller referring a copy
+                            of the ConfigMap in the import namespace.\nHere is an example
+                            of the ConfigMap (in yaml):\n\n\napiVersion: v1\nkind: ConfigMap\nmetadata:\n
+                            \ name: my-ca-proxy-cm\n  namespace: cdi\ndata:\n  ca.pem:
+                            |\n    -----BEGIN CERTIFICATE-----\n\t   ... <base64 encoded
+                            cert> ...\n\t   -----END CERTIFICATE-----"
                           type: string
                       type: object
                     insecureRegistries:
@@ -271,12 +278,12 @@ spec:
                       type: boolean
                     scratchSpaceStorageClass:
                       description: 'Override the storage class to used for scratch space
-                      during transfer operations. The scratch space storage class
-                      is determined in the following order: 1. value of scratchSpaceStorageClass,
-                      if that doesn''t exist, use the default storage class, if there
-                      is no default storage class, use the storage class of the DataVolume,
-                      if no storage class specified, use no storage class for scratch
-                      space'
+                        during transfer operations. The scratch space storage class
+                        is determined in the following order: 1. value of scratchSpaceStorageClass,
+                        if that doesn''t exist, use the default storage class, if there
+                        is no default storage class, use the storage class of the DataVolume,
+                        if no storage class specified, use no storage class for scratch
+                        space'
                       type: string
                     tlsSecurityProfile:
                       description: TLSSecurityProfile is used by operators to apply
@@ -2644,9 +2651,9 @@ spec:
                   description: CDIConfig at CDI level
                   properties:
                     dataVolumeTTLSeconds:
-                      description: DataVolumeTTLSeconds is the time in seconds after
-                        DataVolume completion it can be garbage collected. Disabled
-                        by default.
+                      description: |-
+                        DataVolumeTTLSeconds is the time in seconds after DataVolume completion it can be garbage collected. Disabled by default.
+                        Deprecated: Removed in v1.62.
                       format: int32
                       type: integer
                     featureGates:
@@ -2720,15 +2727,15 @@ spec:
                           type: string
                         trustedCAProxy:
                           description: "TrustedCAProxy is the name of a ConfigMap in
-                          the cdi namespace that contains a user-provided trusted
-                          certificate authority (CA) bundle.\nThe TrustedCAProxy ConfigMap
-                          is consumed by the DataImportCron controller for creating
-                          cronjobs, and by the import controller referring a copy
-                          of the ConfigMap in the import namespace.\nHere is an example
-                          of the ConfigMap (in yaml):\n\n\napiVersion: v1\nkind: ConfigMap\nmetadata:\n
-                          \ name: my-ca-proxy-cm\n  namespace: cdi\ndata:\n  ca.pem:
-                          |\n    -----BEGIN CERTIFICATE-----\n\t   ... <base64 encoded
-                          cert> ...\n\t   -----END CERTIFICATE-----"
+                            the cdi namespace that contains a user-provided trusted
+                            certificate authority (CA) bundle.\nThe TrustedCAProxy ConfigMap
+                            is consumed by the DataImportCron controller for creating
+                            cronjobs, and by the import controller referring a copy
+                            of the ConfigMap in the import namespace.\nHere is an example
+                            of the ConfigMap (in yaml):\n\n\napiVersion: v1\nkind: ConfigMap\nmetadata:\n
+                            \ name: my-ca-proxy-cm\n  namespace: cdi\ndata:\n  ca.pem:
+                            |\n    -----BEGIN CERTIFICATE-----\n\t   ... <base64 encoded
+                            cert> ...\n\t   -----END CERTIFICATE-----"
                           type: string
                       type: object
                     insecureRegistries:
@@ -2803,12 +2810,12 @@ spec:
                       type: boolean
                     scratchSpaceStorageClass:
                       description: 'Override the storage class to used for scratch space
-                      during transfer operations. The scratch space storage class
-                      is determined in the following order: 1. value of scratchSpaceStorageClass,
-                      if that doesn''t exist, use the default storage class, if there
-                      is no default storage class, use the storage class of the DataVolume,
-                      if no storage class specified, use no storage class for scratch
-                      space'
+                        during transfer operations. The scratch space storage class
+                        is determined in the following order: 1. value of scratchSpaceStorageClass,
+                        if that doesn''t exist, use the default storage class, if there
+                        is no default storage class, use the storage class of the DataVolume,
+                        if no storage class specified, use no storage class for scratch
+                        space'
                       type: string
                     tlsSecurityProfile:
                       description: TLSSecurityProfile is used by operators to apply

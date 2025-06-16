@@ -602,6 +602,8 @@ spec:
   strategy: {}
   template:
     metadata:
+      annotations:
+        openshift.io/required-scc: restricted-v2
       labels:
         cdi.kubevirt.io: cdi-operator
         name: cdi-operator
@@ -625,27 +627,27 @@ spec:
             - name: DEPLOY_CLUSTER_RESOURCES
               value: "true"
             - name: OPERATOR_VERSION
-              value: v1.60.2
+              value: v1.62.0
             - name: CONTROLLER_IMAGE
-              value: quay.io/kubevirt/cdi-controller:v1.60.2
+              value: quay.io/kubevirt/cdi-controller:v1.62.0
             - name: IMPORTER_IMAGE
-              value: quay.io/kubevirt/cdi-importer:v1.60.2
+              value: quay.io/kubevirt/cdi-importer:v1.62.0
             - name: CLONER_IMAGE
-              value: quay.io/kubevirt/cdi-cloner:v1.60.2
+              value: quay.io/kubevirt/cdi-cloner:v1.62.0
             - name: OVIRT_POPULATOR_IMAGE
-              value: quay.io/kubevirt/cdi-importer:v1.60.2
+              value: quay.io/kubevirt/cdi-importer:v1.62.0
             - name: APISERVER_IMAGE
-              value: quay.io/kubevirt/cdi-apiserver:v1.60.2
+              value: quay.io/kubevirt/cdi-apiserver:v1.62.0
             - name: UPLOAD_SERVER_IMAGE
-              value: quay.io/kubevirt/cdi-uploadserver:v1.60.2
+              value: quay.io/kubevirt/cdi-uploadserver:v1.62.0
             - name: UPLOAD_PROXY_IMAGE
-              value: quay.io/kubevirt/cdi-uploadproxy:v1.60.2
+              value: quay.io/kubevirt/cdi-uploadproxy:v1.62.0
             - name: VERBOSITY
               value: "1"
             - name: PULL_POLICY
               value: IfNotPresent
             - name: MONITORING_NAMESPACE
-          image: quay.io/kubevirt/cdi-operator:v1.60.2
+          image: quay.io/kubevirt/cdi-operator:v1.62.0
           imagePullPolicy: IfNotPresent
           name: cdi-operator
           ports:
@@ -664,6 +666,8 @@ spec:
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
       nodeSelector:
         kubernetes.io/os: linux
       securityContext:
