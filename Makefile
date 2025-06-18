@@ -27,7 +27,7 @@ build: docker-build helm-build ## Runs build stage
 docker-build:
 	@# Help: Runs docker build stage
 	@echo "---MAKEFILE DOCKER BUILD---"
-	for dir in $(SUBPROJECTS); do $(MAKE) -C $$dir docker-build; done
+	for dir in $(SUBPROJECTS); do $(MAKE) -d -C $$dir docker-build; done
 	@echo "---END MAKEFILE DOCKER BUILD---"
 
 docker-push:
