@@ -45,7 +45,7 @@ jobs:
     strategy:
       fail-fast: false
     # uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@e6058fe60cbb803e7d7935571ccd50753bc31ec8 # v0.1.28
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@f341738d975c38b2b91f25d405baeb2d39bf2ddb # v0.1.14
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@02da05ed6bd22b229f9899f050eb8b4b8a955c8f # v0.1.29
     with:
       run_security_scans: true
       run_version_check: true
