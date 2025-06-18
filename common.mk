@@ -106,6 +106,11 @@ common-docker-build-%: DOCKER_BUILD_FLAGS   += $(if $(DOCKER_BUILD_PLATFORM),--l
 common-docker-build-%: DOCKER_BUILD_FLAGS   += $(addprefix --platform ,$(DOCKER_BUILD_PLATFORM))
 common-docker-build-%: DOCKER_BUILD_FLAGS   += $(addprefix --target ,$(DOCKER_BUILD_TARGET))
 common-docker-build-%: common-docker-setup-env
+	@pwd
+	@ls -la .
+	@ls -la ../..
+	$(info GIT_COMMIT = $(GIT_COMMIT))
+	@git status
 	$(GOCMD) mod vendor
 	docker buildx build \
 		$(DOCKER_BUILD_FLAGS) \
