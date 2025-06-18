@@ -113,6 +113,7 @@ common-docker-build-%: common-docker-setup-env
 	$(info DOCKER_VERSION = $(DOCKER_VERSION))
 	$(info DOCKER_LABEL_VERSION = $(DOCKER_LABEL_VERSION))
 	@git status
+	@git show
 	$(GOCMD) mod vendor
 	docker buildx build \
 		$(DOCKER_BUILD_FLAGS) \
