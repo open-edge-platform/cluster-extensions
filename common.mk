@@ -110,6 +110,8 @@ common-docker-build-%: common-docker-setup-env
 	@ls -la .
 	@ls -la ../..
 	$(info GIT_COMMIT = $(GIT_COMMIT))
+	$(info DOCKER_VERSION = $(DOCKER_VERSION))
+	$(info DOCKER_LABEL_VERSION = $(DOCKER_LABEL_VERSION))
 	@git status
 	$(GOCMD) mod vendor
 	docker buildx build \
