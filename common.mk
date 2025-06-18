@@ -103,13 +103,14 @@ common-docker-build-%: ## Build Docker image
 common-docker-build-%: DOCKER_BUILD_FLAGS   += $(if $(DOCKER_BUILD_PLATFORM),--load,)
 common-docker-build-%: DOCKER_BUILD_FLAGS   += $(addprefix --platform ,$(DOCKER_BUILD_PLATFORM))
 common-docker-build-%: DOCKER_BUILD_FLAGS   += $(addprefix --target ,$(DOCKER_BUILD_TARGET))
-common-docker-build-%: DOCKER_VERSION       ?= latest
+# common-docker-build-%: DOCKER_VERSION       ?= latest
 common-docker-build-%: DOCKER_LABEL_VERSION ?= $(DOCKER_VERSION)
 common-docker-build-%: common-docker-setup-env
 	@echo $(SHELL)
 	@echo "DOCKER_IMG_NAME: $(DOCKER_IMG_NAME)"
 	@echo "DOCKER_VERSION: $(DOCKER_VERSION)"
 	@echo "DOCKER_LABEL_VERSION: $(DOCKER_LABEL_VERSION)"
+	@echo "DOCKER_BUILD_FLAGS: $(DOCKER_BUILD_FLAGS)"
 	$(GOCMD) mod vendor
 	docker buildx build \
 		$(DOCKER_BUILD_FLAGS) \
