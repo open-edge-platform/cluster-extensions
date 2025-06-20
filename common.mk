@@ -35,21 +35,30 @@ DOCKER_ENV              := DOCKER_BUILDKIT=1
 DOCKER_REGISTRY         ?= 080137407410.dkr.ecr.us-west-2.amazonaws.com
 DOCKER_REPOSITORY       ?= edge-orch/en
 DOCKER_IMG_NAME         ?= $(error DOCKER_IMG_NAME must be defined in the Makefile)
+DOCKER_VERSION          ?= $(shell git branch --show-current | sed 's/\//-/g')
+DOCKER_VERSION          := $(if $(DOCKER_VERSION),$(DOCKER_VERSION),$(shell echo $$GITHUB_HEAD_REF | sed 's/\//-/g'))
+DOCKER_VERSION          := $(if $(DOCKER_VERSION),$(DOCKER_VERSION),$(error Could not determine DOCKER_VERSION))
 DOCKER_TAG              := $(DOCKER_REGISTRY)/$(DOCKER_REPOSITORY)/$(DOCKER_IMG_NAME):$(VERSION)
 DOCKER_TAG_BRANCH	    := $(DOCKER_REGISTRY)/$(DOCKER_REPOSITORY)/$(DOCKER_IMG_NAME):$(DOCKER_VERSION)
 # Decides if we shall push image tagged with the branch name or not.
 DOCKER_TAG_BRANCH_PUSH	?= true
 
 DOCKER_LABEL_REPO_URL   ?= $(shell git remote get-url $(shell git remote | head -n 1))
-DOCKER_LABEL_VERSION    ?= $(DOCKER_IMG_VERSION)
+DOCKER_LABEL_VERSION    ?= $(DOCKER_VERSION)
 DOCKER_LABEL_REVISION   ?= $(GIT_COMMIT)
 DOCKER_LABEL_BUILD_DATE ?= $(shell date -u "+%Y-%m-%dT%H:%M:%SZ")
 DOCKER_BUILD_FLAGS      :=
 
-HELM_REPOSITORY      ?= "app-orch/"
-HELM_REGISTRY        ?= "oci://080137407410.dkr.ecr.us-west-2.amazonaws.com/"
-HELM_CHART_BUILD_DIR ?= ./build/_output/
-HELM_CHART_PATH	     ?= "./deployments/${HELM_CHART_NAME}"
+HELM_REPOSITORY         ?= "app-orch/"
+HELM_REGISTRY           ?= "oci://080137407410.dkr.ecr.us-west-2.amazonaws.com/"
+HELM_CHART_BUILD_DIR    ?= ./build/_output/
+HELM_CHART_PATH	        ?= "./deployments/${HELM_CHART_NAME}"
+
+# Code Versions
+VERSION                 := $(shell cat VERSION)
+GIT_HASH_SHORT          := $(shell git rev-parse --short=8 HEAD)
+VERSION_DEV_SUFFIX      := ${GIT_HASH_SHORT}
+GIT_COMMIT              ?= $(shell git rev-parse HEAD)
 
 # Security config for Go Builds - see:
 #   https://readthedocs.intel.com/SecureCodingStandards/latest/compiler/golang/
@@ -102,8 +111,6 @@ common-docker-build-%: ## Build Docker image
 common-docker-build-%: DOCKER_BUILD_FLAGS   += $(if $(DOCKER_BUILD_PLATFORM),--load,)
 common-docker-build-%: DOCKER_BUILD_FLAGS   += $(addprefix --platform ,$(DOCKER_BUILD_PLATFORM))
 common-docker-build-%: DOCKER_BUILD_FLAGS   += $(addprefix --target ,$(DOCKER_BUILD_TARGET))
-common-docker-build-%: DOCKER_VERSION       ?= latest
-common-docker-build-%: DOCKER_LABEL_VERSION ?= $(DOCKER_VERSION)
 common-docker-build-%: common-docker-setup-env
 	$(GOCMD) mod vendor
 	docker buildx build \
