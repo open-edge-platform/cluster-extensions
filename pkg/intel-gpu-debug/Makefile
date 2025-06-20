@@ -3,12 +3,6 @@
 
 DOCKER_IMG_NAME      ?= intel-gpu-debug
 
-# Add an identifying suffix for `-dev` builds only.
-# Release build versions are verified as unique by the CI build process.
-ifeq ($(findstring -dev,$(VERSION)), -dev)
-	VERSION := $(VERSION)-$(VERSION_DEV_SUFFIX)
-endif
-
 # Include shared makefile
 include ../../common.mk
 
