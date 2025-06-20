@@ -38,19 +38,6 @@ DOCKER_IMG_NAME         ?= $(error DOCKER_IMG_NAME must be defined in the Makefi
 DOCKER_VERSION          ?= $(shell git branch --show-current | sed 's/\//-/g')
 DOCKER_VERSION          := $(if $(DOCKER_VERSION),$(DOCKER_VERSION),$(shell echo $$GITHUB_HEAD_REF | sed 's/\//-/g'))
 DOCKER_VERSION          := $(if $(DOCKER_VERSION),$(DOCKER_VERSION),$(error Could not determine DOCKER_VERSION))
-# DOCKER_VERSION          ?= $(error DOCKER_VERSION must be defined in the Makefile)
-# ifndef DOCKER_IMG_NAME
-# $(error DOCKER_IMG_NAME must be defined in the Makefile)
-# endif
-# ifeq ($(DOCKER_IMG_NAME),)
-# $(error DOCKER_IMG_NAME must be defined in the Makefile)
-# endif
-# ifndef DOCKER_VERSION
-# $(error DOCKER_VERSION must be defined in the Makefile)
-# endif
-# ifeq ($(DOCKER_VERSION),)
-# $(error DOCKER_VERSION must be defined in the Makefile)
-# endif
 DOCKER_TAG              := $(DOCKER_REGISTRY)/$(DOCKER_REPOSITORY)/$(DOCKER_IMG_NAME):$(VERSION)
 DOCKER_TAG_BRANCH	    := $(DOCKER_REGISTRY)/$(DOCKER_REPOSITORY)/$(DOCKER_IMG_NAME):$(DOCKER_VERSION)
 # Decides if we shall push image tagged with the branch name or not.
