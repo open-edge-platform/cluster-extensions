@@ -36,7 +36,7 @@ DOCKER_REGISTRY         ?= 080137407410.dkr.ecr.us-west-2.amazonaws.com
 DOCKER_REPOSITORY       ?= edge-orch/en
 DOCKER_IMG_NAME         ?= $(error DOCKER_IMG_NAME must be defined in the Makefile)
 DOCKER_VERSION          ?= $(shell git branch --show-current | sed 's/\//-/g')
-DOCKER_VERSION          := $(if $(DOCKER_VERSION),$(DOCKER_VERSION),$(shell $$GITHUB_HEAD_REF | sed 's/\//-/g'))
+DOCKER_VERSION          := $(if $(DOCKER_VERSION),$(DOCKER_VERSION),$(shell echo $$GITHUB_HEAD_REF | sed 's/\//-/g'))
 DOCKER_VERSION          := $(if $(DOCKER_VERSION),$(DOCKER_VERSION),$(error Could not determine DOCKER_VERSION))
 # DOCKER_VERSION          ?= $(error DOCKER_VERSION must be defined in the Makefile)
 # ifndef DOCKER_IMG_NAME
