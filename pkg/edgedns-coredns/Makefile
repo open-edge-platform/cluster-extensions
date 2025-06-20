@@ -6,11 +6,6 @@ export GO111MODULE=on
 .PHONY: go-build run test docker-build docker-push lint
 BUILD_DIR ?=dist
 
-# Code Versions
-VERSION              := $(shell cat VERSION)
-GIT_HASH_SHORT       := $(shell git rev-parse --short=8 HEAD)
-VERSION_DEV_SUFFIX   := ${GIT_HASH_SHORT}
-
 DOCKER_IMG_NAME      ?= edgedns-coredns
 
 # Add an identifying suffix for `-dev` builds only.

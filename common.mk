@@ -62,11 +62,15 @@ DOCKER_LABEL_REVISION   ?= $(GIT_COMMIT)
 DOCKER_LABEL_BUILD_DATE ?= $(shell date -u "+%Y-%m-%dT%H:%M:%SZ")
 DOCKER_BUILD_FLAGS      :=
 
-HELM_REPOSITORY      ?= "app-orch/"
-HELM_REGISTRY        ?= "oci://080137407410.dkr.ecr.us-west-2.amazonaws.com/"
-HELM_CHART_BUILD_DIR ?= ./build/_output/
-HELM_CHART_PATH	     ?= "./deployments/${HELM_CHART_NAME}"
+HELM_REPOSITORY         ?= "app-orch/"
+HELM_REGISTRY           ?= "oci://080137407410.dkr.ecr.us-west-2.amazonaws.com/"
+HELM_CHART_BUILD_DIR    ?= ./build/_output/
+HELM_CHART_PATH	        ?= "./deployments/${HELM_CHART_NAME}"
 
+# Code Versions
+VERSION                 := $(shell cat VERSION)
+GIT_HASH_SHORT          := $(shell git rev-parse --short=8 HEAD)
+VERSION_DEV_SUFFIX      := ${GIT_HASH_SHORT}
 GIT_COMMIT              ?= $(shell git rev-parse HEAD)
 
 # Security config for Go Builds - see:
@@ -121,13 +125,6 @@ common-docker-build-%: DOCKER_BUILD_FLAGS   += $(if $(DOCKER_BUILD_PLATFORM),--l
 common-docker-build-%: DOCKER_BUILD_FLAGS   += $(addprefix --platform ,$(DOCKER_BUILD_PLATFORM))
 common-docker-build-%: DOCKER_BUILD_FLAGS   += $(addprefix --target ,$(DOCKER_BUILD_TARGET))
 common-docker-build-%: common-docker-setup-env
-	$(info GIT_COMMIT = $(GIT_COMMIT))
-	$(info DOCKER_VERSION = $(DOCKER_VERSION))
-	$(info DOCKER_LABEL_VERSION = $(DOCKER_LABEL_VERSION))
-	git status
-	git show
-	git branch --show-current
-	env
 	$(GOCMD) mod vendor
 	docker buildx build \
 		$(DOCKER_BUILD_FLAGS) \

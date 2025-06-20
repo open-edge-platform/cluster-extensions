@@ -1,11 +1,6 @@
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
-# Code Versions
-VERSION              := $(shell cat VERSION)
-GIT_HASH_SHORT       := $(shell git rev-parse --short=8 HEAD)
-VERSION_DEV_SUFFIX   := ${GIT_HASH_SHORT}
-
 DOCKER_IMG_NAME      ?= intel-gpu-debug
 
 # Add an identifying suffix for `-dev` builds only.
