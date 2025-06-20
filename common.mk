@@ -123,7 +123,8 @@ common-docker-build-%: common-docker-setup-env
 	$(info DOCKER_LABEL_VERSION = $(DOCKER_LABEL_VERSION))
 	git status
 	git show
-	git branch --show-current | sed 's/\//-/g'
+	git branch --show-current
+	env
 	$(GOCMD) mod vendor
 	docker buildx build \
 		$(DOCKER_BUILD_FLAGS) \
