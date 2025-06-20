@@ -7,7 +7,6 @@ GIT_HASH_SHORT       := $(shell git rev-parse --short=8 HEAD)
 VERSION_DEV_SUFFIX   := ${GIT_HASH_SHORT}
 
 DOCKER_IMG_NAME      ?= intel-gpu-debug
-DOCKER_VERSION       ?= $(shell git branch --show-current | sed 's/\//-/g')
 
 # Add an identifying suffix for `-dev` builds only.
 # Release build versions are verified as unique by the CI build process.
