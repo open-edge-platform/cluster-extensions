@@ -36,18 +36,18 @@ DOCKER_REGISTRY         ?= 080137407410.dkr.ecr.us-west-2.amazonaws.com
 DOCKER_REPOSITORY       ?= edge-orch/en
 # DOCKER_IMG_NAME         ?= $(error DOCKER_IMG_NAME must be defined in the Makefile)
 # DOCKER_VERSION          ?= $(error DOCKER_VERSION must be defined in the Makefile)
-ifndef DOCKER_IMG_NAME
-$(error DOCKER_IMG_NAME must be defined in the Makefile)
-endif
-ifeq ($(DOCKER_IMG_NAME),)
-$(error DOCKER_IMG_NAME must be defined in the Makefile)
-endif
-ifndef DOCKER_VERSION
-$(error DOCKER_VERSION must be defined in the Makefile)
-endif
-ifeq ($(DOCKER_VERSION),)
-$(error DOCKER_VERSION must be defined in the Makefile)
-endif
+# ifndef DOCKER_IMG_NAME
+# $(error DOCKER_IMG_NAME must be defined in the Makefile)
+# endif
+# ifeq ($(DOCKER_IMG_NAME),)
+# $(error DOCKER_IMG_NAME must be defined in the Makefile)
+# endif
+# ifndef DOCKER_VERSION
+# $(error DOCKER_VERSION must be defined in the Makefile)
+# endif
+# ifeq ($(DOCKER_VERSION),)
+# $(error DOCKER_VERSION must be defined in the Makefile)
+# endif
 DOCKER_TAG              := $(DOCKER_REGISTRY)/$(DOCKER_REPOSITORY)/$(DOCKER_IMG_NAME):$(VERSION)
 DOCKER_TAG_BRANCH	    := $(DOCKER_REGISTRY)/$(DOCKER_REPOSITORY)/$(DOCKER_IMG_NAME):$(DOCKER_VERSION)
 # Decides if we shall push image tagged with the branch name or not.
@@ -118,15 +118,12 @@ common-docker-build-%: DOCKER_BUILD_FLAGS   += $(if $(DOCKER_BUILD_PLATFORM),--l
 common-docker-build-%: DOCKER_BUILD_FLAGS   += $(addprefix --platform ,$(DOCKER_BUILD_PLATFORM))
 common-docker-build-%: DOCKER_BUILD_FLAGS   += $(addprefix --target ,$(DOCKER_BUILD_TARGET))
 common-docker-build-%: common-docker-setup-env
-	@pwd
-	@ls -la .
-	@ls -la ../..
 	$(info GIT_COMMIT = $(GIT_COMMIT))
 	$(info DOCKER_VERSION = $(DOCKER_VERSION))
 	$(info DOCKER_LABEL_VERSION = $(DOCKER_LABEL_VERSION))
-	@git status
-	@git show
-	@git branch --show-current | sed 's/\//-/g'
+	git status
+	git show
+	git branch --show-current | sed 's/\//-/g'
 	$(GOCMD) mod vendor
 	docker buildx build \
 		$(DOCKER_BUILD_FLAGS) \
