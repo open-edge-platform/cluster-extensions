@@ -36,6 +36,12 @@ GIT_HASH_SHORT          := $(shell git rev-parse --short=8 HEAD)
 VERSION_DEV_SUFFIX      := ${GIT_HASH_SHORT}
 GIT_COMMIT              ?= $(shell git rev-parse HEAD)
 
+# Add an identifying suffix for `-dev` builds only.
+# Release build versions are verified as unique by the CI build process.
+ifeq ($(findstring -dev,$(VERSION)), -dev)
+	VERSION := $(VERSION)-$(VERSION_DEV_SUFFIX)
+endif
+
 # Docker variables
 DOCKER_ENV              := DOCKER_BUILDKIT=1
 DOCKER_REGISTRY         ?= 080137407410.dkr.ecr.us-west-2.amazonaws.com
