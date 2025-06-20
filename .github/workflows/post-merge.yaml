@@ -26,7 +26,7 @@ jobs:
       run_build: false
       run_helm_build: true
       run_helm_push: true
-      run_artifact: true
+      run_artifact_push: true
     secrets:
       SYS_ORCH_GITHUB: ${{ secrets.SYS_ORCH_GITHUB }}
       COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
