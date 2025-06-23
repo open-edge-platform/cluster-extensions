@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-FROM debian:stable-slim@sha256:ecf7312e554c5be68880b2675bcff3dfc64e12ae2f67649c3a392df398711371 AS certs
+FROM debian:stable-slim@sha256:50db38a20a279ccf50761943c36f9e82378f92ef512293e1239b26bb77a8b496 AS certs
 SHELL [ "/bin/sh", "-ec" ]
 
 # hadolint ignore=DL3008,DL3015
