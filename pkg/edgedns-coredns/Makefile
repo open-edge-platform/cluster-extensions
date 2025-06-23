@@ -8,12 +8,6 @@ BUILD_DIR ?=dist
 
 DOCKER_IMG_NAME      ?= edgedns-coredns
 
-# Add an identifying suffix for `-dev` builds only.
-# Release build versions are verified as unique by the CI build process.
-ifeq ($(findstring -dev,$(VERSION)), -dev)
-	VERSION := $(VERSION)-$(VERSION_DEV_SUFFIX)
-endif
-
 # Include shared makefile
 include ../../common.mk
 

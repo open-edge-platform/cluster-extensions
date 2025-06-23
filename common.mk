@@ -30,6 +30,18 @@ GOCMD   := GOPRIVATE="github.com/intel/*,github.com/open-edge-platform/*" go
 OUT_DIR	:= out
 BIN_DIR := bin
 
+# Code Versions
+VERSION                 := $(shell cat VERSION)
+GIT_HASH_SHORT          := $(shell git rev-parse --short=8 HEAD)
+VERSION_DEV_SUFFIX      := ${GIT_HASH_SHORT}
+GIT_COMMIT              ?= $(shell git rev-parse HEAD)
+
+# Add an identifying suffix for `-dev` builds only.
+# Release build versions are verified as unique by the CI build process.
+ifeq ($(findstring -dev,$(VERSION)), -dev)
+	VERSION := $(VERSION)-$(VERSION_DEV_SUFFIX)
+endif
+
 # Docker variables
 DOCKER_ENV              := DOCKER_BUILDKIT=1
 DOCKER_REGISTRY         ?= 080137407410.dkr.ecr.us-west-2.amazonaws.com
@@ -53,12 +65,6 @@ HELM_REPOSITORY         ?= "app-orch/"
 HELM_REGISTRY           ?= "oci://080137407410.dkr.ecr.us-west-2.amazonaws.com/"
 HELM_CHART_BUILD_DIR    ?= ./build/_output/
 HELM_CHART_PATH	        ?= "./deployments/${HELM_CHART_NAME}"
-
-# Code Versions
-VERSION                 := $(shell cat VERSION)
-GIT_HASH_SHORT          := $(shell git rev-parse --short=8 HEAD)
-VERSION_DEV_SUFFIX      := ${GIT_HASH_SHORT}
-GIT_COMMIT              ?= $(shell git rev-parse HEAD)
 
 # Security config for Go Builds - see:
 #   https://readthedocs.intel.com/SecureCodingStandards/latest/compiler/golang/
