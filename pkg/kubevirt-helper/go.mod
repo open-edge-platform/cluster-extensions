@@ -8,7 +8,7 @@ replace (
 )
 
 require (
-	github.com/go-logr/logr v1.2.4
+	github.com/go-logr/logr v1.4.3
 	github.com/golang/mock v1.6.0
 	github.com/open-edge-platform/orch-library/go v0.5.28
 	github.com/open-edge-platform/orch-library/go/dazl v0.5.4

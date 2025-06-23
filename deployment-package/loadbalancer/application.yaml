@@ -88,13 +88,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: edgedns
-version: 2.1.1
+version: 2.1.2
 description: "Edge Orchestrator EdgeDNS"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/edgedns"
-chartVersion: 1.4.1
+chartVersion: 1.4.2
 
 profiles:
   - name: default
