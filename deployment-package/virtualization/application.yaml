@@ -79,7 +79,7 @@ kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/kubevirt-helper"
-chartVersion: 1.5.1
+chartVersion: 1.5.2
 
 profiles:
   - name: "default"
