@@ -6,7 +6,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: nvidia-gpu-operator-app
-version: 0.0.2
+version: 0.0.3
 description: nvidia gpu operator application
 
 helmRegistry: nvidia-ncg
@@ -15,6 +15,8 @@ chartVersion: v25.3.0
 
 profiles:
   - name: with-intelproxy-settings
+    displayName: "with-intelproxy-settings"
     valuesFileName: values-with-intelproxy-settings.yaml
   - name: without-proxy-settings
+    displayName: "without-proxy-settings"
     valuesFileName: values-without-proxy-settings.yaml

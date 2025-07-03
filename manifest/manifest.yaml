@@ -3,7 +3,7 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.1.8
+  release: 1.1.9
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/base-extensions
@@ -15,7 +15,7 @@ lpke:
     - dpkg: edge-orch/en/file/loadbalancer
       version: 0.5.4
     - dpkg: edge-orch/en/file/nvidia-gpu-operator
-      version: 0.0.2
+      version: 0.0.3
     - dpkg: edge-orch/en/file/skupper
       version: 0.2.0
     - dpkg: edge-orch/en/file/sriov
