@@ -13,8 +13,6 @@ helmRegistry: nvidia-ncg
 chartName: gpu-operator
 chartVersion: v25.3.0
 
-# superficial change
-
 profiles:
   - name: with-intelproxy-settings
     valuesFileName: values-with-intelproxy-settings.yaml
