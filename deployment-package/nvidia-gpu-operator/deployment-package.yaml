@@ -8,24 +8,26 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 name: nvidia-gpu-operator
 displayName: NVIDIA GPU Operator deployment package
 description: NVIDIA GPU Operator deployment package
-version: 0.0.2
+version: 0.0.3
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
   - name: nvidia-gpu-operator-app
-    version: 0.0.2
+    version: 0.0.3
 
 defaultNamespaces:
   nvidia-gpu-operator-app: gpu-operator
 
 deploymentProfiles:
   - name: internal
+    displayName: internal
     description: This profile is used for internal deployments where the Intel Proxy is configured.
     applicationProfiles:
       - application: nvidia-gpu-operator-app
         profile: with-intelproxy-settings
   - name: external
+    displayName: external
     description: This profile is used for external deployments where the no Proxies are configured.
     applicationProfiles:
       - application: nvidia-gpu-operator-app
