@@ -21,6 +21,20 @@ for dir in ${changed_dirs}; do
     continue
   fi
   echo "---------$dir-------------"
+  
+  # TODO: The logic below is counterintuitive and needs to be cleaned up.
+  #   1) If there is an "application.yaml" then it will package up
+  #      the directory as is.
+  #   2) Otherwise, it will search for all "applications.yaml" (note: plural name) and
+  #      bundle them together into a single application.yaml. This seems to have been
+  #      done to support base_extensions.
+  # It only executes the step to copy registries in from common/ on (2). This means
+  # that a DP that satisfies (1) does not include the common registries.
+  #
+  # Recommendation for now: If your extension is a single application with one registry,
+  # put the registry.yaml in your extension directory rather than common/. This will case
+  # the logic in (1) to do the right thing.
+
   if [ ! -f "${package_path}/application.yaml" ]; then
     # Create a temporary directory for combined applications.yaml and values files
     mkdir -p tmp/deployment-package
