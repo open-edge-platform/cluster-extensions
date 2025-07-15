@@ -3,11 +3,9 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.1.9
+  release: 1.2.0
 lpke:
   deploymentPackages:
-    - dpkg: edge-orch/en/file/base-extensions
-      version: 0.8.0
     - dpkg: edge-orch/en/file/intel-gpu
       version: 1.3.0
     - dpkg: edge-orch/en/file/kubernetes-dashboard
@@ -22,29 +20,12 @@ lpke:
       version: 0.4.0
     - dpkg: edge-orch/en/file/trusted-compute
       version: 0.5.1
-    - dpkg: edge-orch/en/file/usb
+    - dpkg: edge-orch/en/file/usb # deprecated
       version: 0.4.0
     - dpkg: edge-orch/en/file/virtualization
       version: 0.5.3
-  deploymentList:
-    - dpName: base-extensions
-      displayName: base-extensions-baseline
-      dpProfileName: baseline
-      dpVersion: 0.8.0
-      allAppTargetClusters:
-        - key: default-extension
-          val: baseline
-    - dpName: base-extensions
-      displayName: base-extensions-restricted
-      dpProfileName: restricted
-      dpVersion: 0.8.0
-      allAppTargetClusters:
-        - key: default-extension
-          val: restricted
-    - dpName: base-extensions
-      displayName: base-extensions-privileged
-      dpProfileName: privileged
-      dpVersion: 0.8.0
-      allAppTargetClusters:
-        - key: default-extension
-          val: privileged
+    - dpkg: edge-orch/en/file/observability
+      version: 0.1.0
+    - dpkg: edge-orch/en/file/nfd
+      version: 0.1.0
+  deploymentList: []

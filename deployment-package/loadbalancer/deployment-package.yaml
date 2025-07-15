@@ -6,7 +6,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "loadbalancer"
-description: "Enables load balancer and dns services on the edge"
+description: "Enables load balancer and ingress controller on the edge"
 version: 0.5.4
 
 kind: extension
@@ -18,15 +18,12 @@ applications:
     version: 0.16.1
   - name: metallb-config
     version: 0.2.0
-  - name: edgedns
-    version: 2.1.2
   - name: ingress-nginx
     version: 5.1.2
 
 defaultNamespaces:
   metallb: metallb-system
   metallb-config: metallb-system
-  edgedns: edge-system
   ingress-nginx: ingress-nginx
 
 deploymentProfiles:
@@ -38,8 +35,6 @@ deploymentProfiles:
       - application: "metallb-base"
         profile: "default"
       - application: "metallb-config"
-        profile: "default"
-      - application: "edgedns"
         profile: "default"
       - application: "ingress-nginx"
         profile: "default"

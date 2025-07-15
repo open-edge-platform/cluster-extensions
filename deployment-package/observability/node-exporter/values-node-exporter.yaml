@@ -156,36 +156,3 @@ extraManifests:
       issuerRef:
         name: edge-node-cluster-issuer
         kind: ClusterIssuer
-  - |
-    apiVersion: networking.k8s.io/v1
-    kind: NetworkPolicy
-    metadata:
-      name: observability-node-exporter-deny-ingress
-      namespace: observability
-    spec:
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: prometheus-node-exporter
-      policyTypes:
-        - Ingress
-  - |
-    apiVersion: networking.k8s.io/v1
-    kind: NetworkPolicy
-    metadata:
-      name: observability-node-exporter-allow-prometheus-ingress
-      namespace: observability
-    spec:
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: prometheus-node-exporter
-      policyTypes:
-        - Ingress
-      ingress:
-        - from:
-            - podSelector:
-                matchLabels:
-                  app.kubernetes.io/name: prometheus
-                  app.kubernetes.io/instance: prometheus-prometheus
-          ports:
-            - protocol: TCP
-              port: 9100

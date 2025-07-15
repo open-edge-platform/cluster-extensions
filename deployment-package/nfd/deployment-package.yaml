@@ -1,0 +1,115 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "DeploymentPackage"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: "node-feature-discovery"
+description: "Node Feature Discovery (NFD) Deployment Package"
+version: 0.1.0
+forbidsMultipleDeployments: true
+kind: extension
+
+applications:
+  - name: nfd
+    version: 0.17.0
+
+applicationDependencies: []
+
+defaultNamespaces:
+  nfd: nfd
+  gatekeeper: gatekeeper-system
+  gatekeeper-constraints: gatekeeper-system
+  network-policies: kube-system
+  cert-manager: cert-manager
+  fluent-bit: observability
+  telegraf: observability
+  prometheus: observability
+  node-exporter: observability
+  observability-config: observability
+  openebs-config: openebs
+  openebs: openebs
+
+deploymentProfiles:
+  - name: "baseline"
+    displayName: "Baseline Cluster Template"
+    applicationProfiles:
+      - application: "nfd"
+        profile: "default"
+      - application: "gatekeeper"
+        profile: "default"
+      - application: gatekeeper-constraints
+        profile: baseline
+      - application: network-policies
+        profile: default
+      - application: cert-manager
+        profile: default
+      - application: fluent-bit
+        profile: default
+      - application: telegraf
+        profile: default
+      - application: prometheus
+        profile: default
+      - application: node-exporter
+        profile: default
+      - application: openebs
+        profile: default
+      - application: observability-config
+        profile: default
+      - application: openebs-config
+        profile: default
+  - name: privileged
+    displayName: "Privileged Cluster Template"
+    applicationProfiles:
+      - application: "nfd"
+        profile: "default"
+      - application: "gatekeeper"
+        profile: "default"
+      - application: gatekeeper-constraints
+        profile: privileged
+      - application: network-policies
+        profile: default
+      - application: cert-manager
+        profile: default
+      - application: fluent-bit
+        profile: default
+      - application: telegraf
+        profile: default
+      - application: prometheus
+        profile: default
+      - application: node-exporter
+        profile: default
+      - application: openebs
+        profile: default
+      - application: observability-config
+        profile: default
+      - application: openebs-config
+        profile: default
+  - name: "restricted"
+    displayName: "Restricted Cluster Template"
+    applicationProfiles:
+      - application: "nfd"
+        profile: "default"
+      - application: "gatekeeper"
+        profile: "default"
+      - application: gatekeeper-constraints
+        profile: restricted
+      - application: network-policies
+        profile: default
+      - application: cert-manager
+        profile: default
+      - application: fluent-bit
+        profile: default
+      - application: telegraf
+        profile: default
+      - application: prometheus
+        profile: default
+      - application: node-exporter
+        profile: default
+      - application: openebs
+        profile: default
+      - application: observability-config
+        profile: default
+      - application: openebs-config
+        profile: default
