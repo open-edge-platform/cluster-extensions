@@ -8,19 +8,19 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 name: "trusted-compute"
 description: >
   Trusted Compute k8s plugin for trusted workloads. Requires cluster using a "privilege" template.
-version: 0.5.1
+version: 0.5.2
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
   - name: attestation-manager
-    version: 1.0.1
-  - name: attestation-verifier
-    version: 1.0.1
-  - name: trust-agent
-    version: 1.0.1
-  - name: trusted-workload
     version: 1.0.2
+  - name: attestation-verifier
+    version: 1.0.2
+  - name: trust-agent
+    version: 1.0.2
+  - name: trusted-workload
+    version: 1.0.3
 
 defaultNamespaces:
   attestation-manager: trusted-compute
