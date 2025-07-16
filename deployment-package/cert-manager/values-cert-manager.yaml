@@ -9,7 +9,7 @@ resources:
 webhook:
   # Enables default network policies for webhooks.
   networkPolicy:
-    enabled: true
+    enabled: false
     ingress:
       - from:
           - namespaceSelector:
