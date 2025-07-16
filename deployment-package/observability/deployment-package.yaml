@@ -31,34 +31,8 @@ defaultNamespaces:
   observability-config: observability
 
 deploymentProfiles:
-  - name: "baseline"
-    displayName: "Baseline Cluster Template"
-    applicationProfiles:
-      - application: fluent-bit
-        profile: default
-      - application: telegraf
-        profile: default
-      - application: prometheus
-        profile: default
-      - application: node-exporter
-        profile: default
-      - application: observability-config
-        profile: default
-  - name: privileged
-    displayName: "Privileged Cluster Template"
-    applicationProfiles:
-      - application: fluent-bit
-        profile: default
-      - application: telegraf
-        profile: default
-      - application: prometheus
-        profile: default
-      - application: node-exporter
-        profile: default
-      - application: observability-config
-        profile: default
-  - name: "restricted"
-    displayName: "Restricted Cluster Template"
+  - name: "default-profile"
+    displayName: "Default Observability Deployment Profile"
     applicationProfiles:
       - application: fluent-bit
         profile: default

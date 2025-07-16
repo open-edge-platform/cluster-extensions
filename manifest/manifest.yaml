@@ -3,7 +3,7 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.2.0
+  release: 1.3.0
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/intel-gpu
@@ -20,10 +20,12 @@ lpke:
       version: 0.4.0
     - dpkg: edge-orch/en/file/trusted-compute
       version: 0.5.1
-    - dpkg: edge-orch/en/file/usb # deprecated
+    - dpkg: edge-orch/en/file/usb
       version: 0.4.0
     - dpkg: edge-orch/en/file/virtualization
-      version: 0.5.3
+      version: 0.5.4
+    - dpkg: edge-orch/en/file/cert-manager
+      version: 0.1.0
     - dpkg: edge-orch/en/file/observability
       version: 0.1.0
     - dpkg: edge-orch/en/file/nfd
