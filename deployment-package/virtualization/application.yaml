@@ -85,8 +85,7 @@ profiles:
   - name: "default"
     displayName: "Default"
     valuesFileName: "values-kvhelper.yaml"
-
-deploymentRequirement:
-- name: cert-manager
-  version: 0.1.0
-  deploymentProfileName: default-profile
+    deploymentRequirement:
+    - name: cert-manager
+      version: 0.1.0
+      deploymentProfileName: default-profile
