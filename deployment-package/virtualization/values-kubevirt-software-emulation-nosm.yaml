@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 ---
 networkPoliciesEnabled: true
-serviceMonitorEnabled: true
+serviceMonitorEnabled: false
 useEmulation: true
 nodeSelector:
   kubernetes.io/os: linux

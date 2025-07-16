@@ -5,23 +5,13 @@ specSchema: "DeploymentPackage"
 schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
-name: "base-extensions"
-description: "Base Extensions"
-version: 0.8.0
+name: "observability"
+description: "observability Stack"
+version: 0.1.0
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
-  - name: nfd
-    version: 0.17.0
-  - name: gatekeeper
-    version: 3.17.1
-  - name: gatekeeper-constraints
-    version: 1.1.0
-  - name: network-policies
-    version: 0.2.0
-  - name: cert-manager
-    version: 1.16.2
   - name: fluent-bit
     version: 0.48.9
   - name: telegraf
@@ -30,63 +20,20 @@ applications:
     version: 70.3.0
   - name: node-exporter
     version: 4.45.0
-  - name: openebs
-    version: 4.2.0
   - name: observability-config
     version: 0.1.0
-  - name: openebs-config
-    version: 0.1.0
-
-applicationDependencies:
-  - name: openebs
-    requires: node-exporter
-  - name: gatekeeper
-    requires: cert-manager
-  - name: gatekeeper-constraints
-    requires: cert-manager
-  - name: network-policies
-    requires: cert-manager
-  - name: fluent-bit
-    requires: cert-manager
-  - name: telegraf
-    requires: cert-manager
-  - name: prometheus
-    requires: cert-manager
-  - name: node-exporter
-    requires: cert-manager
-  - name: observability-config
-    requires: cert-manager
-  - name: openebs-config
-    requires: cert-manager
 
 defaultNamespaces:
-  nfd: nfd
-  gatekeeper: gatekeeper-system
-  gatekeeper-constraints: gatekeeper-system
-  network-policies: kube-system
-  cert-manager: cert-manager
   fluent-bit: observability
   telegraf: observability
   prometheus: observability
   node-exporter: observability
   observability-config: observability
-  openebs-config: openebs
-  openebs: openebs
 
 deploymentProfiles:
   - name: "baseline"
     displayName: "Baseline Cluster Template"
     applicationProfiles:
-      - application: "nfd"
-        profile: "default"
-      - application: "gatekeeper"
-        profile: "default"
-      - application: gatekeeper-constraints
-        profile: baseline
-      - application: network-policies
-        profile: default
-      - application: cert-manager
-        profile: default
       - application: fluent-bit
         profile: default
       - application: telegraf
@@ -95,25 +42,11 @@ deploymentProfiles:
         profile: default
       - application: node-exporter
         profile: default
-      - application: openebs
-        profile: default
       - application: observability-config
-        profile: default
-      - application: openebs-config
         profile: default
   - name: privileged
     displayName: "Privileged Cluster Template"
     applicationProfiles:
-      - application: "nfd"
-        profile: "default"
-      - application: "gatekeeper"
-        profile: "default"
-      - application: gatekeeper-constraints
-        profile: privileged
-      - application: network-policies
-        profile: default
-      - application: cert-manager
-        profile: default
       - application: fluent-bit
         profile: default
       - application: telegraf
@@ -122,25 +55,11 @@ deploymentProfiles:
         profile: default
       - application: node-exporter
         profile: default
-      - application: openebs
-        profile: default
       - application: observability-config
-        profile: default
-      - application: openebs-config
         profile: default
   - name: "restricted"
     displayName: "Restricted Cluster Template"
     applicationProfiles:
-      - application: "nfd"
-        profile: "default"
-      - application: "gatekeeper"
-        profile: "default"
-      - application: gatekeeper-constraints
-        profile: restricted
-      - application: network-policies
-        profile: default
-      - application: cert-manager
-        profile: default
       - application: fluent-bit
         profile: default
       - application: telegraf
@@ -149,9 +68,5 @@ deploymentProfiles:
         profile: default
       - application: node-exporter
         profile: default
-      - application: openebs
-        profile: default
       - application: observability-config
-        profile: default
-      - application: openebs-config
         profile: default

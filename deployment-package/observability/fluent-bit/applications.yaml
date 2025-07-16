@@ -19,3 +19,8 @@ profiles:
   - name: default
     displayName: "default"
     valuesFileName: "values-fluent-bit.yaml"
+
+deploymentRequirement:
+- name: cert-manager
+  version: 0.1.0
+  deploymentProfileName: default-profile

@@ -5,24 +5,22 @@ specSchema: "DeploymentPackage"
 schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
-name: "node-feature-discovery"
-description: "Node Feature Discovery (NFD) Deployment Package"
+name: "cert-manager"
+description: "cert-manager Deployment Package"
 version: 0.1.0
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
-  - name: nfd
-    version: 0.17.0
-
-applicationDependencies: []
+  - name: cert-manager
+    version: 1.16.2
 
 defaultNamespaces:
-  nfd: nfd
+  cert-manager: cert-manager
 
 deploymentProfiles:
-  - name: "default"
-    displayName: "Default NFD Deployment Profile"
+  - name: "default-profile"
+    displayName: "Default Profile"
     applicationProfiles:
-      - application: "nfd"
-        profile: "default"
+      - application: cert-manager
+        profile: default
