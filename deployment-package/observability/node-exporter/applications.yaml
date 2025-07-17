@@ -19,7 +19,7 @@ profiles:
   - name: default
     displayName: "default"
     valuesFileName: "values-node-exporter.yaml"
-    deploymentRequirement:
+    deploymentRequirements:
     - name: cert-manager
       version: 0.1.0
       deploymentProfileName: default-profile
