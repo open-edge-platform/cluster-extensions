@@ -20,6 +20,6 @@ profiles:
     displayName: "default"
     valuesFileName: "values-telegraf.yaml"
     deploymentRequirements:
-    - name: cert-manager
-      version: 0.1.0
-      deploymentProfileName: default-profile
+      - name: cert-manager
+        version: 0.1.0
+        deploymentProfileName: default-profile

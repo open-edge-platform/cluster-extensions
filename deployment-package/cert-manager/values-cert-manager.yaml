@@ -17,8 +17,8 @@ webhook:
                 kubernetes.io/metadata.name: 'kube-system'
 fullnameOverride: cert-manager
 extraObjects:
-# yamllint enable rule:line-length
-# cert-manager-config
+  # yamllint enable rule:line-length
+  # cert-manager-config
   - |
     apiVersion: cert-manager.io/v1
     kind: ClusterIssuer
