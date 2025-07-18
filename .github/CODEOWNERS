@@ -9,38 +9,3 @@
 # Everything requires team review by default
 * @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @adorney99 @eoghanlawless @togashidm @sys-devops-approve
 
-# Except the following folders for base extensions
-/helm/gatekeeper-constraints @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @adorney99 @eoghanlawless @togashidm @sys-devops-approve
-/helm/network-policies @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @adorney99 @eoghanlawless @togashidm @sys-devops-approve
-/helm/observability-config @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @adorney99 @eoghanlawless @togashidm @sys-devops-approve
-/helm/openebs-config @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @adorney99 @eoghanlawless @togashidm @sys-devops-approve
-
-/deployment-package/base-extensions @adorney99 @hyunsun @eoghanlawless @togashidm @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-
-# Except the following folders for application extensions
-/helm/akri @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-
-/helm/cdi @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/helm/edgedns @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/helm/intel-gpu-debug @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/helm/kubevirt @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/helm/kubevirt-helper @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/helm/metallb-base @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/helm/metallb-config @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/helm/skupper @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/helm/skupper-sample-app @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/helm/sriov @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-
-/deployment-package/intel-gpu @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/deployment-package/intel-gpu-debug @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/deployment-package/loadbalancer @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/deployment-package/kubernetes-dashboard @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/deployment-package/skupper @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/deployment-package/skupper-sample-app @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/deployment-package/sriov @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/deployment-package/usb @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/deployment-package/virtualization @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-
-/pkg/edgedns-coredns @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/pkg/intel-gpu-debug @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
-/pkg/kubevirt-helper @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @sys-devops-approve
