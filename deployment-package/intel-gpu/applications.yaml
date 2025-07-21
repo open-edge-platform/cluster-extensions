@@ -19,6 +19,10 @@ profiles:
   - name: default
     displayName: "default"
     valuesFileName: "values-device-operator.yaml"
+    deploymentRequirements:
+      - name: cert-manager
+        version: 0.1.0
+        deploymentProfileName: default-profile
 ---
 # Intel GPU Device Plugin
 specSchema: "Application"
@@ -38,3 +42,7 @@ profiles:
   - name: exclusive-gpu-alloc
     displayName: "Exclusive gpu allocation"
     valuesFileName: "values-gpu-plugin.yaml"
+    deploymentRequirements:
+      - name: nfd
+        version: 0.1.0
+        deploymentProfileName: default
