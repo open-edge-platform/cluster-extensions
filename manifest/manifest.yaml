@@ -3,7 +3,7 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.2.1
+  release: 1.2.2
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/base-extensions
