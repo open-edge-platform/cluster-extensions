@@ -3,7 +3,7 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.2.1
+  release: 1.2.2
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/base-extensions
@@ -21,7 +21,7 @@ lpke:
     - dpkg: edge-orch/en/file/sriov
       version: 0.4.0
     - dpkg: edge-orch/en/file/trusted-compute
-      version: 0.5.2
+      version: 0.5.3
     - dpkg: edge-orch/en/file/usb
       version: 0.4.0
     - dpkg: edge-orch/en/file/virtualization
