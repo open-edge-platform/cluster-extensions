@@ -38,6 +38,7 @@ extraVolumes:
       type: File
   - name: log-output
     emptyDir: {}
+
 securityContext:
   readOnlyRootFilesystem: true
   allowPrivilegeEscalation: false
@@ -62,7 +63,6 @@ resources:
 service:
   type: ClusterIP
   port: 24224
-  httpPort: 2020
 rbac:
   nodeAccess: true
 testFramework:
@@ -100,18 +100,12 @@ config:
       Read_from_Head true
       Mem_Buf_Limit 25MB
       Skip_Long_Lines On
-    [INPUT] ## Input for kernel messages
-      Name           tail
-      Tag            EdgeNode_Kernel
-      Path           /var/log/kern.log
-      Read_from_Head false
-      Mem_Buf_Limit 10MB
-      Skip_Long_Lines On
     [INPUT] ## Input for systemd journal
       Name           systemd
       Tag            EdgeNode_Journal
       Max_Entries    1000
       Read_From_Tail true
+
     [INPUT] ## Input for logs/traces received on port
       Name         opentelemetry
       Tag          EdgeNode_OtelLogs
@@ -132,6 +126,12 @@ config:
       Name   record_modifier
       Match  EdgeNode_AuthLog
       Record FileType AuthLog
+
+    [FILTER] ## Filter for systemd journal tagging
+      Name   record_modifier
+      Match  EdgeNode_Journal
+      Record FileType SystemdJournal
+
     [FILTER] ## Filter for logs/traces received on port
       Name   record_modifier
       Match  EdgeNode_OtelLogs
@@ -162,13 +162,8 @@ config:
       Match  *
       Record UUID global.fleet.edge-orchestrator.intel.com/host-uuid
   outputs: |
-    [OUTPUT] ## Primary output - File storage for all logs with rotation.
+    [OUTPUT] ## File storage for all logs with daily rotation
       Name      file
       Match     *
-      Path      /tmp/fluent-bit-logs/
+      Path      /tmp/fluent-bit-logs
       File      all-logs-%Y%m%d.log
-      
-    [OUTPUT] ## Debug output - System logs only to stdout.
-      Name      stdout
-      Match     EdgeNode_*
-      Format    json_lines
