@@ -62,7 +62,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: trusted-workload
-version: 1.0.3
+version: 1.0.4
 description: "Deploys the necessary CRD and runtime class to enable trusted compute workloads within virtual machines."
 kind: extension
 
