@@ -17,7 +17,7 @@ applications:
   - name: cdi
     version: 2.1.0
   - name: kubevirt-helper
-    version: 1.5.2
+    version: 1.5.3
 
 defaultNamespaces:
   kubevirt: kubevirt

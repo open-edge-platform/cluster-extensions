@@ -7,39 +7,5 @@
 # someone opens a pull request.
 
 # Everything requires team review by default
-* @adorney99 @SeanCondon @hyunsun @scottmbaker @ray-milkey @pudelkoM @badhrinathpa @eoghanlawless @togashidm @ajaythakurintel
+* @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @adorney99 @eoghanlawless @togashidm @pchand20 @sys-devops-approve
 
-# Except the following folders for base extensions
-/helm/gatekeeper-constraints @adorney99 @hyunsun @eoghanlawless @togashidm @SeanCondon @scottmbaker @ajaythakurintel
-/helm/network-policies @adorney99 @hyunsun @eoghanlawless @togashidm @SeanCondon @scottmbaker @ajaythakurintel
-/helm/observability-config @adorney99 @hyunsun @eoghanlawless @togashidm @SeanCondon @scottmbaker @ajaythakurintel
-/helm/openebs-config @adorney99 @hyunsun @eoghanlawless @togashidm @SeanCondon @scottmbaker @ajaythakurintel
-
-/deployment-package/base-extensions @adorney99 @hyunsun @eoghanlawless @togashidm @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-
-# Except the following folders for application extensions
-/helm/akri @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/helm/cdi @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/helm/edgedns @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/helm/intel-gpu-debug @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/helm/kubevirt @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/helm/kubevirt-helper @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/helm/metallb-base @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/helm/metallb-config @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/helm/skupper @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/helm/skupper-sample-app @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/helm/sriov @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-
-/deployment-package/intel-gpu @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/deployment-package/intel-gpu-debug @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/deployment-package/loadbalancer @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/deployment-package/kubernetes-dashboard @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/deployment-package/skupper @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/deployment-package/skupper-sample-app @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/deployment-package/sriov @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/deployment-package/usb @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/deployment-package/virtualization @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-
-/pkg/edgedns-coredns @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/pkg/intel-gpu-debug @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
-/pkg/kubevirt-helper @SeanCondon @scottmbaker @pudelkoM @badhrinathpa @adibrastegarnia @ajaythakurintel
