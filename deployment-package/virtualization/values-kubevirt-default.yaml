@@ -1,14 +1,14 @@
 # SPDX-FileCopyrightText: (C) 2024 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
-networkPoliciesEnabled: true
-serviceMonitorEnabled: true
+networkPoliciesEnabled: false
+serviceMonitorEnabled: false
 useEmulation: false
 nodeSelector:
   kubernetes.io/os: linux
 
 serviceMonitor:
-  enabled: true
+  enabled: false
 
 # format: name;vid;pid,name;vid;pid
 # sample: kubevirt.io/usb-1;1234;1234,kubevirt.io/usb-2;1234;1234

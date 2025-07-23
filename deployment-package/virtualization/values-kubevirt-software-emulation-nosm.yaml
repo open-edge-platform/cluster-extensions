@@ -1,8 +1,8 @@
 # SPDX-FileCopyrightText: (C) 2024 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
-networkPoliciesEnabled: true
-serviceMonitorEnabled: true
+networkPoliciesEnabled: false
+serviceMonitorEnabled: false
 useEmulation: true
 nodeSelector:
   kubernetes.io/os: linux

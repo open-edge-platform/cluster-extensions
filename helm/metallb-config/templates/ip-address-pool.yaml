@@ -15,7 +15,6 @@ metadata:
   name: {{ .Release.Name }}-static-ipaddress-pool
 spec:
   addresses:
-  - {{ .Values.dnsIPAddress }}
   - {{ .Values.ingressIPAddress }}
   {{ if not (eq .Values.staticIPs "" )}}
   {{ $ips := split "," .Values.staticIPs }}

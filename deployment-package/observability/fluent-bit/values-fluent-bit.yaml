@@ -1,0 +1,169 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+hostname: global.fleet.clusterLabels.edge-orchestrator.intel.com/clustername
+nodeUUID: global.fleet.edge-orchestrator.intel.com/host-uuid
+image:
+  tag: 3.2.9
+fullnameOverride: fluent-bit
+extraVolumeMounts:
+  - name: certs
+    mountPath: /opt/fluent-bit/certs
+  - name: containerlog
+    mountPath: /var/log/containers
+    readOnly: true
+  - name: syslog
+    mountPath: /var/log/syslog
+    readOnly: true
+  - name: authlog
+    mountPath: /var/log/auth.log
+    readOnly: true
+  - name: log-output
+    mountPath: /tmp/fluent-bit-logs
+extraVolumes:
+  - name: certs
+    secret:
+      secretName: fluent-bit-tls
+  - name: containerlog
+    hostPath:
+      path: /var/log/containers
+      type: Directory
+  - name: syslog
+    hostPath:
+      path: /var/log/syslog
+      type: File
+  - name: authlog
+    hostPath:
+      path: /var/log/auth.log
+      type: File
+  - name: log-output
+    emptyDir: {}
+
+securityContext:
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  runAsUser: 1000
+  runAsGroup: 1000
+  capabilities:
+    drop:
+      - ALL
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  supplementalGroups: [4, 16, 104, 106]
+resources:
+  limits:
+    cpu: 200m
+    memory: 400Mi
+  requests:
+    cpu: 100m
+    memory: 200Mi
+service:
+  type: ClusterIP
+  port: 24224
+rbac:
+  nodeAccess: true
+testFramework:
+  enabled: false
+config:
+  service: |
+    [SERVICE]
+      Flush     5
+      Log_Level info
+      HTTP_Server On
+      HTTP_Listen 0.0.0.0
+      HTTP_Port 2020
+      Health_Check On
+#
+  inputs: |
+    [INPUT] ## Input for syslog
+      Name           tail
+      Tag            EdgeNode_Syslog
+      Path           /var/log/syslog
+      Read_from_Head true
+      Mem_Buf_Limit 25MB
+      Skip_Long_Lines On
+    [INPUT] ## Input for auth.log
+      Name           tail
+      Tag            EdgeNode_AuthLog
+      Path           /var/log/auth.log
+      Read_from_Head true
+      Mem_Buf_Limit 25MB
+      Skip_Long_Lines On
+    [INPUT] ## Input for container logs
+      Name           tail
+      Tag            Container.*
+      multiline.parser docker, cri
+      Path           /var/log/containers/*.log
+      Read_from_Head true
+      Mem_Buf_Limit 25MB
+      Skip_Long_Lines On
+    [INPUT] ## Input for systemd journal
+      Name           systemd
+      Tag            EdgeNode_Journal
+      Max_Entries    1000
+      Read_From_Tail true
+
+    [INPUT] ## Input for logs/traces received on port
+      Name         opentelemetry
+      Tag          EdgeNode_OtelLogs
+      Listen       0.0.0.0
+      Port         24224
+      tls          on
+      tls.verify   on
+      tls.ca_file   /opt/fluent-bit/certs/ca.crt
+      tls.crt_file  /opt/fluent-bit/certs/tls.crt
+      tls.key_file  /opt/fluent-bit/certs/tls.key
+# yamllint disable rule:line-length
+  filters: |
+    [FILTER] ## Filter for syslog tagging
+      Name   record_modifier
+      Match  EdgeNode_Syslog
+      Record FileType SystemLog
+    [FILTER] ## Filter for auth log tagging
+      Name   record_modifier
+      Match  EdgeNode_AuthLog
+      Record FileType AuthLog
+
+    [FILTER] ## Filter for systemd journal tagging
+      Name   record_modifier
+      Match  EdgeNode_Journal
+      Record FileType SystemdJournal
+
+    [FILTER] ## Filter for logs/traces received on port
+      Name   record_modifier
+      Match  EdgeNode_OtelLogs
+      Record FileType OpenTelemetryLogs
+    [FILTER] ## Filter for adding kubernetes metadata for containers (with timeout)
+      Name            kubernetes
+      Match           Container.*
+      Kube_URL        https://kubernetes.default.svc.cluster.edge:443
+      Kube_CA_File    /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      Kube_Token_File /var/run/secrets/kubernetes.io/serviceaccount/token
+      Kube_Tag_Prefix Container.var.log.containers.
+      Labels          off
+      Annotations     off
+      Merge_Log       On
+      Keep_Log        Off
+      DNS_Retries     3
+      DNS_Wait_Time   5
+    [FILTER] ## Rewrite the tag for logs that do not originate from an edgenode system namespace
+      Name            rewrite_tag
+      Match           Container.*
+      Rule $kubernetes['namespace_name'] ^(?!.*(akri|calico-system|cattle-fleet-system|cattle-impersonation-system|cattle-system|cattle-ui-plugin-system|cdi|cert-manager|default|east|edge-system|gatekeeper-system|ingress-nginx|intel-gpu-extension|interconnect|istio-operator|istio-system|kube-node-lease|kube-public|kube-system|kubevirt|local|metallb-system|nfd|observability|orchestrator-system|sriov-network-operator|tigera-operator|west)).*$ Application_EdgeNode.var.log.containers.$TAG[4].log false
+    [FILTER] ## Filter for adding host name of Edge Node to all logs
+      Name   record_modifier
+      Match  *
+      Record Hostname global.fleet.clusterLabels.edge-orchestrator.intel.com/clustername
+    [FILTER] ## Filter for adding UUID of Edge Node to all logs
+      Name   record_modifier
+      Match  *
+      Record UUID global.fleet.edge-orchestrator.intel.com/host-uuid
+  outputs: |
+    [OUTPUT] ## File storage for all logs with daily rotation
+      Name      file
+      Match     *
+      Path      /tmp/fluent-bit-logs
+      File      all-logs-%Y%m%d.log

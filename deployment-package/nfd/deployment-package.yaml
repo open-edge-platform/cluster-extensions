@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "DeploymentPackage"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: "nfd"
+description: "Node Feature Discovery (NFD) Deployment Package"
+version: 0.1.0
+forbidsMultipleDeployments: true
+kind: extension
+
+applications:
+  - name: nfd
+    version: 0.17.0
+
+applicationDependencies: []
+
+defaultNamespaces:
+  nfd: nfd
+
+deploymentProfiles:
+  - name: "default"
+    displayName: "Default NFD Deployment Profile"
+    applicationProfiles:
+      - application: "nfd"
+        profile: "default"

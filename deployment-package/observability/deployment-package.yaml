@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "DeploymentPackage"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: "observability"
+description: "observability Stack"
+version: 0.1.0
+forbidsMultipleDeployments: true
+kind: extension
+
+applications:
+  - name: fluent-bit
+    version: 0.48.9
+  - name: telegraf
+    version: 1.8.55
+  - name: prometheus
+    version: 70.3.0
+  - name: node-exporter
+    version: 4.45.0
+  - name: observability-config
+    version: 0.1.0
+
+defaultNamespaces:
+  fluent-bit: observability
+  telegraf: observability
+  prometheus: observability
+  node-exporter: observability
+  observability-config: observability
+
+deploymentProfiles:
+  - name: "default-profile"
+    displayName: "Default Observability Deployment Profile"
+    applicationProfiles:
+      - application: fluent-bit
+        profile: default
+      - application: telegraf
+        profile: default
+      - application: prometheus
+        profile: default
+      - application: node-exporter
+        profile: default
+      - application: observability-config
+        profile: default

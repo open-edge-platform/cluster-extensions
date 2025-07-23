@@ -59,10 +59,6 @@ profiles:
     displayName: "Default"
     valuesFileName: "values-metallb-config-default.yaml"
     parameterTemplates:
-      - name: dnsIPAddress
-        displayName: IP address allocated for EdgeDNS purposes
-        default: 10.1.0.80/32
-        type: string
       - name: ingressIPAddress
         displayName: IP address allocated for ingress purposes
         default: 10.1.0.81/32
@@ -87,33 +83,9 @@ specSchema: "Application"
 schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
-name: edgedns
-version: 2.1.2
-description: "Edge Orchestrator EdgeDNS"
-kind: extension
-
-helmRegistry: "intel-rs-helm"
-chartName: "edge-orch/en/charts/edgedns"
-chartVersion: 1.4.2
-
-profiles:
-  - name: default
-    displayName: "Default"
-    valuesFileName: "values-edgedns-default.yaml"
-    parameterTemplates:
-      - name: staticIp
-        displayName: IP address exposing EdgeDNS service
-        default: 10.1.0.80
-        type: string
-
----
-specSchema: "Application"
-schemaVersion: "0.1"
-$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
-
 name: ingress-nginx
 version: 5.1.2
-description: "Edge Orchestrator EdgeDNS"
+description: "Ingress controller for Kubernetes using NGINX"
 kind: extension
 
 helmRegistry: "kubernetes-ingress-helm"

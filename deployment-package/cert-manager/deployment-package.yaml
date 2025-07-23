@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "DeploymentPackage"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: "cert-manager"
+description: "cert-manager Deployment Package"
+version: 0.1.0
+forbidsMultipleDeployments: true
+kind: extension
+
+applications:
+  - name: cert-manager
+    version: 1.16.2
+
+defaultNamespaces:
+  cert-manager: cert-manager
+
+deploymentProfiles:
+  - name: "default-profile"
+    displayName: "Default Profile"
+    applicationProfiles:
+      - application: cert-manager
+        profile: default

@@ -13,7 +13,7 @@ image:
   pullPolicy: IfNotPresent
   tag: ""
 staticIp: 192.168.160.250
-storageclass: openebs-lvmpv
+storageclass: local-path
 edgednsServiceMonitor:
   enabled: true
 observabilityNamespace: observability
