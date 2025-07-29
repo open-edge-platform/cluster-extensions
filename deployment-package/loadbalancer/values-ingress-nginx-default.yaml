@@ -6,3 +6,7 @@ controller:
   service:
     loadBalancerIP: 10.1.0.81
     allocateLoadBalancerNodePorts: false
+
+# Override extensionImages for specific image control
+extensionImages:
+  - registry.k8s.io/ingress-nginx/controller:v1.12.0-beta.0

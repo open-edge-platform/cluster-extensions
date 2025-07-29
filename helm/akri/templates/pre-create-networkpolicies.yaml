@@ -1,0 +1,51 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+# Pre-install K3s-compatible NetworkPolicies for USB/Akri to prevent Calico API conflicts
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-kube-api-egress
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-20"
+    "helm.sh/resource-policy": keep
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to: []  # Allow all egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-egress
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-20"
+    "helm.sh/resource-policy": keep
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to: []  # Allow all egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-webhook-ingress
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-20"
+    "helm.sh/resource-policy": keep
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from: []  # Allow all ingress

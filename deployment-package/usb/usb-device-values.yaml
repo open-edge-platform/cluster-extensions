@@ -4,7 +4,7 @@
 
 # format: name;vid;pid,name;vid;pid
 # sample: wifi-dongle;0bda;0811,gsm-dongle;0bda;2838
-usbList: "usb-keyboard;04d9;1702,usb-optical-mouse;046d;c077,device-1604;1604;10c0"
+usbList: ""
 
 # This block can deliver definitions of akri
 extensionImages:
@@ -12,3 +12,4 @@ extensionImages:
   - "ghcr.io/project-akri/akri/udev-discovery:v0.12.20"
   - "ghcr.io/project-akri/akri/controller:v0.12.20"
   - "ghcr.io/project-akri/akri/webhook-configuration:v0.12.20"
+  - "registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.1.1"
