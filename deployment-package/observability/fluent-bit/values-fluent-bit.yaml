@@ -12,9 +12,6 @@ extraVolumeMounts:
   - name: containerlog
     mountPath: /var/log/containers
     readOnly: true
-  - name: podlog
-    mountPath: /var/log/pods
-    readOnly: true
   - name: syslog
     mountPath: /var/log/syslog
     readOnly: true
@@ -30,10 +27,6 @@ extraVolumes:
   - name: containerlog
     hostPath:
       path: /var/log/containers
-      type: Directory
-  - name: podlog
-    hostPath:
-      path: /var/log/pods
       type: Directory
   - name: syslog
     hostPath:
@@ -113,15 +106,6 @@ config:
       Mem_Buf_Limit 25MB
       Skip_Long_Lines On
       Refresh_Interval 10
-    [INPUT] ## Input for pod logs
-      Name           tail
-      Tag            Container.*
-      multiline.parser docker, cri
-      Path           /var/log/pods/*/*/*.log
-      Read_from_Head true
-      Mem_Buf_Limit 25MB
-      Skip_Long_Lines On
-      Refresh_Interval 10
     [INPUT] ## Input for systemd journal
       Name           systemd
       Tag            EdgeNode_Journal
@@ -160,7 +144,7 @@ config:
     [FILTER] ## Filter for adding kubernetes metadata for containers (with timeout)
       Name            kubernetes
       Match           Container.*
-      Kube_URL        https://kubernetes.default.svc.cluster.edge:443
+      Kube_URL        https://kubernetes.default.svc.cluster.local:443
       Kube_CA_File    /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
       Kube_Token_File /var/run/secrets/kubernetes.io/serviceaccount/token
       Kube_Tag_Prefix Container.var.log.containers.
