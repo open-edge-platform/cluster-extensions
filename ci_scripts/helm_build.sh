@@ -16,10 +16,7 @@ VERSION_DEV_SUFFIX=${GIT_HASH_SHORT}
 
 DOCKER_REPOSITORY=edge-orch/en/
 DOCKER_REGISTRY=registry-rs.edgeorchestration.intel.com/
-EGDEDNS_IMAGE=${DOCKER_REGISTRY}${DOCKER_REPOSITORY}edgedns-coredns
 NODE_PROVISIONER_DAEMON_IMAGE=${DOCKER_REGISTRY}${DOCKER_REPOSITORY}node-provisioner-daemon
-EGDEDNS_VERSION=$(cat pkg/edgedns-coredns/VERSION)
-VERSIONED_EGDEDNS_IMG=${EGDEDNS_IMAGE}:${EGDEDNS_VERSION}
 VERSIONED_NODEPROVISIONER_DAEMON_IMG=${NODE_PROVISIONER_DAEMON_IMAGE}:${VERSION}
 
 # Add an identifying suffix for `-dev` builds only.
@@ -50,16 +47,13 @@ for dir in ${changed_dirs}; do
   # Dependencies are commited as .tgz into repo
   # echo "--download helm dependency"
   # helm dep build "helm/$dir"
-  if [[ $dir == "edgedns" || $dir == "node-provisioner" ]]; then
+  if [[ $dir == "node-provisioner" ]]; then
     echo "--add annotations"
     yq eval -i ".annotations.revision = \"${LABEL_REVISION}\"" "helm/$dir"/Chart.yaml
     yq eval -i ".annotations.created = \"${LABEL_CREATED}\"" "helm/$dir"/Chart.yaml
 
     echo "--add image version in values.yaml"
-    if [ "$dir" == "edgedns" ]; then
-      export VERSIONED_EGDEDNS_IMG
-      yq e ".extensionImages.[] | select(. == \"${EGDEDNS_IMAGE}\") | document_index " ./helm/"${dir}"/values.yaml | yq e -i " .extensionImages[document_index] = env(VERSIONED_EGDEDNS_IMG)" ./helm/"${dir}"/values.yaml
-    elif [ "$dir" == "node-provisioner" ]; then
+    if [ "$dir" == "node-provisioner" ]; then
       export VERSIONED_NODEPROVISIONER_DAEMON_IMG
       yq e ".extensionImages.[] | select(. == \"${NODE_PROVISIONER_DAEMON_IMAGE}\") | document_index " ./helm/"${dir}"/values.yaml | yq e -i " .extensionImages[document_index] = env(VERSIONED_NODEPROVISIONER_DAEMON_IMG)" ./helm/"${dir}"/values.yaml
     fi
