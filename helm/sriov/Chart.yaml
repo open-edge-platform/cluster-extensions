@@ -30,4 +30,4 @@ name: sriov
 sources:
   - https://github.com/rancher/charts
 type: application
-version: 104.3.2
+version: 104.3.3
