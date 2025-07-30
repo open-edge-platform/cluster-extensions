@@ -15,19 +15,19 @@ lpke:
     - dpkg: edge-orch/en/file/kubernetes-dashboard
       version: 0.1.0
     - dpkg: edge-orch/en/file/loadbalancer
-      version: 0.5.5
+      version: 0.5.6
     - dpkg: edge-orch/en/file/nvidia-gpu-operator
       version: 0.0.3
     - dpkg: edge-orch/en/file/skupper
       version: 0.2.0
     - dpkg: edge-orch/en/file/sriov
-      version: 0.4.0
+      version: 0.4.1
     - dpkg: edge-orch/en/file/trusted-compute
       version: 0.5.3
     - dpkg: edge-orch/en/file/usb
-      version: 0.4.0
+      version: 0.4.1
     - dpkg: edge-orch/en/file/virtualization
-      version: 0.5.4
+      version: 0.5.5
     - dpkg: edge-orch/en/file/observability
       version: 0.1.0
   deploymentList: []
