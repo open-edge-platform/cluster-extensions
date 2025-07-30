@@ -169,11 +169,8 @@ func doCheck() error {
 					logrus.Errorf("Version mismatch for helm chart %s: expected %s, got %s", a.ChartName, a.ChartVersion, chart.Version)
 					return errVersionMismatch
 				}
-				if chart.Name == "kubevirt-helper" || chart.Name == "edgedns" {
+				if chart.Name == "kubevirt-helper" {
 					packagePath := *packageDirectoryPath + "/" + chart.Name
-					if chart.Name == "edgedns" {
-						packagePath = *packageDirectoryPath + "/" + "edgedns-coredns"
-					}
 					versionFile, err := os.ReadFile(packagePath + "/" + "VERSION")
 					if err != nil {
 						return err

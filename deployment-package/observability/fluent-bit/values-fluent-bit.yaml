@@ -173,7 +173,7 @@ config:
     [FILTER] ## Rewrite the tag for logs that do not originate from an edgenode system namespace
       Name            rewrite_tag
       Match           Container.*
-      Rule $kubernetes['namespace_name'] ^(?!.*(akri|calico-system|cattle-fleet-system|cattle-impersonation-system|cattle-system|cattle-ui-plugin-system|cdi|cert-manager|default|east|edge-system|gatekeeper-system|ingress-nginx|intel-gpu-extension|interconnect|istio-operator|istio-system|kube-node-lease|kube-public|kube-system|kubevirt|local|metallb-system|nfd|observability|orchestrator-system|sriov-network-operator|tigera-operator|west)).*$ Application_EdgeNode.var.log.containers.$TAG[4].log false
+      Rule $kubernetes['namespace_name'] ^(?!.*(akri|calico-system|cattle-fleet-system|cattle-impersonation-system|cattle-system|cattle-ui-plugin-system|cdi|cert-manager|default|east|edge-system|gatekeeper-system|ingress-nginx|intel-gpu-extension|interconnect|istio-operator|istio-system|kube-node-lease|kube-public|kube-system|kubevirt|local|metallb-system|nfd|observability|orchestrator-system|tigera-operator|west)).*$ Application_EdgeNode.var.log.containers.$TAG[4].log false
     [FILTER] ## Filter for adding host name of Edge Node to all logs
       Name   record_modifier
       Match  *
