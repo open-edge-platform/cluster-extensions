@@ -14,7 +14,7 @@ kind: extension
 
 applications:
   - name: metrics-server
-    version: 0.8.0
+    version: 0.1.0
 
 defaultNamespaces:
   metrics-server: kube-system

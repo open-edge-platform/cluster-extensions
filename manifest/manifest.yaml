@@ -30,4 +30,6 @@ lpke:
       version: 0.5.4
     - dpkg: edge-orch/en/file/observability
       version: 0.1.0
+    - dpkg: edge-orch/en/file/metrics-server
+      version: 0.1.0
   deploymentList: []
