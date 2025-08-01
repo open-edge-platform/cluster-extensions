@@ -1,0 +1,91 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+# Default configuration for metrics-server
+image:
+  repository: registry.k8s.io/metrics-server/metrics-server
+  tag: v0.8.0
+  pullPolicy: IfNotPresent
+
+# Deploy to kube-system namespace
+namespaceOverride: kube-system
+
+# Resource requirements
+resources:
+  requests:
+    cpu: 100m
+    memory: 200Mi
+  limits:
+    cpu: 1000m
+    memory: 1000Mi
+
+# Node selector for scheduling
+nodeSelector:
+  kubernetes.io/os: linux
+
+# Security context
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault
+
+# Pod security context
+podSecurityContext:
+  fsGroup: 2000
+
+# Service configuration
+service:
+  type: ClusterIP
+  port: 443
+  annotations: {}
+
+# Deployment configuration
+replicas: 1
+
+# Additional arguments for metrics-server
+args:
+  - --cert-dir=/tmp
+  - --secure-port=10250
+  - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+  - --kubelet-use-node-status-port
+  - --metric-resolution=15s
+
+# Service monitor for Prometheus (disabled by default)
+serviceMonitor:
+  enabled: false
+
+# Priority class
+priorityClassName: system-cluster-critical
+
+# Pod disruption budget
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1
+
+# Host network settings
+hostNetwork:
+  enabled: false
+
+# TLS configuration
+tls:
+  type: secret
+  secretName: metrics-server-certs
+
+# Affinity settings
+affinity: {}
+
+# Tolerations
+tolerations: []
+
+# Update strategy
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 0
+    maxSurge: 1

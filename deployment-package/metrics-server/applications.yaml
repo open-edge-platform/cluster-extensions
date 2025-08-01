@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: metrics-server
+version: 0.8.0
+description: "Kubernetes Metrics Server - provides resource usage metrics for pods and nodes"
+kind: extension
+
+helmRegistry: "metrics-server"
+chartName: "metrics-server"
+chartVersion: "3.12.1"
+
+profiles:
+  - name: default
+    displayName: "Default Profile"
+    valuesFileName: "values-metrics-server-default.yaml"
