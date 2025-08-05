@@ -7,7 +7,7 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "nfd"
 description: "Node Feature Discovery (NFD) Deployment Package"
-version: 0.1.0
+version: 0.1.1
 forbidsMultipleDeployments: true
 kind: extension
 
@@ -19,6 +19,12 @@ applicationDependencies: []
 
 defaultNamespaces:
   nfd: nfd
+
+namespaces:
+  - name: nfd
+    labels:
+      pod-security.kubernetes.io/enforce: privileged
+      name: nfd
 
 deploymentProfiles:
   - name: "default"

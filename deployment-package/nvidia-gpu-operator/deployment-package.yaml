@@ -32,6 +32,7 @@ deploymentProfiles:
     applicationProfiles:
       - application: nvidia-gpu-operator-app
         profile: without-proxy-settings
+
 namespaces:
   - name: gpu-operator
     labels:

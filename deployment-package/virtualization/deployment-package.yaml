@@ -7,7 +7,7 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "virtualization"
 description: "Virtualization support for k8s cluster"
-version: 0.5.5
+version: 0.5.6
 forbidsMultipleDeployments: true
 kind: extension
 
@@ -23,6 +23,16 @@ defaultNamespaces:
   kubevirt: kubevirt
   cdi: cdi
   kubevirt-helper: kubevirt
+
+namespaces:
+  - name: kubevirt
+    labels:
+      pod-security.kubernetes.io/enforce: privileged
+      name: kubevirt
+  - name: cdi
+    labels:
+      pod-security.kubernetes.io/enforce: privileged
+      name: cdi
 
 deploymentProfiles:
   - name: "default-profile"

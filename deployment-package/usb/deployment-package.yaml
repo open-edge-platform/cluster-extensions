@@ -7,7 +7,7 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "usb"
 description: "Brings USB allocation for containers/VMs running on k8s cluster"
-version: 0.4.1
+version: 0.4.2
 forbidsMultipleDeployments: true
 kind: extension
 
@@ -20,6 +20,12 @@ applications:
 defaultNamespaces:
   usb-device-plugin: akri
   akri: akri
+
+namespaces:
+  - name: akri
+    labels:
+      pod-security.kubernetes.io/enforce: privileged
+      name: akri
 
 deploymentProfiles:
   - name: "default-profile"
