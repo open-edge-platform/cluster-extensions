@@ -7,7 +7,7 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "cert-manager"
 description: "cert-manager Deployment Package"
-version: 0.1.0
+version: 0.1.1
 forbidsMultipleDeployments: true
 kind: extension
 
@@ -17,6 +17,12 @@ applications:
 
 defaultNamespaces:
   cert-manager: cert-manager
+
+namespaces:
+  - name: cert-manager
+    labels:
+      pod-security.kubernetes.io/enforce: privileged
+      name: cert-manager
 
 deploymentProfiles:
   - name: "default-profile"

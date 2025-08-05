@@ -8,6 +8,7 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 name: nvidia-gpu-operator-app
 version: 0.0.3
 description: nvidia gpu operator application
+kind: extension
 
 helmRegistry: nvidia-ncg
 chartName: gpu-operator

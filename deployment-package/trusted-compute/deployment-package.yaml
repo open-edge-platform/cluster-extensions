@@ -7,8 +7,8 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "trusted-compute"
 description: >
-  Trusted Compute k8s plugin for trusted workloads. Requires cluster using a "privilege" template.
-version: 0.5.3
+  Trusted Compute k8s plugin for trusted workloads.
+version: 0.5.4
 forbidsMultipleDeployments: true
 kind: extension
 
@@ -27,6 +27,16 @@ defaultNamespaces:
   attestation-verifier: trusted-compute
   trust-agent: trusted-compute
   trusted-workload: confidential-containers-system
+
+namespaces:
+  - name: trusted-compute
+    labels:
+      pod-security.kubernetes.io/enforce: privileged
+      name: trusted-compute
+  - name: confidential-containers-system
+    labels:
+      pod-security.kubernetes.io/enforce: privileged
+      name: confidential-containers-system
 
 deploymentProfiles:
   - name: "default-profile"
