@@ -21,7 +21,7 @@ profiles:
     valuesFileName: "values-device-operator.yaml"
     deploymentRequirements:
       - name: cert-manager
-        version: 0.1.0
+        version: 0.1.1
         deploymentProfileName: default-profile
 ---
 # Intel GPU Device Plugin
@@ -44,5 +44,5 @@ profiles:
     valuesFileName: "values-gpu-plugin.yaml"
     deploymentRequirements:
       - name: nfd
-        version: 0.1.0
+        version: 0.1.1
         deploymentProfileName: default
