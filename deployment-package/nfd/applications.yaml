@@ -7,7 +7,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: nfd
-version: 0.17.0
+version: 0.17.1
 description: "NFD"
 kind: extension
 

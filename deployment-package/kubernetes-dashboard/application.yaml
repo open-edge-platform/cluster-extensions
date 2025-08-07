@@ -6,7 +6,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: kubernetes-dashboard
-version: 0.1.0
+version: 0.1.1
 description: "kubernetes-dashboard"
 kind: extension
 
