@@ -25,7 +25,7 @@ lpke:
     - dpkg: edge-orch/en/file/usb
       version: 0.4.3
     - dpkg: edge-orch/en/file/virtualization
-      version: 0.5.7
+      version: 0.5.8
     - dpkg: edge-orch/en/file/observability
       version: 0.1.3
   deploymentList: []
