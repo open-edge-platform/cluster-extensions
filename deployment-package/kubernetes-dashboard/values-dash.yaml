@@ -8,11 +8,9 @@ kong:
     plugins: "bundled"
     declarative_config: "/kong-dbless-asp/kong.yml"
   admin:
-    enabled: true
-    http:
-      enabled: true
+    enabled: false
   manager:
-    enabled: true
+    enabled: false
   deployment:
     userDefinedVolumeMounts:
       - name: kong-dbless-config-asp-volume
