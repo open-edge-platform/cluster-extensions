@@ -7,7 +7,7 @@ ipAddressRange: 192.168.160.50-192.168.160.100
 
 # staticIp is used to reserve IP addresses which can be allocated
 # as a static IPs for services
-ingressIPAddress: "192.168.160.251/32"
+ingressIPAddress: "192.168.160.251/30"
 
 staticIPs: "192.168.160.101/32,192.168.160.102/32"
 
