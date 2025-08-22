@@ -135,34 +135,54 @@ extraObjects:
               args:
                 - |
                   echo "Cleaning up cert-manager resources..."
-                  
+
                   # Delete cert-manager custom resources first
                   echo "Deleting cert-manager custom resources..."
-                  kubectl delete certificates.cert-manager.io --all --all-namespaces --wait=true --timeout=5m --ignore-not-found=true
-                  kubectl delete certificaterequests.cert-manager.io --all --all-namespaces --wait=true --timeout=5m --ignore-not-found=true
-                  kubectl delete issuers.cert-manager.io --all --all-namespaces --wait=true --timeout=5m --ignore-not-found=true
-                  kubectl delete clusterissuers.cert-manager.io --all --wait=true --timeout=5m --ignore-not-found=true
-                  kubectl delete challenges.acme.cert-manager.io --all --all-namespaces --wait=true --timeout=5m --ignore-not-found=true
-                  kubectl delete orders.acme.cert-manager.io --all --all-namespaces --wait=true --timeout=5m --ignore-not-found=true
-                  
+                  kubectl delete certificates.cert-manager.io --all --all-namespaces \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete certificaterequests.cert-manager.io --all --all-namespaces \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete issuers.cert-manager.io --all --all-namespaces \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete clusterissuers.cert-manager.io --all \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete challenges.acme.cert-manager.io --all --all-namespaces \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete orders.acme.cert-manager.io --all --all-namespaces \
+                    --wait=true --timeout=5m --ignore-not-found=true
+
                   # Delete cert-manager workloads
                   echo "Deleting cert-manager workloads..."
-                  kubectl delete deployments -n cert-manager -l app.kubernetes.io/name=cert-manager --wait=true --timeout=5m --ignore-not-found=true
-                  kubectl delete services -n cert-manager -l app.kubernetes.io/name=cert-manager --wait=true --timeout=5m --ignore-not-found=true
-                  
+                  kubectl delete deployments -n cert-manager \
+                    -l app.kubernetes.io/name=cert-manager \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete services -n cert-manager \
+                    -l app.kubernetes.io/name=cert-manager \
+                    --wait=true --timeout=5m --ignore-not-found=true
+
                   # Delete webhook configurations
                   echo "Deleting webhook configurations..."
-                  kubectl delete validatingwebhookconfigurations.admissionregistration.k8s.io -l app.kubernetes.io/name=cert-manager --wait=true --timeout=5m --ignore-not-found=true
-                  kubectl delete mutatingwebhookconfigurations.admissionregistration.k8s.io -l app.kubernetes.io/name=cert-manager --wait=true --timeout=5m --ignore-not-found=true
-                  
+                  kubectl delete validatingwebhookconfigurations.admissionregistration.k8s.io \
+                    -l app.kubernetes.io/name=cert-manager \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete mutatingwebhookconfigurations.admissionregistration.k8s.io \
+                    -l app.kubernetes.io/name=cert-manager \
+                    --wait=true --timeout=5m --ignore-not-found=true
+
                   # Delete cert-manager CRDs - this is the critical part
                   echo "Deleting cert-manager CRDs..."
-                  kubectl delete crd certificaterequests.cert-manager.io --wait=true --timeout=5m --ignore-not-found=true
-                  kubectl delete crd certificates.cert-manager.io --wait=true --timeout=5m --ignore-not-found=true
-                  kubectl delete crd challenges.acme.cert-manager.io --wait=true --timeout=5m --ignore-not-found=true
-                  kubectl delete crd clusterissuers.cert-manager.io --wait=true --timeout=5m --ignore-not-found=true
-                  kubectl delete crd issuers.cert-manager.io --wait=true --timeout=5m --ignore-not-found=true
-                  kubectl delete crd orders.acme.cert-manager.io --wait=true --timeout=5m --ignore-not-found=true
-                  
+                  kubectl delete crd certificaterequests.cert-manager.io \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete crd certificates.cert-manager.io \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete crd challenges.acme.cert-manager.io \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete crd clusterissuers.cert-manager.io \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete crd issuers.cert-manager.io \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete crd orders.acme.cert-manager.io \
+                    --wait=true --timeout=5m --ignore-not-found=true
+
                   echo "Cert-manager cleanup completed!"
           restartPolicy: OnFailure
