@@ -59,3 +59,130 @@ extraObjects:
         helm.sh/hook-weight: "1"
     spec:
       selfSigned: {}
+  # Pre-deletion hook for CRD cleanup
+  - |
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: cert-manager-pre-deletion
+      annotations:
+        "helm.sh/hook": pre-delete
+        "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+        "helm.sh/hook-weight": "5"
+  - |
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRole
+    metadata:
+      name: cert-manager-pre-deletion
+      annotations:
+        "helm.sh/hook": pre-delete
+        "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+        "helm.sh/hook-weight": "5"
+    rules:
+      - apiGroups: ["cert-manager.io"]
+        resources: ["certificates", "certificaterequests", "issuers", "clusterissuers"]
+        verbs: ["delete", "get", "watch", "list"]
+      - apiGroups: ["acme.cert-manager.io"]
+        resources: ["challenges", "orders"]
+        verbs: ["delete", "get", "watch", "list"]
+      - apiGroups: ["admissionregistration.k8s.io"]
+        resources: ["mutatingwebhookconfigurations", "validatingwebhookconfigurations"]
+        verbs: ["delete", "get", "watch", "list"]
+      - apiGroups: ["apiextensions.k8s.io"]
+        resources: ["customresourcedefinitions"]
+        verbs: ["delete", "get", "watch", "list"]
+      - apiGroups: ["apps"]
+        resources: ["daemonsets", "deployments"]
+        verbs: ["delete", "get", "watch", "list"]
+      - apiGroups: [""]
+        resources: ["services", "secrets"]
+        verbs: ["delete", "get", "watch", "list"]
+  - |
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRoleBinding
+    metadata:
+      name: cert-manager-pre-deletion
+      annotations:
+        "helm.sh/hook": pre-delete
+        "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+        "helm.sh/hook-weight": "5"
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: cert-manager-pre-deletion
+    subjects:
+      - kind: ServiceAccount
+        name: cert-manager-pre-deletion
+        namespace: cert-manager
+  - |
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: cert-manager-pre-deletion
+      annotations:
+        "helm.sh/hook": pre-delete
+        "helm.sh/hook-delete-policy": before-hook-creation, hook-succeeded
+        "helm.sh/hook-weight": "10"
+    spec:
+      template:
+        spec:
+          serviceAccountName: cert-manager-pre-deletion
+          containers:
+            - name: kubectl
+              image: bitnami/kubectl:latest
+              imagePullPolicy: IfNotPresent
+              command: ["sh", "-e", "-c"]
+              args:
+                - |
+                  echo "Cleaning up cert-manager resources..."
+
+                  # Delete cert-manager custom resources first
+                  echo "Deleting cert-manager custom resources..."
+                  kubectl delete certificates.cert-manager.io --all --all-namespaces \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete certificaterequests.cert-manager.io --all --all-namespaces \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete issuers.cert-manager.io --all --all-namespaces \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete clusterissuers.cert-manager.io --all \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete challenges.acme.cert-manager.io --all --all-namespaces \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete orders.acme.cert-manager.io --all --all-namespaces \
+                    --wait=true --timeout=5m --ignore-not-found=true
+
+                  # Delete cert-manager workloads
+                  echo "Deleting cert-manager workloads..."
+                  kubectl delete deployments -n cert-manager \
+                    -l app.kubernetes.io/name=cert-manager \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete services -n cert-manager \
+                    -l app.kubernetes.io/name=cert-manager \
+                    --wait=true --timeout=5m --ignore-not-found=true
+
+                  # Delete webhook configurations
+                  echo "Deleting webhook configurations..."
+                  kubectl delete validatingwebhookconfigurations.admissionregistration.k8s.io \
+                    -l app.kubernetes.io/name=cert-manager \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete mutatingwebhookconfigurations.admissionregistration.k8s.io \
+                    -l app.kubernetes.io/name=cert-manager \
+                    --wait=true --timeout=5m --ignore-not-found=true
+
+                  # Delete cert-manager CRDs - this is the critical part
+                  echo "Deleting cert-manager CRDs..."
+                  kubectl delete crd certificaterequests.cert-manager.io \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete crd certificates.cert-manager.io \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete crd challenges.acme.cert-manager.io \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete crd clusterissuers.cert-manager.io \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete crd issuers.cert-manager.io \
+                    --wait=true --timeout=5m --ignore-not-found=true
+                  kubectl delete crd orders.acme.cert-manager.io \
+                    --wait=true --timeout=5m --ignore-not-found=true
+
+                  echo "Cert-manager cleanup completed!"
+          restartPolicy: OnFailure
