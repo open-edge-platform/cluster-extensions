@@ -8,13 +8,13 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 name: nvidia-gpu-operator
 displayName: NVIDIA GPU Operator deployment package
 description: NVIDIA GPU Operator deployment package
-version: 0.0.4
+version: 0.0.5
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
   - name: nvidia-gpu-operator-app
-    version: 0.0.4
+    version: 0.0.5
 
 defaultNamespaces:
   nvidia-gpu-operator-app: gpu-operator

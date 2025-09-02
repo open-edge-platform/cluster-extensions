@@ -7,13 +7,13 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "nfd"
 description: "Node Feature Discovery (NFD) Deployment Package"
-version: 0.1.2
+version: 0.1.3
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
   - name: nfd
-    version: 0.17.1
+    version: 0.17.2
 
 applicationDependencies: []
 

@@ -7,7 +7,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: prometheus
-version: 70.3.1
+version: 70.3.2
 description: "Prometheus"
 kind: extension
 

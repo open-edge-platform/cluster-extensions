@@ -73,7 +73,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: kubevirt-helper
-version: 1.5.6
+version: 1.5.7
 description: "Automatically restart VM when editable VM spec is updated"
 kind: extension
 
