@@ -27,5 +27,5 @@ lpke:
     - dpkg: edge-orch/en/file/virtualization
       version: 0.5.9
     - dpkg: edge-orch/en/file/observability
-      version: 0.1.4
+      version: 0.1.5
   deploymentList: []
