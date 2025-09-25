@@ -7,7 +7,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: telegraf
-version: 1.8.57
+version: 1.9.0
 description: "Telegraf"
 kind: extension
 
@@ -21,5 +21,5 @@ profiles:
     valuesFileName: "values-telegraf.yaml"
     deploymentRequirements:
       - name: cert-manager
-        version: 0.1.3
+        version: 0.2.0
         deploymentProfileName: default-profile

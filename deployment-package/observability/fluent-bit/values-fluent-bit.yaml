@@ -161,7 +161,7 @@ config:
       net.keepalive_idle_timeout 300
       Retry_Limit 20
       storage.total_limit_size 2G
-      
+
     [OUTPUT] ## Output Edge Node System logs
       Name      forward
       Match     EdgeNode_*
@@ -171,7 +171,7 @@ config:
       net.keepalive_idle_timeout 300
       Retry_Limit 20
       storage.total_limit_size 2G
-      
+
     [OUTPUT] ## Output container logs for edgenode applications
       Name      forward
       Match     Application_EdgeNode.*
