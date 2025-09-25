@@ -6,7 +6,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: skupper
-version: 0.2.2
+version: 0.3.0
 description: "Skupper for interconnecting bare metal k8s clusters"
 kind: extension
 
