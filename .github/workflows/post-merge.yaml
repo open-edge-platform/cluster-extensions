@@ -18,7 +18,7 @@ on:
 
 jobs:
   post-merge:
-    uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@5f1c7f544b235db6ded508b6b4c6a2d3a78a38be  # 0.1.45
+    uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@66d088403f0e7afeaacefc44e8547be4d53d8323  # 0.1.50
     with:
       run_version_tag: true
       run_docker_build: true
