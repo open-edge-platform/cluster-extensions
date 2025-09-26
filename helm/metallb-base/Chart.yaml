@@ -9,4 +9,4 @@ icon: https://metallb.universe.tf/images/logo/metallb-white.png
 kubeVersion: '>= 1.19.0-0'
 name: metallb-base
 type: application
-version: 0.16.2
+version: 0.16.3
