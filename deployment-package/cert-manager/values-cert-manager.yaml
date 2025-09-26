@@ -129,7 +129,7 @@ extraObjects:
           serviceAccountName: cert-manager-pre-deletion
           containers:
             - name: kubectl
-              image: bitnami/kubectl:latest
+              image: bitnamilegacy/kubectl:latest
               imagePullPolicy: IfNotPresent
               command: ["sh", "-e", "-c"]
               args:
