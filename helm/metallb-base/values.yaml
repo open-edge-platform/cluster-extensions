@@ -17,7 +17,7 @@ metallb:
 extensionImages:
   - quay.io/metallb/controller:v0.14.8
   - quay.io/metallb/speaker:v0.14.8
-  - docker.io/bitnami/kubectl:1.31.3
+  - docker.io/bitnamilegacy/kubectl:1.31.3
 
 kubectl:
-  image: bitnami/kubectl:1.31.3
+  image: bitnamilegacy/kubectl:1.31.3
