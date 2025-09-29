@@ -19,7 +19,7 @@ applications:
   - name: metallb-config
     version: 0.3.0
   - name: ingress-nginx
-    version: 5.2.4
+    version: 5.2.0
 
 defaultNamespaces:
   metallb: metallb-system
