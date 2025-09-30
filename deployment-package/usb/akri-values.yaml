@@ -18,3 +18,7 @@ udev:
     enabled: true
 #      nodeSelectors:
 #        kubernetes.io/os: linux
+
+# Disable the upstream cleanup hook to prevent bitnami/kubectl:latest ImagePullBackOff
+cleanupHook:
+  enabled: false
