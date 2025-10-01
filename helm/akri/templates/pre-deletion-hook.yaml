@@ -1,0 +1,122 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: akri-pre-deletion
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+    "helm.sh/hook-weight": "5"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: akri-pre-deletion
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+    "helm.sh/hook-weight": "5"
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services"]
+    verbs: [ "delete", "get", "watch", "list" ]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "daemonsets"]
+    verbs: [ "delete", "get", "watch", "list" ]
+  - apiGroups: ["akri.sh"]
+    resources: ["configurations", "instances"]
+    verbs: [ "delete", "get", "watch", "list" ]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: akri-pre-deletion
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+    "helm.sh/hook-weight": "5"
+rules:
+  - apiGroups: ["akri.sh"]
+    resources: ["configurations", "instances"]
+    verbs: ["delete", "get", "watch", "list"]
+  - apiGroups: ["admissionregistration.k8s.io"]
+    resources: ["mutatingwebhookconfigurations", "validatingwebhookconfigurations"]
+    verbs: ["delete", "get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: akri-pre-deletion
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+    "helm.sh/hook-weight": "5"
+subjects:
+  - kind: ServiceAccount
+    name: akri-pre-deletion
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: akri-pre-deletion
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: akri-pre-deletion
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+    "helm.sh/hook-weight": "5"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: akri-pre-deletion
+subjects:
+  - kind: ServiceAccount
+    name: akri-pre-deletion
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: akri-pre-deletion
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+    "helm.sh/hook-weight": "10"
+spec:
+  template:
+    spec:
+      serviceAccountName: akri-pre-deletion
+      containers:
+        - name: kubectl
+          image: {{ .Values.kubectl.image | default "bitnamilegacy/kubectl:1.31.3" }}
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "-e", "-c"]
+          args:
+            - |
+              echo "Cleaning up Akri resources..."
+              # Remove finalizers from configurations to allow deletion
+              for config in $(kubectl get configurations.akri.sh --all-namespaces -o name 2>/dev/null || true); do
+                kubectl patch $config -p '{"metadata":{"finalizers":null}}' --type=merge 2>/dev/null || true
+              done
+              # Remove finalizers from instances
+              for instance in $(kubectl get instances.akri.sh --all-namespaces -o name 2>/dev/null || true); do
+                kubectl patch $instance -p '{"metadata":{"finalizers":null}}' --type=merge 2>/dev/null || true
+              done
+              # Now delete resources
+              kubectl delete configurations.akri.sh --all --all-namespaces --timeout=10s --ignore-not-found=true || true
+              kubectl delete instances.akri.sh --all --all-namespaces --timeout=10s --ignore-not-found=true || true
+              kubectl delete deployments -n {{ .Release.Namespace }} -l app.kubernetes.io/name=akri --timeout=10s --ignore-not-found=true || true
+              kubectl delete daemonsets -n {{ .Release.Namespace }} -l app.kubernetes.io/name=akri --timeout=10s --ignore-not-found=true || true
+              kubectl delete services -n {{ .Release.Namespace }} -l app.kubernetes.io/name=akri --timeout=10s --ignore-not-found=true || true
+              kubectl delete validatingwebhookconfigurations.admissionregistration.k8s.io -l app.kubernetes.io/name=akri --timeout=10s --ignore-not-found=true || true
+              echo "Akri cleanup completed!"
+      restartPolicy: OnFailure
