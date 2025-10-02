@@ -6,7 +6,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: metallb
-version: 1.2.0
+version: 1.2.1
 description: "Load balancer for bare metal k8s clusters"
 kind: extension
 
@@ -17,7 +17,7 @@ chartVersion: "6.4.5"
 profiles:
   - name: default
     displayName: "Default"
-    valuesFileName: "empty-values.yaml"
+    valuesFileName: "metallb-values.yaml"
 
 ignoredResources:
   - kind: CustomResourceDefinition
