@@ -17,7 +17,7 @@ chartVersion: "6.4.5"
 profiles:
   - name: default
     displayName: "Default"
-    valuesFileName: "empty-values.yaml"
+    valuesFileName: "metallb-values.yaml"
 
 ignoredResources:
   - kind: CustomResourceDefinition
