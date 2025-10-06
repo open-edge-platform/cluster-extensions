@@ -99,7 +99,7 @@ spec:
         - name: kubectl
           image: {{ .Values.kubectl.image }}
           imagePullPolicy: IfNotPresent
-          command: ["sh", "-e", "-c"]
+          command: ["sh", "-c"]
           args:
             - |
               echo "deleting metallb instance..."
