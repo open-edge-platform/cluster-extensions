@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+global:
+  security:
+    allowInsecureImages: true
+
+controller:
+  image:
+    repository: bitnamilegacy/metallb-controller
+
+speaker:
+  image:
+    repository: bitnamilegacy/metallb-speaker

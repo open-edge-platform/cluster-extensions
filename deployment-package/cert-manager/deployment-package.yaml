@@ -7,13 +7,13 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "cert-manager"
 description: "cert-manager Deployment Package"
-version: 0.1.4
+version: 0.1.5
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
   - name: cert-manager
-    version: 1.16.4
+    version: 1.16.5
 
 defaultNamespaces:
   cert-manager: cert-manager

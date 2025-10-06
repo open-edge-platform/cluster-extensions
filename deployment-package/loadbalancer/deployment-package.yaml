@@ -7,19 +7,19 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "loadbalancer"
 description: "Enables load balancer and ingress controller on the edge"
-version: 0.5.10
+version: 0.5.11
 
 kind: extension
 
 applications:
   - name: metallb
-    version: 1.1.3
+    version: 1.1.4
   - name: metallb-base
-    version: 0.16.5
+    version: 0.16.6
   - name: metallb-config
-    version: 0.2.3
+    version: 0.2.4
   - name: ingress-nginx
-    version: 5.1.4
+    version: 5.1.5
 
 defaultNamespaces:
   metallb: metallb-system
