@@ -18,8 +18,25 @@ extraVolumeMounts:
   - name: authlog
     mountPath: /var/log/auth.log
     readOnly: true
-  - name: platform-observability-sockets
+  - name: kernlog
+    mountPath: /var/log/kern.log
+    readOnly: true
+  - name: cloudinit
+    mountPath: /var/log/cloud-init.log
+    readOnly: true
+  - name: cloudinitoutput
+    mountPath: /var/log/cloud-init-output.log
+    readOnly: true
+  - name: journal
+    mountPath: /var/log/journal
+    readOnly: true
+  - name: systemd
+    mountPath: /run/systemd/journal
+    readOnly: true
+  - name: logforward
     mountPath: /run/platform-observability-agent/fluent-bit
+  - name: storage
+    mountPath: /tmp/flb-storage
 extraVolumes:
   - name: certs
     secret:
@@ -36,50 +53,69 @@ extraVolumes:
     hostPath:
       path: /var/log/auth.log
       type: File
-  - name: platform-observability-sockets
+  - name: kernlog
+    hostPath:
+      path: /var/log/kern.log
+      type: File
+  - name: cloudinit
+    hostPath:
+      path: /var/log/cloud-init.log
+      type: File
+  - name: cloudinitoutput
+    hostPath:
+      path: /var/log/cloud-init-output.log
+      type: File
+  - name: journal
+    hostPath:
+      path: /var/log/journal
+      type: Directory
+  - name: systemd
+    hostPath:
+      path: /run/systemd/journal
+      type: Directory
+  - name: logforward
     hostPath:
       path: /run/platform-observability-agent/fluent-bit
-      type: Directory
-
+      type: DirectoryOrCreate
+  - name: storage
+    hostPath:
+      path: /tmp/flb-storage
+      type: DirectoryOrCreate
 securityContext:
-  readOnlyRootFilesystem: true
-  allowPrivilegeEscalation: false
-  runAsUser: 1000
-  runAsGroup: 1000
-  capabilities:
-    drop:
-      - ALL
+  readOnlyRootFilesystem: false
+  allowPrivilegeEscalation: true
+  privileged: true
 podSecurityContext:
-  runAsNonRoot: true
-  runAsUser: 1000
-  runAsGroup: 1000
-  fsGroup: 1000
-  supplementalGroups: [4, 16, 104, 106, 500]
+  runAsNonRoot: false
+  runAsUser: 0
+  supplementalGroups: [4, 500, 10, 101]
 resources:
   limits:
-    cpu: 300m
-    memory: 600Mi
-  requests:
     cpu: 150m
     memory: 300Mi
+  requests:
+    cpu: 50m
+    memory: 150Mi
 service:
-  type: ClusterIP
   port: 24224
 rbac:
+  create: true
   nodeAccess: true
 testFramework:
   enabled: false
 config:
   service: |
     [SERVICE]
-      Flush     10
+      Flush     1
       Log_Level info
       HTTP_Server On
       HTTP_Listen 0.0.0.0
-      HTTP_Port 2020
       Health_Check On
-      storage.max_chunks_up 128
-      storage.backlog.mem_limit 200MB
+      Grace     30
+      storage.path /tmp/flb-storage/
+      storage.sync full
+      storage.backlog.mem_limit 200M
+      storage.max_chunks_up 2048
 #
   inputs: |
     [INPUT] ## Input for syslog
@@ -87,31 +123,65 @@ config:
       Tag            EdgeNode_Syslog
       Path           /var/log/syslog
       Read_from_Head false
-      Mem_Buf_Limit 10MB
+      Mem_Buf_Limit  25MB
       Skip_Long_Lines On
-      Refresh_Interval 10
+      Refresh_Interval 5
     [INPUT] ## Input for auth.log
       Name           tail
       Tag            EdgeNode_AuthLog
       Path           /var/log/auth.log
       Read_from_Head false
-      Mem_Buf_Limit 5MB
+      Mem_Buf_Limit  10MB
       Skip_Long_Lines On
+      Refresh_Interval 5
+    [INPUT] ## Input for systemd journal logs (K3s system logs)
+      Name            systemd
+      Tag             EdgeNode_SystemLogs
+      Read_From_Tail  true
+      Strip_Underscores true
+      Systemd_Filter  _SYSTEMD_UNIT=k3s.service
+      Systemd_Filter  _SYSTEMD_UNIT=k3s-agent.service
+      Systemd_Filter  _SYSTEMD_UNIT=containerd.service
+      Max_Entries     1000
+    [INPUT] ## Input for systemd journal logs
+      Name            systemd
+      Tag             EdgeNode_AllServiceLogs
+      Read_From_Tail  true
+      Strip_Underscores true
+      Max_Entries     2000
     [INPUT] ## Input for container logs
       Name           tail
       Tag            Container.*
       multiline.parser docker, cri
       Path           /var/log/containers/*.log
       Read_from_Head true
-      Mem_Buf_Limit 25MB
+      Mem_Buf_Limit  50MB
       Skip_Long_Lines On
-      Refresh_Interval 10
-    [INPUT] ## Input for systemd journal
-      Name           systemd
-      Tag            EdgeNode_Journal
-      Max_Entries    100
-      Read_From_Tail true
-
+      storage.type filesystem
+    [INPUT] ## Input for kernel logs
+      Name         tail
+      Tag          EdgeNode_KernLog
+      Path         /var/log/kern.log
+      Read_from_Head false
+      Mem_Buf_Limit 5MB
+      Refresh_Interval 5
+      storage.type filesystem
+    [INPUT] ## Input for cloud-init logs
+      Name         tail
+      Tag          EdgeNode_CloudInit
+      Path         /var/log/cloud-init.log
+      Read_from_Head false
+      Mem_Buf_Limit 5MB
+      Refresh_Interval 5
+      storage.type filesystem
+    [INPUT] ## Input for cloud-init output logs
+      Name         tail
+      Tag          EdgeNode_CloudInitOutput
+      Path         /var/log/cloud-init-output.log
+      Read_from_Head false
+      Mem_Buf_Limit 5MB
+      Refresh_Interval 5
+      storage.type filesystem
     [INPUT] ## Input for logs/traces received on port
       Name         opentelemetry
       Tag          EdgeNode_OtelLogs
@@ -128,20 +198,49 @@ config:
       Name   record_modifier
       Match  EdgeNode_Syslog
       Record FileType SystemLog
-    [FILTER] ## Filter for auth log tagging
+      Record LogSource host
+      Record Category provisioning
+    [FILTER] ## Filter for auth.log tagging
       Name   record_modifier
       Match  EdgeNode_AuthLog
-      Record FileType AuthLog
-    [FILTER] ## Filter for systemd journal tagging
+      Record FileType SystemLog
+      Record LogSource host
+      Record Category authentication
+    [FILTER] ## Filter for systemd/journal logs tagging
       Name   record_modifier
-      Match  EdgeNode_Journal
-      Record FileType SystemdJournal
-
+      Match  EdgeNode_SystemLogs
+      Record FileType SystemLog
+      Record LogSource host
+      Record Category k3s
+    [FILTER] ## Filter for all service logs tagging
+      Name   record_modifier
+      Match  EdgeNode_AllServiceLogs
+      Record FileType SystemLog
+      Record LogSource host
+      Record Category provisioning
+    [FILTER] ## Filter for kernel logs tagging
+      Name   record_modifier
+      Match  EdgeNode_KernLog
+      Record FileType SystemLog
+      Record LogSource host
+      Record Category kernel
+    [FILTER] ## Filter for cloud-init logs tagging
+      Name   record_modifier
+      Match  EdgeNode_CloudInit
+      Record FileType SystemLog
+      Record LogSource host
+      Record Category provisioning
+    [FILTER] ## Filter for cloud-init output logs tagging
+      Name   record_modifier
+      Match  EdgeNode_CloudInitOutput
+      Record FileType SystemLog
+      Record LogSource host
+      Record Category provisioning
     [FILTER] ## Filter for logs/traces received on port
       Name   record_modifier
       Match  EdgeNode_OtelLogs
       Record FileType OpenTelemetryLogs
-    [FILTER] ## Filter for adding kubernetes metadata for containers (with timeout)
+    [FILTER] ## Filter for adding kubernetes metadata for containers
       Name            kubernetes
       Match           Container.*
       Kube_URL        https://kubernetes.default.svc.cluster.local:443
@@ -150,11 +249,7 @@ config:
       Kube_Tag_Prefix Container.var.log.containers.
       Labels          off
       Annotations     off
-      Merge_Log       On
-      Keep_Log        Off
-      DNS_Retries     3
-      DNS_Wait_Time   5
-    [FILTER] ## Rewrite the tag for logs that do not originate from an edgenode system namespace
+    [FILTER] ## Rewrite the tag for logs that do not originate from an edgenode system namespace.  These logs will be considered application logs
       Name            rewrite_tag
       Match           Container.*
       Rule $kubernetes['namespace_name'] ^(?!.*(akri|calico-system|cattle-fleet-system|cattle-impersonation-system|cattle-system|cattle-ui-plugin-system|cdi|cert-manager|default|east|edge-system|gatekeeper-system|ingress-nginx|intel-gpu-extension|interconnect|istio-operator|istio-system|kube-node-lease|kube-public|kube-system|kubevirt|local|metallb-system|nfd|observability|orchestrator-system|tigera-operator|west)).*$ Application_EdgeNode.var.log.containers.$TAG[4].log false
@@ -171,11 +266,23 @@ config:
       Name      forward
       Match     Container.*
       Unix_Path /run/platform-observability-agent/fluent-bit/container-logs.sock
+      Workers   1
+      net.keepalive on
+      net.keepalive_idle_timeout 60
+      Retry_Limit 10
     [OUTPUT] ## Output Edge Node System logs
       Name      forward
       Match     EdgeNode_*
       Unix_Path /run/platform-observability-agent/fluent-bit/host-logs.sock
+      Workers   1
+      net.keepalive on
+      net.keepalive_idle_timeout 60
+      Retry_Limit 10
     [OUTPUT] ## Output container logs for edgenode applications
       Name      forward
       Match     Application_EdgeNode.*
       Unix_Path /run/platform-observability-agent/fluent-bit/application-logs.sock
+      Workers   1
+      net.keepalive on
+      net.keepalive_idle_timeout 60
+      Retry_Limit 10
