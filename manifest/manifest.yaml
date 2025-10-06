@@ -7,25 +7,25 @@ metadata:
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/cert-manager
-      version: 0.1.4
+      version: 0.1.5
     - dpkg: edge-orch/en/file/nfd
-      version: 0.1.3
-    - dpkg: edge-orch/en/file/intel-gpu
-      version: 1.3.5
-    - dpkg: edge-orch/en/file/kubernetes-dashboard
       version: 0.1.4
+    - dpkg: edge-orch/en/file/intel-gpu
+      version: 1.3.6
+    - dpkg: edge-orch/en/file/kubernetes-dashboard
+      version: 0.1.5
     - dpkg: edge-orch/en/file/loadbalancer
-      version: 0.5.10
+      version: 0.5.11
     - dpkg: edge-orch/en/file/nvidia-gpu-operator
-      version: 0.0.5
+      version: 0.0.6
     - dpkg: edge-orch/en/file/skupper
-      version: 0.2.3
+      version: 0.2.4
     - dpkg: edge-orch/en/file/trusted-compute
       version: 0.5.7
     - dpkg: edge-orch/en/file/usb
-      version: 0.4.4
+      version: 0.4.5
     - dpkg: edge-orch/en/file/virtualization
-      version: 0.5.10
+      version: 0.5.11
     - dpkg: edge-orch/en/file/observability
-      version: 0.1.5
+      version: 0.1.6
   deploymentList: []

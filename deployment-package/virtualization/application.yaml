@@ -6,7 +6,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: kubevirt
-version: 1.3.3
+version: 1.3.4
 description: "Virtual machine management add-on for Kubernetes"
 kind: extension
 
@@ -54,7 +54,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: cdi
-version: "2.1.2"
+version: "2.1.3"
 description: "Persistent storage management add-on for Kubernetes"
 kind: extension
 
@@ -73,7 +73,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: kubevirt-helper
-version: 1.5.7
+version: 1.5.8
 description: "Automatically restart VM when editable VM spec is updated"
 kind: extension
 
@@ -87,5 +87,5 @@ profiles:
     valuesFileName: "values-kvhelper.yaml"
     deploymentRequirements:
       - name: cert-manager
-        version: 0.1.4
+        version: 0.1.5
         deploymentProfileName: default-profile
