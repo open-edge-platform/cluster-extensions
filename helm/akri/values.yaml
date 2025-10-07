@@ -11,3 +11,8 @@ extensionImages:
   - "ghcr.io/project-akri/akri/controller:v0.12.20"
   - "ghcr.io/project-akri/akri/webhook-configuration:v0.12.20"
   - "registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.1.1"
+  - "bitnamilegacy/kubectl:1.31.3"
+
+# kubectl image for pre-deletion hook
+kubectl:
+  image: "bitnamilegacy/kubectl:1.31.3"

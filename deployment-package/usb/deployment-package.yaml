@@ -7,15 +7,15 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "usb"
 description: "Brings USB allocation for containers/VMs running on k8s cluster"
-version: 0.4.5
+version: 0.4.6
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
   - name: akri
-    version: 0.13.11
+    version: 0.13.12
   - name: usb-device-plugin
-    version: 1.1.4
+    version: 1.1.5
 
 defaultNamespaces:
   usb-device-plugin: akri
