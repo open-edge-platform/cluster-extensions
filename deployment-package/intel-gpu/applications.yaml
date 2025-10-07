@@ -7,7 +7,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: intel-device-operator
-version: 0.29.2
+version: 0.29.3
 description: "Intel Device Plugin Operator"
 kind: extension
 
@@ -21,7 +21,7 @@ profiles:
     valuesFileName: "values-device-operator.yaml"
     deploymentRequirements:
       - name: cert-manager
-        version: 0.1.4
+        version: 0.1.5
         deploymentProfileName: default-profile
 ---
 # Intel GPU Device Plugin
@@ -30,7 +30,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: intel-gpu-plugin
-version: 0.29.1
+version: 0.29.2
 description: "Intel GPU Device Plugin"
 kind: extension
 
@@ -44,5 +44,5 @@ profiles:
     valuesFileName: "values-gpu-plugin.yaml"
     deploymentRequirements:
       - name: nfd
-        version: 0.1.3
+        version: 0.1.4
         deploymentProfileName: default

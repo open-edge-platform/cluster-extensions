@@ -7,7 +7,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: observability-config
-version: 0.1.1
+version: 0.1.2
 description: "Observability Config"
 kind: extension
 
