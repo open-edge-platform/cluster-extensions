@@ -7,7 +7,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: fluent-bit
-version: 0.49.2
+version: 0.49.3
 description: "Fluent Bit"
 kind: extension
 
