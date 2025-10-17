@@ -1,0 +1,15 @@
+---
+specSchema: Application
+schemaVersion: "0.1"
+name: skupper-backend
+displayName: skupper-backend
+version: 0.0.1
+description: ""
+helmRegistry: harbor-helm-oci
+chartName: skupper-hello-world-backend
+chartVersion: 0.3.0
+profiles:
+    - name: default
+      displayName: default
+      valuesFileName: values-skupper-backend-0.0.1-default.yaml
+defaultProfile: default
