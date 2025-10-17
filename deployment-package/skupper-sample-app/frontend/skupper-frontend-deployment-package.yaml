@@ -1,0 +1,19 @@
+---
+specSchema: DeploymentPackage
+schemaVersion: "0.1"
+name: skupper-frontend
+displayName: skupper-frontend
+version: 0.0.1
+description: ""
+deploymentProfiles:
+    - name: deployment-profile-1
+      displayName: Deployment Profile 1
+      description: System generated profile
+      applicationProfiles:
+        - application: skupper-frontend
+          profile: default
+defaultProfile: deployment-profile-1
+applications:
+    - name: skupper-frontend
+      version: 0.0.1
+isDeployed: true
