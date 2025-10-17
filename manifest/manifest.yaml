@@ -19,7 +19,7 @@ lpke:
     - dpkg: edge-orch/en/file/nvidia-gpu-operator
       version: 0.1.0
     - dpkg: edge-orch/en/file/skupper
-      version: 0.3.0
+      version: 0.3.1
     - dpkg: edge-orch/en/file/trusted-compute
       version: 0.6.0
     - dpkg: edge-orch/en/file/virtualization
