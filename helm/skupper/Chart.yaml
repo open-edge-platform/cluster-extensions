@@ -5,4 +5,4 @@ apiVersion: v2
 name: skupper
 description: A Helm chart for Skupper
 type: application
-version: 0.2.0
+version: 0.3.0
