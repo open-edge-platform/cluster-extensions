@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 annotations:
   network.app.edge-orchestrator.intel.com/expose-service: "true"
   network.app.edge-orchestrator.intel.com/expose-port: "8080"
