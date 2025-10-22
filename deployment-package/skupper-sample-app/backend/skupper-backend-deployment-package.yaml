@@ -12,8 +12,8 @@ deploymentProfiles:
       displayName: Deployment Profile 1
       description: System generated profile
       applicationProfiles:
-        - application: skupper-backend
-          profile: default
+          - application: skupper-backend
+            profile: default
 defaultProfile: deployment-profile-1
 applications:
     - name: skupper-backend
