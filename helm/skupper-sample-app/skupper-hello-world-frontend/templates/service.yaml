@@ -7,11 +7,13 @@ metadata:
   name: {{ include "skupper-hello-world-frontend.fullname" . }}
   labels:
     {{ include "skupper-hello-world-frontend.labels" . | nindent 4 }}
+  annotations:
+    service-proxy.app.orchestrator.io/ports: 8080
 spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
+      targetPort: 8080
       protocol: TCP
       name: http
   selector:

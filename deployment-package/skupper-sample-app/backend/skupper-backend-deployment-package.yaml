@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: DeploymentPackage
+schemaVersion: "0.1"
+name: skupper-backend
+displayName: skupper-backend
+version: 0.0.1
+description: ""
+deploymentProfiles:
+    - name: deployment-profile-1
+      displayName: Deployment Profile 1
+      description: System generated profile
+      applicationProfiles:
+          - application: skupper-backend
+            profile: default
+defaultProfile: deployment-profile-1
+applications:
+    - name: skupper-backend
+      version: 0.0.1
+isDeployed: true
