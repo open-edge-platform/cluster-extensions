@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: Application
+schemaVersion: "0.1"
+name: skupper-frontend
+displayName: skupper-frontend
+version: 0.0.1
+description: ""
+helmRegistry: harbor-helm-oci
+chartName: skupper-hello-world-frontend
+chartVersion: 0.3.1
+profiles:
+    - name: default
+      displayName: default
+      valuesFileName: values-skupper-frontend-0.0.1-default.yaml
+defaultProfile: default
