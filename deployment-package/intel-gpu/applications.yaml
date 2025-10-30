@@ -7,13 +7,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: intel-device-operator
-version: 0.30.0
+version: 0.30.1
 description: "Intel Device Plugin Operator"
 kind: extension
 
 helmRegistry: "intel-github-io"
 chartName: "intel-device-plugins-operator"
-chartVersion: "0.29.0"
+chartVersion: "0.34.1-helm.0"
 
 profiles:
   - name: default
@@ -21,7 +21,7 @@ profiles:
     valuesFileName: "values-device-operator.yaml"
     deploymentRequirements:
       - name: cert-manager
-        version: 0.2.0
+        version: 0.2.1
         deploymentProfileName: default-profile
 ---
 # Intel GPU Device Plugin
@@ -30,13 +30,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: intel-gpu-plugin
-version: 0.30.0
+version: 0.30.1
 description: "Intel GPU Device Plugin"
 kind: extension
 
 helmRegistry: "intel-github-io"
 chartName: "intel-device-plugins-gpu"
-chartVersion: "0.29.0"
+chartVersion: "0.34.0"
 
 profiles:
   - name: exclusive-gpu-alloc
@@ -44,5 +44,5 @@ profiles:
     valuesFileName: "values-gpu-plugin.yaml"
     deploymentRequirements:
       - name: nfd
-        version: 0.2.0
+        version: 0.2.1
         deploymentProfileName: default
