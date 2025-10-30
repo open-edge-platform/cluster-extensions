@@ -6,13 +6,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: kubernetes-dashboard
-version: 0.2.0
+version: 0.2.1
 description: "kubernetes-dashboard"
 kind: extension
 
 helmRegistry: "kubernetes"
 chartName: "kubernetes-dashboard"
-chartVersion: "7.10.0"
+chartVersion: "7.13.0"
 
 profiles:
   - name: "default"
