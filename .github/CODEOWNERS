@@ -9,3 +9,5 @@
 # Everything requires team review by default
 * @scottmbaker @soniabha-intc @hyunsun @cjnolan @rranjan3 @SushilLakra @krishnajs @guptagunjan @nathsudi @adorney99 @eoghanlawless @togashidm @pchand20 @sys-devops-approve
 
+# CI files
+.github/ @adimoft @daveroge @shanedonohue @manilk1x
