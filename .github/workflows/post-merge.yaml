@@ -19,7 +19,7 @@ jobs:
       contents: read
       security-events: write
       id-token: write
-    uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@6200df1a794d3df88d943019f5efdfb485b19a4c  #cosign-fix
+    uses: open-edge-platform/orch-ci/.github/workflows/post-merge.yml@3f4dbeca2aaba7ffd669a33338cc3a70b289d0b4  #cosign-fix
     with:
       run_version_tag: true
       run_docker_build: true
