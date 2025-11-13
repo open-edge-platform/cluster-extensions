@@ -3,7 +3,7 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.4.4
+  release: 1.4.5
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/cert-manager
