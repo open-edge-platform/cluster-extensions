@@ -8,6 +8,6 @@
 namespace: skupper-site-controller
 image:
   repository: quay.io/skupper/site-controller
-  tag: 1.8.3
+  tag: 1.9.4
 
 replicaCount: 1
