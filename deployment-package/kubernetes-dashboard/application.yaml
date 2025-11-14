@@ -12,7 +12,7 @@ kind: extension
 
 helmRegistry: "kubernetes"
 chartName: "kubernetes-dashboard"
-chartVersion: "7.13.0"
+chartVersion: "7.14.0"
 
 profiles:
   - name: "default"

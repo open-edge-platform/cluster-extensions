@@ -7,11 +7,11 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "intel-gpu-debug"
 description: "Intel GPU K8S extension debugging"
-version: 1.3.2
+version: 1.3.3
 
 applications:
   - name: intel-gpu-debug
-    version: 1.3.2
+    version: 1.3.3
 
 deploymentProfiles:
   - name: "testing"

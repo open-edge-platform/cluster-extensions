@@ -13,7 +13,7 @@ kind: extension
 
 helmRegistry: "intel-github-io"
 chartName: "intel-device-plugins-operator"
-chartVersion: "0.34.1-helm.0"
+chartVersion: "0.34.0"
 
 profiles:
   - name: default

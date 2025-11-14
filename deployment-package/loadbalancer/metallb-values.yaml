@@ -1,14 +1,20 @@
 # SPDX-FileCopyrightText: (C) 2024 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
-global:
-  security:
-    allowInsecureImages: true
+# Official MetalLB chart values
+# Images default to quay.io/metallb/controller and quay.io/metallb/speaker
 
 controller:
-  image:
-    repository: bitnamilegacy/metallb-controller
+  enabled: true
+  logLevel: info
 
 speaker:
-  image:
-    repository: bitnamilegacy/metallb-speaker
+  enabled: true
+  logLevel: info
+  frr:
+    enabled: false  # Set to true for FRR mode if needed
+
+# CRDs are installed via the crds sub-chart
+crds:
+  enabled: true
+  validationFailurePolicy: Fail
