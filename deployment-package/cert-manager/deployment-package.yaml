@@ -13,7 +13,7 @@ kind: extension
 
 applications:
   - name: cert-manager
-    version: 1.19.1
+    version: 1.17.1
 
 defaultNamespaces:
   cert-manager: cert-manager

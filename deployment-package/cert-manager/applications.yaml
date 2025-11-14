@@ -7,7 +7,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: cert-manager
-version: 1.19.1
+version: 1.17.1
 description: "Cert Manager"
 kind: extension
 

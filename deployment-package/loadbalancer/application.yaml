@@ -34,7 +34,7 @@ kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/metallb-base"
-chartVersion: "0.17.4"
+chartVersion: "0.17.0"
 
 profiles:
   - name: default
