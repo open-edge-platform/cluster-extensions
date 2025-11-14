@@ -10,15 +10,15 @@ nodeSelector:
 #  noProxy: http://no-proxy.com:123
 
 kubectl:
-  image: bitnamilegacy/kubectl:1.31.3
+  image: alpine/kubectl:1.34.1
 
 extensionImages:
-  - quay.io/kubevirt/cdi-operator:v1.60.2
-  - quay.io/kubevirt/cdi-controller:v1.60.2
-  - quay.io/kubevirt/cdi-importer:v1.60.2
-  - quay.io/kubevirt/cdi-cloner:v1.60.2
-  - quay.io/kubevirt/cdi-apiserver:v1.60.2
-  - quay.io/kubevirt/cdi-uploadserver:v1.60.2
-  - quay.io/kubevirt/cdi-uploadproxy:v1.60.2
-  - docker.io/library/alpine:3.20.2
-  - docker.io/bitnamilegacy/kubectl:1.31.3
+  - quay.io/kubevirt/cdi-operator:v1.63.1
+  - quay.io/kubevirt/cdi-controller:v1.63.1
+  - quay.io/kubevirt/cdi-importer:v1.63.1
+  - quay.io/kubevirt/cdi-cloner:v1.63.1
+  - quay.io/kubevirt/cdi-apiserver:v1.63.1
+  - quay.io/kubevirt/cdi-uploadserver:v1.63.1
+  - quay.io/kubevirt/cdi-uploadproxy:v1.63.1
+  - docker.io/library/alpine:3.22.2
+  - docker.io/alpine/kubectl:1.34.1

@@ -6,13 +6,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: metallb
-version: 1.2.1
+version: 1.2.2
 description: "Load balancer for bare metal k8s clusters"
 kind: extension
 
-helmRegistry: "bitnami-helm-oci"
+helmRegistry: "metallb-helm"
 chartName: "metallb"
-chartVersion: "6.4.5"
+chartVersion: "0.15.2"
 
 profiles:
   - name: default
@@ -28,13 +28,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: metallb-base
-version: 0.17.1
+version: 0.17.2
 description: "Metallb base configuration"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/metallb-base"
-chartVersion: "0.16.4"
+chartVersion: "0.17.0"
 
 profiles:
   - name: default
@@ -46,13 +46,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: metallb-config
-version: 0.3.0
+version: 0.3.1
 description: "Load balancer configuration for bare metal k8s clusters"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/metallb-config"
-chartVersion: "0.2.1"
+chartVersion: "0.3.0"
 
 profiles:
   - name: default
@@ -84,13 +84,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: ingress-nginx
-version: 5.2.0
+version: 5.2.1
 description: "Ingress controller for Kubernetes using NGINX"
 kind: extension
 
 helmRegistry: "kubernetes-ingress-helm"
 chartName: "ingress-nginx"
-chartVersion: "4.12.0"
+chartVersion: "4.13.3"
 
 profiles:
   - name: default

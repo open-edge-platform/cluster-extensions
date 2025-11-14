@@ -6,13 +6,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: nvidia-gpu-operator-app
-version: 0.1.0
+version: 0.1.1
 description: nvidia gpu operator application
 kind: extension
 
 helmRegistry: nvidia-ncg
 chartName: gpu-operator
-chartVersion: v25.3.0
+chartVersion: v25.10.0
 
 profiles:
   - name: with-intelproxy-settings

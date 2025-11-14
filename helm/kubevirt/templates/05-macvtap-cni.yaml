@@ -34,7 +34,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: macvtap-deviceplugin
-          image: quay.io/kubevirt/macvtap-cni:v0.11.1
+          image: quay.io/kubevirt/macvtap-cni:v0.13.0
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -48,7 +48,7 @@ spec:
       initContainers:
         - name: install-cni
           command: ["cp", "/macvtap-cni", "/host/opt/cni/bin/macvtap"]
-          image: quay.io/kubevirt/macvtap-cni:v0.11.1
+          image: quay.io/kubevirt/macvtap-cni:v0.13.0
           imagePullPolicy: IfNotPresent
           resources:
             requests:

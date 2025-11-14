@@ -7,13 +7,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: nfd
-version: 0.18.0
+version: 0.18.1
 description: "NFD"
 kind: extension
 
 helmRegistry: "node-feature-discovery"
 chartName: "node-feature-discovery"
-chartVersion: "0.17.0"
+chartVersion: "0.18.3"
 
 profiles:
   - name: default

@@ -3,27 +3,27 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.4.6
+  release: 1.4.7
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/cert-manager
-      version: 0.2.0
+      version: 0.2.1
     - dpkg: edge-orch/en/file/nfd
-      version: 0.2.0
+      version: 0.2.1
     - dpkg: edge-orch/en/file/intel-gpu
-      version: 1.4.0
+      version: 1.4.1
     - dpkg: edge-orch/en/file/kubernetes-dashboard
-      version: 0.2.0
+      version: 0.2.1
     - dpkg: edge-orch/en/file/loadbalancer
-      version: 0.6.2
+      version: 0.6.3
     - dpkg: edge-orch/en/file/nvidia-gpu-operator
-      version: 0.1.0
+      version: 0.1.1
     - dpkg: edge-orch/en/file/skupper
       version: 0.3.1
     - dpkg: edge-orch/en/file/trusted-compute
       version: 0.7.0
     - dpkg: edge-orch/en/file/virtualization
-      version: 0.6.1
+      version: 0.6.2
     - dpkg: edge-orch/en/file/observability
       version: 0.2.0
   deploymentList: []

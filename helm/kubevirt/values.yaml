@@ -7,19 +7,19 @@ nodeSelector:
   kubernetes.io/os: linux
 
 extensionImages:
-  - quay.io/kubevirt/macvtap-cni:v0.11.1
-  - quay.io/kubevirt/virt-operator:v1.4.0
-  - quay.io/kubevirt/virt-launcher:v1.4.0
-  - quay.io/kubevirt/virt-handler:v1.4.0
-  - quay.io/kubevirt/virt-controller:v1.4.0
-  - docker.io/library/alpine:3.20.2
-  - docker.io/bitnamilegacy/kubectl:1.31.3
+  - quay.io/kubevirt/macvtap-cni:v0.13.0
+  - quay.io/kubevirt/virt-operator:v1.6.3
+  - quay.io/kubevirt/virt-launcher:v1.6.3
+  - quay.io/kubevirt/virt-handler:v1.6.3
+  - quay.io/kubevirt/virt-controller:v1.6.3
+  - docker.io/library/alpine:3.22.2
+  - docker.io/alpine/kubectl:1.34.1
 
 serviceMonitor:
   enabled: true
 
 kubectl:
-  image: bitnamilegacy/kubectl:1.31.3
+  image: alpine/kubectl:1.34.1
 
 # format: name;vid;pid,name;vid;pid
 # example: "kubevirt.io/usb-1;vid;pid,kubevirt.io/usb-2;vid;pid,kubevirt.io/usb-3;vid;pid"
