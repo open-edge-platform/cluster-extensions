@@ -7,7 +7,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: fluent-bit
-version: 0.50.0
+version: 0.50.1
 description: "Fluent Bit"
 kind: extension
 
@@ -21,5 +21,5 @@ profiles:
     valuesFileName: "values-fluent-bit.yaml"
     deploymentRequirements:
       - name: cert-manager
-        version: 0.2.0
+        version: 0.2.1
         deploymentProfileName: default-profile
