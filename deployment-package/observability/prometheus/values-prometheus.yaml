@@ -67,7 +67,7 @@ prometheusOperator:
   image:
     registry: quay.io
     repository: prometheus-operator/prometheus-operator
-    tag: v0.81.0
+    tag: v0.86.2
   enabled: true
   resources:
     limits:
@@ -96,7 +96,7 @@ prometheusOperator:
     image:
       registry: quay.io
       repository: prometheus-operator/prometheus-config-reloader
-      tag: "v0.81.0"
+      tag: "v0.86.2"
   tolerations:
     # - effect: NoSchedule
     #   key: node-role.kubernetes.io/worker
@@ -161,7 +161,7 @@ prometheus:
     image:
       registry: quay.io
       repository: prometheus/prometheus
-      tag: v3.2.1
+      tag: v3.7.3
     securityContext:
       runAsNonRoot: true
       runAsUser: 501
@@ -262,7 +262,7 @@ kube-state-metrics:
   image:
     registry: registry.k8s.io
     repository: kube-state-metrics/kube-state-metrics
-    tag: v2.15.0
+    tag: v2.17.0
   resources:
     limits:
       cpu: 100m
@@ -270,6 +270,24 @@ kube-state-metrics:
     requests:
       cpu: 10m
       memory: 32Mi
+  livenessProbe:
+    httpGet:
+      path: /livez
+      port: 8080
+      scheme: HTTPS
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readinessProbe:
+    httpGet:
+      path: /livez
+      port: 8080
+      scheme: HTTPS
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
   prometheus:
     monitor:
       scheme: https
@@ -292,10 +310,11 @@ kube-state-metrics:
           regex: *kubeState
   kubeRBACProxy:
     enabled: true
+    ignoreProbePaths: true
     image:
       registry: quay.io
       repository: brancz/kube-rbac-proxy
-      tag: v0.19.0
+      tag: v0.20.0
     extraArgs:
       - "--tls-cert-file=/etc/tls/tls.crt"
       - "--tls-private-key-file=/etc/tls/tls.key"

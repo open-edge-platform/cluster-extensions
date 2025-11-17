@@ -7,19 +7,19 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "observability"
 description: "observability Stack"
-version: 0.2.1
+version: 0.2.2
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
   - name: fluent-bit
-    version: 0.50.1
+    version: 0.50.2
   - name: telegraf
-    version: 1.9.1
+    version: 1.9.2
   - name: prometheus
-    version: 70.4.1
+    version: 70.4.2
   - name: node-exporter
-    version: 4.46.1
+    version: 4.46.2
   - name: observability-config
     version: 0.2.0
 
