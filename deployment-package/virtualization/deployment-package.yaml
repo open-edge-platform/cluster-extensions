@@ -7,13 +7,13 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "virtualization"
 description: "Virtualization support for k8s cluster"
-version: 0.6.2
+version: 0.6.3
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
   - name: kubevirt
-    version: 1.4.1
+    version: 1.4.2
   - name: cdi
     version: 2.2.1
   - name: kubevirt-helper
