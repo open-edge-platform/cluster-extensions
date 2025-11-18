@@ -6,13 +6,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: kubevirt
-version: 1.4.1
+version: 1.4.2
 description: "Virtual machine management add-on for Kubernetes"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/kubevirt"
-chartVersion: "1.3.3"
+chartVersion: "1.3.4"
 
 profiles:
   - name: default
@@ -73,13 +73,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: kubevirt-helper
-version: 1.6.2
+version: 1.6.3
 description: "Automatically restart VM when editable VM spec is updated"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/kubevirt-helper"
-chartVersion: 1.5.7
+chartVersion: 1.5.8
 
 profiles:
   - name: "default"
