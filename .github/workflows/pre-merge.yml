@@ -44,7 +44,7 @@ jobs:
     if: ${{ needs.pre-checks.outputs.filtered_projects != '[]' }}
     strategy:
       fail-fast: false
-    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@da08a06e8aec70621e50ed4aec2fac5599839f45  # v0.1.62
+    uses: open-edge-platform/orch-ci/.github/workflows/pre-merge.yml@57ae89489027070792089531710c450af3b66c26  # v0.1.64
     with:
       run_security_scans: true
       run_version_check: true
