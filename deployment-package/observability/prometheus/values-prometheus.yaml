@@ -270,24 +270,6 @@ kube-state-metrics:
     requests:
       cpu: 10m
       memory: 32Mi
-  livenessProbe:
-    httpGet:
-      path: /livez
-      port: 8080
-      scheme: HTTPS
-    initialDelaySeconds: 5
-    periodSeconds: 10
-    timeoutSeconds: 5
-    failureThreshold: 3
-  readinessProbe:
-    httpGet:
-      path: /livez
-      port: 8080
-      scheme: HTTPS
-    initialDelaySeconds: 5
-    periodSeconds: 10
-    timeoutSeconds: 5
-    failureThreshold: 3
   prometheus:
     monitor:
       scheme: https
