@@ -66,6 +66,7 @@ rules:
       - list
       - watch
       - patch
+      - update
       - delete
   - apiGroups:
       - ""
@@ -131,6 +132,10 @@ rules:
       - list
       - get
       - watch
+      - create
+      - update
+      - patch
+      - delete
   - apiGroups:
       - networking.k8s.io
     resources:

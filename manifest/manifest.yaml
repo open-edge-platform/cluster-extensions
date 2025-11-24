@@ -23,7 +23,7 @@ lpke:
     - dpkg: edge-orch/en/file/trusted-compute
       version: 0.7.0
     - dpkg: edge-orch/en/file/virtualization
-      version: 0.6.3
+      version: 0.6.4
     - dpkg: edge-orch/en/file/observability
       version: 0.2.2
   deploymentList: []
