@@ -7,13 +7,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: prometheus
-version: 70.4.1
+version: 70.4.2
 description: "Prometheus"
 kind: extension
 
 helmRegistry: "prometheus"
 chartName: "kube-prometheus-stack"
-chartVersion: "70.3.0"
+chartVersion: "77.3.0"
 
 profiles:
   - name: default

@@ -7,13 +7,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: node-exporter
-version: 4.46.1
+version: 4.46.2
 description: "Node Exporter"
 kind: extension
 
 helmRegistry: "node-exporter"
 chartName: "prometheus-node-exporter"
-chartVersion: "4.45.0"
+chartVersion: "4.49.1"
 
 profiles:
   - name: default
