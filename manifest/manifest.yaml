@@ -3,7 +3,7 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.4.11
+  release: 1.4.12
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/cert-manager
@@ -25,5 +25,5 @@ lpke:
     - dpkg: edge-orch/en/file/virtualization
       version: 0.6.4
     - dpkg: edge-orch/en/file/observability
-      version: 0.2.2
+      version: 0.2.3
   deploymentList: []
