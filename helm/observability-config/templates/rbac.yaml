@@ -16,6 +16,9 @@ rules:
   - apiGroups: [""]
     resources: ["endpoints", "nodes", "persistentvolumes", "persistentvolumeclaims", "pods", "resourcequotas", "services"]
     verbs: ["get", "list"]
+  - apiGroups: ["discovery.k8s.io"]
+    resources: ["endpointslices"]
+    verbs: ["get", "list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
