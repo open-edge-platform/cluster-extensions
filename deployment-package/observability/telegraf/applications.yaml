@@ -7,7 +7,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: telegraf
-version: 1.9.2
+version: 1.9.3
 description: "Telegraf"
 kind: extension
 

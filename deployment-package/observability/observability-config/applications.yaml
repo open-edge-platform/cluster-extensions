@@ -7,15 +7,19 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: observability-config
-version: 0.2.0
+version: 0.2.1
 description: "Observability Config"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/observability-config"
-chartVersion: "0.1.0"
+chartVersion: "0.2.0"
 
 profiles:
   - name: default
     displayName: "default"
     valuesFileName: "values-observability-config.yaml"
+    deploymentRequirements:
+      - name: cert-manager
+        version: 0.2.1
+        deploymentProfileName: default-profile

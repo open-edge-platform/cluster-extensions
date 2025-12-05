@@ -7,28 +7,28 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "observability"
 description: "observability Stack"
-version: 0.2.2
+version: 0.2.3
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
+  - name: observability-config
+    version: 0.2.1
   - name: fluent-bit
     version: 0.50.2
   - name: telegraf
-    version: 1.9.2
+    version: 1.9.3
   - name: prometheus
     version: 70.4.2
   - name: node-exporter
     version: 4.46.2
-  - name: observability-config
-    version: 0.2.0
 
 defaultNamespaces:
+  observability-config: observability
   fluent-bit: observability
   telegraf: observability
   prometheus: observability
   node-exporter: observability
-  observability-config: observability
 
 namespaces:
   - name: observability
@@ -40,6 +40,8 @@ deploymentProfiles:
   - name: "default-profile"
     displayName: "Default Observability Deployment Profile"
     applicationProfiles:
+      - application: observability-config
+        profile: default
       - application: fluent-bit
         profile: default
       - application: telegraf
@@ -47,6 +49,4 @@ deploymentProfiles:
       - application: prometheus
         profile: default
       - application: node-exporter
-        profile: default
-      - application: observability-config
         profile: default

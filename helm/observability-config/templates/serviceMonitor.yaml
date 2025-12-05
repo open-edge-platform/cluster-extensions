@@ -17,8 +17,7 @@ spec:
   jobLabel: "app.kubernetes.io/name"
   selector:
     matchLabels:
-      app: {{.Values.telegraf.name}}
-      release: {{.Release.Name}}
+      app.kubernetes.io/name: {{.Values.telegraf.name}}
   endpoints:
     - port: metrics
       scheme: https

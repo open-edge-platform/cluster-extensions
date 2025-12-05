@@ -6,6 +6,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Values.telegraf.configMap }}
+  namespace: {{ .Values.namespace }}
 data:
   base-ext-telegraf.conf: |+
     [agent]
