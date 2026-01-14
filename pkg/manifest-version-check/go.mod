@@ -1,6 +1,6 @@
 module github.com/open-edge-platform/cluster-extensions/manifest-version-check
 
-go 1.24.9
+go 1.25.5
 
 require (
 	github.com/open-edge-platform/cluster-extensions v1.4.6
