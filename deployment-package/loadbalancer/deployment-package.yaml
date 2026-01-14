@@ -7,7 +7,7 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "loadbalancer"
 description: "Enables load balancer and ingress controller on the edge"
-version: 0.6.3
+version: 0.7.0
 kind: extension
 
 applications:
@@ -17,23 +17,16 @@ applications:
     version: 0.17.2
   - name: metallb-config
     version: 0.3.1
-  - name: ingress-nginx
-    version: 5.2.1
 
 defaultNamespaces:
   metallb: metallb-system
   metallb-config: metallb-system
-  ingress-nginx: ingress-nginx
 
 namespaces:
   - name: metallb-system
     labels:
       pod-security.kubernetes.io/enforce: privileged
       name: metallb-system
-  - name: ingress-nginx
-    labels:
-      pod-security.kubernetes.io/enforce: privileged
-      name: ingress-nginx
 
 deploymentProfiles:
   - name: "default-profile"
@@ -44,6 +37,4 @@ deploymentProfiles:
       - application: "metallb-base"
         profile: "default"
       - application: "metallb-config"
-        profile: "default"
-      - application: "ingress-nginx"
         profile: "default"
