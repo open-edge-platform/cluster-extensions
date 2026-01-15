@@ -78,26 +78,3 @@ profiles:
         displayName: L2 advertisement interface name such as "enp138s0f0"
         default: ""
         type: string
----
-specSchema: "Application"
-schemaVersion: "0.1"
-$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
-
-name: ingress-nginx
-version: 5.2.1
-description: "Ingress controller for Kubernetes using NGINX"
-kind: extension
-
-helmRegistry: "kubernetes-ingress-helm"
-chartName: "ingress-nginx"
-chartVersion: "4.13.3"
-
-profiles:
-  - name: default
-    displayName: "Default"
-    valuesFileName: "values-ingress-nginx-default.yaml"
-    parameterTemplates:
-      - name: controller.service.loadBalancerIP
-        displayName: controller static IP
-        default: 10.1.0.81
-        type: string

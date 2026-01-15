@@ -3,7 +3,7 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.5.0
+  release: 1.5.1
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/cert-manager
@@ -15,7 +15,7 @@ lpke:
     - dpkg: edge-orch/en/file/kubernetes-dashboard
       version: 0.2.1
     - dpkg: edge-orch/en/file/loadbalancer
-      version: 0.6.3
+      version: 0.7.0
     - dpkg: edge-orch/en/file/nvidia-gpu-operator
       version: 0.1.1
     - dpkg: edge-orch/en/file/skupper
