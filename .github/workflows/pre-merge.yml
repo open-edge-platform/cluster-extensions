@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   pre-checks:
-    runs-on: ${{ github.repository_owner == 'intel' && 'intel-ubuntu-latest' || 'ubuntu-latest' }}
+    runs-on: ${{ 'ubuntu-latest' }}
     outputs:
       filtered_projects: ${{ steps.filter-changes.outputs.filtered_projects }}
     steps:
