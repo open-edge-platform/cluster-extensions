@@ -7,7 +7,5 @@ scan:
     - helm/intel-gpu-debug/templates
     - helm/kubevirt/templates
     - helm/observability-config/templates
-    - helm/skupper-sample-app
-    - helm/skupper/templates
   skip-files:
     - pkg/intel-gpu-debug/Dockerfile

@@ -1,8 +1,0 @@
-# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
-# SPDX-License-Identifier: Apache-2.0
----
-apiVersion: v2
-name: skupper
-description: A Helm chart for Skupper
-type: application
-version: 0.3.0
