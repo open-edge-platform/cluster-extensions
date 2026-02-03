@@ -1,6 +1,11 @@
 # SPDX-FileCopyrightText: (C) 2025 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
+
+# Note: Headlamp cannot be deployed in HTTPS mode due to an issue with readiness
+# probes. For now, operating in HTTP mode and HTTPS certs are commented out.
+# see https://github.com/kubernetes-sigs/headlamp/pull/4478, waiting on merge
+
 fullnameOverride: "headlamp"
 service:
 #    port: 443
@@ -11,7 +16,6 @@ service:
 #  tlsCertPath: "/headlamp-cert/headlamp-ca.crt"
 #  tlsKeyPath: "/headlamp-cert/headlamp-tls.key"
 
-# see https://github.com/kubernetes-sigs/headlamp/pull/4478, waiting on merge
 probes:
   scheme: "HTTPS"
 

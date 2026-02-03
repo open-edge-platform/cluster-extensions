@@ -17,3 +17,7 @@ chartVersion: "0.39.0"
 profiles:
   - name: "default"
     valuesFileName: "values-dash.yaml"
+    deploymentRequirements:
+      - name: cert-manager
+        version: 0.2.1
+        deploymentProfileName: default-profile
