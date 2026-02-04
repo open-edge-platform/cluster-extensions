@@ -8,13 +8,13 @@
 
 fullnameOverride: "headlamp"
 service:
-#    port: 443
-    annotations:
-      service-proxy.app.orchestrator.io/ports: "80"  # "https:443"
-      external-dns.alpha.kubernetes.io/hostname: "dashboard.example.org"
-#config:
-#  tlsCertPath: "/headlamp-cert/headlamp-ca.crt"
-#  tlsKeyPath: "/headlamp-cert/headlamp-tls.key"
+  # port: 443
+  annotations:
+    service-proxy.app.orchestrator.io/ports: "80"  # "https:443"
+    external-dns.alpha.kubernetes.io/hostname: "dashboard.example.org"
+# config:
+#   tlsCertPath: "/headlamp-cert/headlamp-ca.crt"
+#   tlsKeyPath: "/headlamp-cert/headlamp-tls.key"
 
 probes:
   scheme: "HTTPS"
@@ -34,25 +34,25 @@ volumeMounts:
     mountPath: "/headlamp-cert"
 
 extraManifests:
-- |
-  apiVersion: cert-manager.io/v1
-  kind: Issuer
-  metadata:
-    name: headlamp-issuer
-    namespace: headlamp
-  spec:
-    selfSigned: {}
-- |
-  apiVersion: cert-manager.io/v1
-  kind: Certificate
-  metadata:
-    name: headlamp-tls
-    namespace: headlamp
-  spec:
-    secretName: headlamp-tls-secret
-    dnsNames:
-    - headlamp
-    - headlamp.headlamp
-    - headlamp.headlamp.svc
-    issuerRef:
+  - |
+    apiVersion: cert-manager.io/v1
+    kind: Issuer
+    metadata:
       name: headlamp-issuer
+      namespace: headlamp
+    spec:
+      selfSigned: {}
+  - |
+    apiVersion: cert-manager.io/v1
+    kind: Certificate
+    metadata:
+      name: headlamp-tls
+      namespace: headlamp
+    spec:
+      secretName: headlamp-tls-secret
+      dnsNames:
+      - headlamp
+      - headlamp.headlamp
+      - headlamp.headlamp.svc
+      issuerRef:
+        name: headlamp-issuer
