@@ -5,8 +5,8 @@ specSchema: "Registry"
 schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
-name: "kubernetes"
-description: "Kubernetes dashboard registry"
+name: "headlamp"
+description: "Headlamp registry"
 type: "HELM"
 
-rootUrl: "https://kubernetes.github.io/dashboard/"
+rootUrl: "https://kubernetes-sigs.github.io/headlamp/"

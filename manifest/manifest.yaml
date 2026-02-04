@@ -3,7 +3,7 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.5.2
+  release: 1.5.3
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/cert-manager
@@ -12,8 +12,6 @@ lpke:
       version: 0.2.1
     - dpkg: edge-orch/en/file/intel-gpu
       version: 1.4.1
-    - dpkg: edge-orch/en/file/kubernetes-dashboard
-      version: 0.2.1
     - dpkg: edge-orch/en/file/loadbalancer
       version: 0.7.0
     - dpkg: edge-orch/en/file/nvidia-gpu-operator
@@ -24,4 +22,6 @@ lpke:
       version: 0.7.0
     - dpkg: edge-orch/en/file/observability
       version: 0.2.3
+    - dpkg: edge-orch/en/file/headlamp
+      version: 0.39.0
   deploymentList: []

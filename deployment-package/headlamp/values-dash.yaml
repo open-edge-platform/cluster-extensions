@@ -1,0 +1,58 @@
+# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+
+# Note: Headlamp cannot be deployed in HTTPS mode due to an issue with readiness
+# probes. For now, operating in HTTP mode and HTTPS certs are commented out.
+# see https://github.com/kubernetes-sigs/headlamp/pull/4478, waiting on merge
+
+fullnameOverride: "headlamp"
+service:
+  # port: 443
+  annotations:
+    service-proxy.app.orchestrator.io/ports: "80"  # "https:443"
+    external-dns.alpha.kubernetes.io/hostname: "dashboard.example.org"
+# config:
+#   tlsCertPath: "/headlamp-cert/headlamp-ca.crt"
+#   tlsKeyPath: "/headlamp-cert/headlamp-tls.key"
+
+probes:
+  scheme: "HTTPS"
+
+volumes:
+  - name: "headlamp-cert"
+    secret:
+      secretName: "headlamp-tls-secret"
+      items:
+        - key: "tls.crt"
+          path: "headlamp-ca.crt"
+        - key: "tls.key"
+          path: "headlamp-tls.key"
+
+volumeMounts:
+  - name: "headlamp-cert"
+    mountPath: "/headlamp-cert"
+
+extraManifests:
+  - |
+    apiVersion: cert-manager.io/v1
+    kind: Issuer
+    metadata:
+      name: headlamp-issuer
+      namespace: headlamp
+    spec:
+      selfSigned: {}
+  - |
+    apiVersion: cert-manager.io/v1
+    kind: Certificate
+    metadata:
+      name: headlamp-tls
+      namespace: headlamp
+    spec:
+      secretName: headlamp-tls-secret
+      dnsNames:
+      - headlamp
+      - headlamp.headlamp
+      - headlamp.headlamp.svc
+      issuerRef:
+        name: headlamp-issuer

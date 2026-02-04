@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: headlamp
+version: 0.39.0
+description: "headlamp is a web-based UI for Kubernetes cluster management."
+kind: extension
+
+helmRegistry: "headlamp"
+chartName: "headlamp"
+chartVersion: "0.39.0"
+
+profiles:
+  - name: "default"
+    valuesFileName: "values-dash.yaml"
+    deploymentRequirements:
+      - name: cert-manager
+        version: 0.2.1
+        deploymentProfileName: default-profile

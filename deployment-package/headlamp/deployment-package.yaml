@@ -5,28 +5,28 @@ specSchema: "DeploymentPackage"
 schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
-name: "kubernetes-dashboard"
-displayName: "kubernetes-dashboard"
-description: "kubernetes-dashboard"
-version: 0.2.1
+name: "headlamp"
+displayName: "headlamp"
+description: "headlamp is a web-based UI for Kubernetes cluster management."
+version: 0.39.0
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
-  - name: kubernetes-dashboard
-    version: 0.2.1
+  - name: headlamp
+    version: 0.39.0
 
 deploymentProfiles:
   - name: "default"
     applicationProfiles:
-      - application: "kubernetes-dashboard"
+      - application: "headlamp"
         profile: "default"
 
 defaultNamespaces:
-  kubernetes-dashboard: kubernetes-dashboard
+  headlamp: headlamp
 
 namespaces:
-  - name: kubernetes-dashboard
+  - name: headlamp
     labels:
       pod-security.kubernetes.io/enforce: privileged
-      name: kubernetes-dashboard
+      name: headlamp
