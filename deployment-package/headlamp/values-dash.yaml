@@ -8,13 +8,14 @@
 
 fullnameOverride: "headlamp"
 service:
-  # port: 443
+  port: 443
   annotations:
-    service-proxy.app.orchestrator.io/ports: "80"  # "https:443"
+    service-proxy.app.orchestrator.io/ports: "https:443"
     external-dns.alpha.kubernetes.io/hostname: "dashboard.example.org"
-# config:
-#   tlsCertPath: "/headlamp-cert/headlamp-ca.crt"
-#   tlsKeyPath: "/headlamp-cert/headlamp-tls.key"
+config:
+   tlsCertPath: "/headlamp-cert/headlamp-ca.crt"
+   tlsKeyPath: "/headlamp-cert/headlamp-tls.key"
+   inClusterContextName: ""
 
 probes:
   scheme: "HTTPS"

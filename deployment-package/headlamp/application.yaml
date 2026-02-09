@@ -6,13 +6,18 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: headlamp
-version: 0.39.0
+version: 0.39.2
 description: "headlamp is a web-based UI for Kubernetes cluster management."
 kind: extension
 
-helmRegistry: "headlamp"
-chartName: "headlamp"
-chartVersion: "0.39.0"
+helmRegistry: "intel-rs-helm"
+chartName: "edge-orch/en/charts/headlamp"
+
+# TODO: Switch back to official repo once issue #4406 is resolved
+#helmRegistry: "headlamp"
+#chartName: "headlamp"
+
+chartVersion: "0.39.2"
 
 profiles:
   - name: "default"

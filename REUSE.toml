@@ -21,3 +21,10 @@ path = [
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2022 Intel Corporation"
 SPDX-License-Identifier = "Apache-2.0"
+
+
+[[annotations]]
+path = [helm/headlamp/**]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2019-present github.com/kubernetes-sigs/headlamp"
+SPDX-License-Identifier = "Apache-2.0"
