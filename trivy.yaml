@@ -8,5 +8,6 @@ scan:
     - helm/kubevirt/templates
     - helm/observability-config/templates
     - helm/headlamp/templates
+    - helm/headlamp/tests
   skip-files:
     - pkg/intel-gpu-debug/Dockerfile
