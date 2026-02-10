@@ -14,8 +14,8 @@ helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/headlamp"
 
 # TODO: Switch back to official repo once issue #4406 is resolved
-#helmRegistry: "headlamp"
-#chartName: "headlamp"
+# helmRegistry: "headlamp"
+# chartName: "headlamp"
 
 chartVersion: "0.39.2"
 
