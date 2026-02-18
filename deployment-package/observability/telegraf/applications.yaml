@@ -7,13 +7,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: telegraf
-version: 1.9.3
+version: 1.9.4
 description: "Telegraf"
 kind: extension
 
 helmRegistry: "telegraf"
 chartName: "telegraf"
-chartVersion: "1.8.64"
+chartVersion: "1.8.66"
 
 profiles:
   - name: default
