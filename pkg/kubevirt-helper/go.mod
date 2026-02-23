@@ -1,6 +1,6 @@
 module github.com/open-edge-platform/cluster-extensions/kubevirt-helper
 
-go 1.25.5
+go 1.25.7
 
 replace (
 	k8s.io/api => k8s.io/api v0.26.4
