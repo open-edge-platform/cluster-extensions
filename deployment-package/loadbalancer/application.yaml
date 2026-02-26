@@ -6,13 +6,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: metallb
-version: 1.2.2
+version: 1.2.3
 description: "Load balancer for bare metal k8s clusters"
 kind: extension
 
 helmRegistry: "metallb-helm"
 chartName: "metallb"
-chartVersion: "0.15.2"
+chartVersion: "0.15.3"
 
 profiles:
   - name: default
@@ -28,13 +28,13 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: metallb-base
-version: 0.17.2
+version: 0.17.3
 description: "Metallb base configuration"
 kind: extension
 
 helmRegistry: "intel-rs-helm"
 chartName: "edge-orch/en/charts/metallb-base"
-chartVersion: "0.17.0"
+chartVersion: "0.17.1"
 
 profiles:
   - name: default

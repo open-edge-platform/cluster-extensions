@@ -7,14 +7,14 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "loadbalancer"
 description: "Enables load balancer and ingress controller on the edge"
-version: 0.7.0
+version: 0.7.1
 kind: extension
 
 applications:
   - name: metallb
-    version: 1.2.2
+    version: 1.2.3
   - name: metallb-base
-    version: 0.17.2
+    version: 0.17.3
   - name: metallb-config
     version: 0.3.1
 

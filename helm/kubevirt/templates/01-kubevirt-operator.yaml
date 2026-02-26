@@ -1344,14 +1344,14 @@ spec:
             - virt-operator
           env:
             - name: VIRT_OPERATOR_IMAGE
-              value: quay.io/kubevirt/virt-operator:v1.6.3
+              value: quay.io/kubevirt/virt-operator:v1.7.1
             - name: WATCH_NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.annotations['olm.targetNamespaces']
             - name: KUBEVIRT_VERSION
-              value: v1.6.3
-          image: quay.io/kubevirt/virt-operator:v1.6.3
+              value: v1.7.1
+          image: quay.io/kubevirt/virt-operator:v1.7.1
           imagePullPolicy: IfNotPresent
           name: virt-operator
           ports:
