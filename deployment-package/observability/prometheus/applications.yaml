@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
 # prometheus
@@ -13,7 +13,7 @@ kind: extension
 
 helmRegistry: "prometheus"
 chartName: "kube-prometheus-stack"
-chartVersion: "82.1.0"
+chartVersion: "82.4.0"
 
 profiles:
   - name: default

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
 # telegraf
@@ -13,7 +13,7 @@ kind: extension
 
 helmRegistry: "telegraf"
 chartName: "telegraf"
-chartVersion: "1.8.66"
+chartVersion: "1.8.67"
 
 profiles:
   - name: default

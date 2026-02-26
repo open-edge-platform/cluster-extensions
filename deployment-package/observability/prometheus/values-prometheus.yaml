@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
 minimalMetricSet:
@@ -161,7 +161,7 @@ prometheus:
     image:
       registry: quay.io
       repository: prometheus/prometheus
-      tag: v3.9.1
+      tag: v3.10.0
     securityContext:
       runAsNonRoot: true
       runAsUser: 501
@@ -296,7 +296,7 @@ kube-state-metrics:
     image:
       registry: quay.io
       repository: brancz/kube-rbac-proxy
-      tag: v0.20.2
+      tag: v0.21.0
     extraArgs:
       - "--tls-cert-file=/etc/tls/tls.crt"
       - "--tls-private-key-file=/etc/tls/tls.key"
