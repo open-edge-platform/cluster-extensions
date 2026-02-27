@@ -3,7 +3,7 @@ module github.com/open-edge-platform/cluster-extensions/manifest-version-check
 go 1.25.7
 
 require (
-	github.com/open-edge-platform/cluster-extensions v1.4.6
+	github.com/open-edge-platform/cluster-extensions v1.5.5
 	github.com/sirupsen/logrus v1.9.3
 	gopkg.in/yaml.v3 v3.0.1
 )

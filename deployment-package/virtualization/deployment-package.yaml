@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
 specSchema: "DeploymentPackage"
@@ -7,15 +7,15 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "virtualization"
 description: "Virtualization support for k8s cluster"
-version: 0.7.1
+version: 0.7.2
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
   - name: kubevirt
-    version: 1.4.3
+    version: 1.4.4
   - name: cdi
-    version: 2.2.1
+    version: 2.2.2
   - name: kubevirt-helper
     version: 1.7.1
 
