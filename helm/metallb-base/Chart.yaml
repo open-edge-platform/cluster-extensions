@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
 apiVersion: v2
@@ -9,4 +9,4 @@ icon: https://metallb.universe.tf/images/logo/metallb-white.png
 kubeVersion: '>= 1.19.0-0'
 name: metallb-base
 type: application
-version: 0.17.0
+version: 0.17.1
