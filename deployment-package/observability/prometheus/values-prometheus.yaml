@@ -253,8 +253,6 @@ prometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
 kube-state-metrics:
-  nodeExporter:
-    enabled: false
   fullnameOverride: kube-state-metrics
   tolerations:
     - effect: NoSchedule
@@ -272,16 +270,50 @@ kube-state-metrics:
       memory: 32Mi
   prometheus:
     monitor:
-      scheme: http
+      scheme: https
+      tlsConfig:
+        serverName: prometheus-kube-state-metrics
+        keySecret:
+          key: tls.key
+          name: prometheus-tls
+        ca:
+          secret:
+            key: ca.crt
+            name: prometheus-tls
+        cert:
+          secret:
+            key: tls.crt
+            name: prometheus-tls
       metricRelabelings:
         - action: keep
           sourceLabels: [__name__]
           regex: *kubeState
-  # Disable kubeRBACProxy due to helm chart bug with probe configuration
-  # When enabled, probes on main container reference sidecar ports which doesn't work
   kubeRBACProxy:
-    enabled: false
-  selfMonitor:
     enabled: true
+    ignoreProbePaths: true
+    image:
+      registry: quay.io
+      repository: brancz/kube-rbac-proxy
+      tag: v0.21.0
+    extraArgs:
+      - "--tls-cert-file=/etc/tls/tls.crt"
+      - "--tls-private-key-file=/etc/tls/tls.key"
+      - "--client-ca-file=/etc/tls/ca.crt"
+      - "--ignore-paths=/livez,/readyz"
+    resources:
+      limits:
+        cpu: 100m
+        memory: 64Mi
+      requests:
+        cpu: 10m
+        memory: 32Mi
+    volumeMounts:
+      - mountPath: /etc/tls
+        name: kube-state-rbac-proxy-tls
+        readOnly: true
+  volumes:
+    - name: kube-state-rbac-proxy-tls
+      secret:
+        secretName: kube-state-rbac-proxy-tls
   selfMonitor:
     enabled: true

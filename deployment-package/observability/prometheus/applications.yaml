@@ -11,9 +11,14 @@ version: 70.4.3
 description: "Prometheus"
 kind: extension
 
-helmRegistry: "prometheus"
-chartName: "kube-prometheus-stack"
-chartVersion: "82.4.0"
+# Local fork of kube-prometheus-stack 82.4.0 with patched kube-state-metrics subchart
+# kube-state-metrics updated to 7.1.1 to fix kubeRBACProxy probe port issue (upstream PR #6615)
+# TODO: Switch back to official repo once the fix is merged and released upstream
+# helmRegistry: "prometheus"
+# chartName: "kube-prometheus-stack"
+helmRegistry: "intel-rs-helm"
+chartName: "edge-orch/en/charts/kube-prometheus-stack"
+chartVersion: "83.0.0"
 
 profiles:
   - name: default
