@@ -253,6 +253,8 @@ prometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
 kube-state-metrics:
+  nodeExporter:
+    enabled: false
   fullnameOverride: kube-state-metrics
   tolerations:
     - effect: NoSchedule
