@@ -11,14 +11,16 @@ version: 70.4.3
 description: "Prometheus"
 kind: extension
 
-# Local fork of kube-prometheus-stack 82.4.0 with patched kube-state-metrics subchart
-# kube-state-metrics updated to 7.1.1 to fix kubeRBACProxy probe port issue (upstream PR #6615)
-# TODO: Switch back to official repo once the fix is merged and released upstream
-# helmRegistry: "prometheus"
-# chartName: "kube-prometheus-stack"
-helmRegistry: "intel-rs-helm"
-chartName: "edge-orch/en/charts/kube-prometheus-stack"
-chartVersion: "83.0.0"
+# Pinned to 77.3.0 — last version before the kube-state-metrics probe-port bug.
+# Bug: kubeRBACProxy.enabled=true causes probes to reference named ports ("http"/"metrics")
+# that live on sidecar containers; Kubernetes cannot resolve them from the main container.
+# Upstream issue: https://github.com/prometheus-community/helm-charts/issues/6164
+# Fix PRs #6600 / #6615 are open but not yet merged.  Chart 77.3.0 ships ksm subchart
+# 6.2.0 which uses hardcoded numeric ports (8080/8081) — no bug.
+# TODO: Upgrade once the upstream fix is released.
+helmRegistry: "prometheus"
+chartName: "kube-prometheus-stack"
+chartVersion: "77.3.0"
 
 profiles:
   - name: default
