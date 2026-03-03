@@ -1,10 +1,10 @@
-# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
 hostname: global.fleet.clusterLabels.edge-orchestrator.intel.com/clustername
 nodeUUID: global.fleet.edge-orchestrator.intel.com/host-uuid
 image:
-  tag: 4.2.0
+  tag: 4.2.3
 fullnameOverride: fluent-bit
 extraVolumeMounts:
   - name: certs

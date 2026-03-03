@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: (C) 2025 Intel Corporation
+# SPDX-FileCopyrightText: (C) 2026 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 ---
 # prometheus
@@ -7,10 +7,17 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: prometheus
-version: 70.4.2
+version: 70.4.3
 description: "Prometheus"
 kind: extension
 
+# Pinned to 77.3.0 — last version before the kube-state-metrics probe-port bug.
+# Bug: kubeRBACProxy.enabled=true causes probes to reference named ports ("http"/"metrics")
+# that live on sidecar containers; Kubernetes cannot resolve them from the main container.
+# Upstream issue: https://github.com/prometheus-community/helm-charts/issues/6164
+# Fix PRs #6600 / #6615 are open but not yet merged.  Chart 77.3.0 ships ksm subchart
+# 6.2.0 which uses hardcoded numeric ports (8080/8081) — no bug.
+# TODO: Upgrade once the upstream fix is released.
 helmRegistry: "prometheus"
 chartName: "kube-prometheus-stack"
 chartVersion: "77.3.0"
@@ -21,5 +28,5 @@ profiles:
     valuesFileName: "values-prometheus.yaml"
     deploymentRequirements:
       - name: cert-manager
-        version: 0.2.1
+        version: 0.2.2
         deploymentProfileName: default-profile
