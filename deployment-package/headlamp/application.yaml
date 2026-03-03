@@ -6,7 +6,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: headlamp
-version: 0.39.2
+version: 0.39.3
 description: "headlamp is a web-based UI for Kubernetes cluster management."
 kind: extension
 
