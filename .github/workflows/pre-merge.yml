@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   pre-checks:
-    runs-on: ${{ 'ubuntu-latest' }}
+    runs-on: ubuntu-latest
     outputs:
       filtered_projects: ${{ steps.filter-changes.outputs.filtered_projects }}
     steps:
@@ -33,10 +33,11 @@ jobs:
         uses: open-edge-platform/orch-ci/discover-changed-subfolders@24a3a495be45af021486e265cf09a17ac3798405  # v2026.0.13
       - name: "Filter Out Unwanted Changed Subfolders"
         id: filter-changes
+        env:
+          CHANGED_PROJECTS: ${{ steps.discover-changes.outputs.changed_projects }}
         run: |
           folders_to_remove='[".github",".reuse","LICENSES"]'
-
-          changed_projects='${{ steps.discover-changes.outputs.changed_projects }}'
+          changed_projects="$CHANGED_PROJECTS"
           filtered_projects=$(echo "$changed_projects" | jq -cr --argjson folders_to_remove "$folders_to_remove" 'map(select(. as $item | $folders_to_remove | index($item) | not))')
           echo "filtered_projects=$filtered_projects" >> $GITHUB_OUTPUT
   pre-merge-pipeline:
@@ -66,8 +67,10 @@ jobs:
       needs: [pre-merge-pipeline]
       steps:
         - name: Final Status Check
+          env:
+            PRE_MERGE_PIPELINE_RESULT: ${{ needs.pre-merge-pipeline.result }}
           run: |
-            pre_merge_pipeline_result="${{ needs.pre-merge-pipeline.result }}"
+            pre_merge_pipeline_result="$PRE_MERGE_PIPELINE_RESULT"
             echo "Pre-merge pipeline result: $pre_merge_pipeline_result"
 
             if [ "$pre_merge_pipeline_result" == "success" ] || [ "$pre_merge_pipeline_result" == "skipped" ]; then
