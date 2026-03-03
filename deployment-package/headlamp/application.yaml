@@ -24,5 +24,5 @@ profiles:
     valuesFileName: "values-dash.yaml"
     deploymentRequirements:
       - name: cert-manager
-        version: 0.2.1
+        version: 0.2.2
         deploymentProfileName: default-profile

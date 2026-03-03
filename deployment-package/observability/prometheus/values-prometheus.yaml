@@ -301,7 +301,7 @@ kube-state-metrics:
       - "--tls-cert-file=/etc/tls/tls.crt"
       - "--tls-private-key-file=/etc/tls/tls.key"
       - "--client-ca-file=/etc/tls/ca.crt"
-      - "--ignore-paths=/livez,/readyz"
+      # --ignore-paths is injected by ignoreProbePaths: true above
     resources:
       limits:
         cpu: 100m
