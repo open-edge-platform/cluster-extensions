@@ -8,24 +8,18 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 name: "trusted-compute"
 description: >
   Trusted Compute k8s plugin for trusted workloads.
-version: 0.7.0
+version: 0.8.0
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
-  - name: attestation-manager
-    version: 1.2.0
   - name: attestation-verifier
-    version: 1.2.0
-  - name: trust-agent
-    version: 1.2.0
+    version: 1.3.0
   - name: trusted-workload
-    version: 1.2.0
+    version: 1.3.0
 
 defaultNamespaces:
-  attestation-manager: trusted-compute
   attestation-verifier: trusted-compute
-  trust-agent: trusted-compute
   trusted-workload: confidential-containers-system
 
 namespaces:
@@ -42,11 +36,7 @@ deploymentProfiles:
   - name: "default-profile"
     displayName: "Default Configuration"
     applicationProfiles:
-      - application: "attestation-manager"
-        profile: "default"
       - application: "attestation-verifier"
-        profile: "default"
-      - application: "trust-agent"
         profile: "default"
       - application: "trusted-workload"
         profile: "default"
