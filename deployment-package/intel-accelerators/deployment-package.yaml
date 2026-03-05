@@ -5,8 +5,8 @@ specSchema: "DeploymentPackage"
 schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
-name: "intel-gpu"
-description: "Intel GPU K8S extension"
+name: "intel-accelerators"
+description: "Intel Accelerators K8S extension"
 version: 1.4.3
 forbidsMultipleDeployments: true
 kind: extension
@@ -36,7 +36,7 @@ applicationDependencies:
     requires: "intel-device-operator"
 
 deploymentProfiles:
-  - name: "exclusiveaccelerator-alloc"
+  - name: "exclusive-accelerator-alloc"
     displayName: "Exclusive accelerator allocation"
     applicationProfiles:
       - application: "intel-device-operator"

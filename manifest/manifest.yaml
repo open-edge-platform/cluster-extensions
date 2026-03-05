@@ -10,7 +10,7 @@ lpke:
       version: 0.2.2
     - dpkg: edge-orch/en/file/nfd
       version: 0.2.1
-    - dpkg: edge-orch/en/file/intel-gpu
+    - dpkg: edge-orch/en/file/intel-accelerators
       version: 1.4.3
     - dpkg: edge-orch/en/file/loadbalancer
       version: 0.7.1
