@@ -3,7 +3,7 @@
 ---
 metadata:
   schemaVersion: 0.3.0
-  release: 1.5.9
+  release: 1.5.10
 lpke:
   deploymentPackages:
     - dpkg: edge-orch/en/file/cert-manager
@@ -17,7 +17,7 @@ lpke:
     - dpkg: edge-orch/en/file/nvidia-gpu-operator
       version: 0.1.2
     - dpkg: edge-orch/en/file/trusted-compute
-      version: 0.7.0
+      version: 0.8.0
     - dpkg: edge-orch/en/file/virtualization
       version: 0.7.2
     - dpkg: edge-orch/en/file/observability
