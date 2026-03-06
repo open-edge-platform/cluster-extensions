@@ -21,7 +21,7 @@ lpke:
     - dpkg: edge-orch/en/file/virtualization
       version: 0.7.2
     - dpkg: edge-orch/en/file/observability
-      version: 0.2.4
+      version: 0.2.5
     - dpkg: edge-orch/en/file/headlamp
       version: 0.39.3
   deploymentList: []
