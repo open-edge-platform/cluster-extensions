@@ -5,9 +5,9 @@ specSchema: "DeploymentPackage"
 schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
-name: "intel-gpu"
-description: "Intel GPU K8S extension"
-version: 1.4.2
+name: "intel-accelerators"
+description: "Intel Accelerators K8S extension"
+version: 1.4.3
 forbidsMultipleDeployments: true
 kind: extension
 
@@ -16,26 +16,32 @@ applications:
     version: 0.30.2
   - name: intel-gpu-plugin
     version: 0.30.2
+  - name: intel-npu-plugin
+    version: 0.35.0
 
 defaultNamespaces:
-  intel-gpu-plugin: intel-gpu-extension
-  intel-device-operator: intel-gpu-extension
-
+  intel-gpu-plugin: intel-accelerator-extension
+  intel-device-operator: intel-accelerator-extension
+  intel-npu-plugin: intel-accelerator-extension
 namespaces:
-  - name: intel-gpu-extension
+  - name: intel-accelerator-extension
     labels:
       pod-security.kubernetes.io/enforce: privileged
-      name: intel-gpu-extension
+      name: intel-accelerator-extension
 
 applicationDependencies:
   - name: "intel-gpu-plugin"
     requires: "intel-device-operator"
+  - name: "intel-npu-plugin"
+    requires: "intel-device-operator"
 
 deploymentProfiles:
-  - name: "exclusive-gpu-alloc"
-    displayName: "Exclusive gpu allocation"
+  - name: "exclusive-accelerator-alloc"
+    displayName: "Exclusive accelerator allocation"
     applicationProfiles:
       - application: "intel-device-operator"
         profile: "default"
       - application: "intel-gpu-plugin"
         profile: "exclusive-gpu-alloc"
+      - application: "intel-npu-plugin"
+        profile: "exclusive-npu-alloc"

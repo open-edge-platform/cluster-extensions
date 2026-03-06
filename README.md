@@ -13,19 +13,13 @@
 Cluster Extensions are a collection of cloud-native applications
 that facilitate the deployment of Edge Nodes in the Edge Platform.
 
-They support both
-
-- the baseline capability of the Edge Node as **base extensions** and
-- the optional additional capability of the Edge Node as **application extensions**
-
-The base extensions are the minimum set of applications that are required to secure the Edge Node and provide the basic
-functionality of the Edge Node like observability, logging, monitoring, etc. These are listed in the
-[base-extensions Deployment Package](deployment-package/base-extensions).
+They support the additional capability of the Edge Node as **application extensions**
 
 The application extensions are the optional set of applications that facilitate the deployment of advanced applications
-on the Edge Node such as Load Balancer, GPU support, SRIOV support. These each have their own Deployment Package.
+on the Edge Node such as Observability, Load Balancer, GPU & NPU support etc. These each have their own Deployment Package.
+These are listed in the [Deployment Package](deployment-package).
 
-Both sets of extensions are loaded into the Edge Orchestrator
+All extensions are loaded into the Edge Orchestrator
 by default and are available for deployment from the Web UI.
 
 The CI integration for this repository will publish container images, deployment packages and helm charts to the

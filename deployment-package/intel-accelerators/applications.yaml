@@ -46,3 +46,31 @@ profiles:
       - name: nfd
         version: 0.2.1
         deploymentProfileName: default
+    parameterTemplates:
+      - name: sharedDevNum
+        displayName: "Number of shared GPU devices"
+        type: number
+        default: "1"
+---
+# Intel NPU Device Plugin
+specSchema: "Application"
+schemaVersion: "0.1"
+$schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
+
+name: intel-npu-plugin
+version: 0.35.0
+description: "Intel NPU Device Plugin"
+kind: extension
+
+helmRegistry: "intel-github-io"
+chartName: "intel-device-plugins-npu"
+chartVersion: "0.35.0"
+
+profiles:
+  - name: exclusive-npu-alloc
+    displayName: "Exclusive npu allocation"
+    valuesFileName: "values-npu-plugin.yaml"
+    deploymentRequirements:
+      - name: nfd
+        version: 0.2.1
+        deploymentProfileName: default
