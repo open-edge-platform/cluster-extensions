@@ -26,7 +26,7 @@ shims:
     enabled: true
     supportedArches:
       - amd64
-    allowedHypervisorAnnotations: []
+    allowedHypervisorAnnotations: [default_memory pcie_root_port hot_plug_vfio]
     containerd:
       snapshotter: ""
 
