@@ -8,29 +8,32 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 name: "trusted-compute"
 description: >
   Trusted Compute k8s plugin for trusted workloads.
-version: 0.8.0
+version: 0.8.1
 forbidsMultipleDeployments: true
 kind: extension
 
 applications:
   - name: attestation-verifier
-    version: 1.3.0
+    version: 1.4.0
   - name: trusted-workload
-    version: 1.3.0
+    version: 1.4.0
+  - name: kata-deploy
+    version: 1.4.0
 
 defaultNamespaces:
   attestation-verifier: trusted-compute
-  trusted-workload: confidential-containers-system
+  trusted-workload: kata-deploy
+  kata-deploy: kata-deploy
 
 namespaces:
   - name: trusted-compute
     labels:
       pod-security.kubernetes.io/enforce: privileged
       name: trusted-compute
-  - name: confidential-containers-system
+  - name: kata-deploy
     labels:
       pod-security.kubernetes.io/enforce: privileged
-      name: confidential-containers-system
+      name: kata-deploy
 
 deploymentProfiles:
   - name: "default-profile"
@@ -39,4 +42,6 @@ deploymentProfiles:
       - application: "attestation-verifier"
         profile: "default"
       - application: "trusted-workload"
+        profile: "default"
+      - application: "kata-deploy"
         profile: "default"
