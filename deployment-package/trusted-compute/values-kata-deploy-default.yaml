@@ -1,0 +1,43 @@
+# SPDX-FileCopyrightText: (C) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+---
+image:
+  reference: registry-rs.edgeorchestration.intel.com/edge-orch/trusted-compute/kata-deploy
+  tag: "1.4.9"
+
+k8sDistribution: "k3s"  # k8s, k3s, rke2, k0s, microk8s
+
+debug: false
+
+snapshotter:
+  setup: []  # ["nydus", "erofs"] or []
+
+# Shim configuration
+# By default (disableAll: false), all shims with enabled: ~ (null) are enabled.
+# Set disableAll: true to disable all shims, then explicitly enable specific ones:
+#   shims:
+#     disableAll: true
+#     qemu:
+#       enabled: true  # Only qemu is enabled
+shims:
+  disableAll: true
+
+  qemu:
+    enabled: true
+    supportedArches:
+      - amd64
+    allowedHypervisorAnnotations: [default_memory pcie_root_port hot_plug_vfio]
+    containerd:
+      snapshotter: ""
+
+# Default shim per architecture
+defaultShim:
+  amd64: qemu
+
+runtimeClasses:
+  enabled: true
+  createDefault: false
+  defaultName: "kata"
+
+node-feature-discovery:
+  enabled: false
