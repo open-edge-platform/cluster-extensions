@@ -42,7 +42,7 @@ schemaVersion: "0.1"
 $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: kata-deploy
-version: 1.4.0
+version: 1.4.1
 description: "Kata Deploy Helm chart application definition"
 kind: extension
 
