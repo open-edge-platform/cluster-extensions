@@ -19,7 +19,7 @@ WORKDIR $APP_ROOT
 RUN GOARCH=amd64 \
     GOOS=linux \
     go build \
-      -trimpath -mod=vendor -gcflags="all=-spectre=all -N -l" -asmflags="all=-spectre=all" -ldflags="all=-s -w" \
+      -trimpath -mod=vendor -gcflags="all=-spectre=all -N -l" -asmflags="-spectre=all" -ldflags="all=-s -w" \
       -o /go/bin/kubevirt-helper ./cmd/kubevirt-helper
 
 # Use distroless as minimal base image to package the manager binary
