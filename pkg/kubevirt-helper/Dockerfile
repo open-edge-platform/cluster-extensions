@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: (C) 2023 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
-FROM golang:1.25.7@sha256:85c0ab0b73087fda36bf8692efe2cf67c54a06d7ca3b49c489bbff98c9954d64 AS build
+FROM golang:1.26.1@sha256:595c7847cff97c9a9e76f015083c481d26078f961c9c8dca3923132f51fe12f1 AS build
 ENV APP_ROOT=$GOPATH/src/github.com/open-edge-platform/cluster-extensions/pkg/kubevirt-helper
 ENV CGO_ENABLED=0
 ENV GO111MODULE=on
@@ -19,7 +19,7 @@ WORKDIR $APP_ROOT
 RUN GOARCH=amd64 \
     GOOS=linux \
     go build \
-      -trimpath -mod=vendor -gcflags="all=-spectre=all -N -l" -asmflags="all=-spectre=all" -ldflags="all=-s -w" \
+      -trimpath -mod=vendor -gcflags="all=-spectre=all -N -l" -asmflags="-spectre=all" -ldflags="all=-s -w" \
       -o /go/bin/kubevirt-helper ./cmd/kubevirt-helper
 
 # Use distroless as minimal base image to package the manager binary
