@@ -7,7 +7,7 @@ $schema: "https://schema.intel.com/catalog.orchestrator/0.1/schema"
 
 name: "intel-accelerators"
 description: "Intel Accelerators K8S extension"
-version: 1.4.3
+version: 1.5.0
 forbidsMultipleDeployments: true
 kind: extension
 
