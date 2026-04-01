@@ -30,7 +30,13 @@ jobs:
       run_helm_build: true
       run_helm_push: true
       run_artifact_push: true
-      trivy_image_skip: "ghcr.io/dependabot/dependabot-updater-core:latest"
+      trivy_image_skip: |
+        ghcr.io/dependabot/dependabot-updater-core:latest,
+        ghcr.io/github/github-mcp-server:latest,
+        ghcr.io/github/gh-aw-mcpg:latest,
+        ghcr.io/github/gh-aw-firewall/agent:latest,
+        ghcr.io/github/gh-aw-firewall/api-proxy:latest,
+        ghcr.io/github/gh-aw-firewall/squid:latest
       run_version_dev: true
     secrets:
       SYS_EMF_GH_TOKEN: ${{ secrets.SYS_EMF_GH_TOKEN }}
