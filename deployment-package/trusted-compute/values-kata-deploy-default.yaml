@@ -26,7 +26,7 @@ shims:
     enabled: true
     supportedArches:
       - amd64
-    allowedHypervisorAnnotations: [default_memory pcie_root_port hot_plug_vfio]
+    allowedHypervisorAnnotations: [default_memory pcie_root_port hot_plug_vfio enable_virtio_mem]
     containerd:
       snapshotter: ""
 
@@ -41,3 +41,5 @@ runtimeClasses:
 
 node-feature-discovery:
   enabled: false
+
+imagePullPolicy: IfNotPresent
